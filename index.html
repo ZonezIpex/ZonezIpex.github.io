@@ -1,115 +1,247 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <title>개발자 포트폴리오</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>신민수 포트폴리오</title>
+
   <style>
+    :root {
+      --bg-gradient: linear-gradient(180deg, #b7e8ff 0%, #d4f1ff 40%, #ffffff 100%);
+      --card-bg: rgba(255, 255, 255, 0.75);
+      --card-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+      --accent: #4ab8ff;
+      --text-dark: #1f1f1f;
+      --text-light: #555;
+      --radius: 18px;
+    }
+
     body {
       margin: 0;
       font-family: "Pretendard", sans-serif;
-      background: #f9f9f9;
-      color: #333;
+      background: var(--bg-gradient);
+      color: var(--text-dark);
     }
 
     header {
-      padding: 40px;
       text-align: center;
-      background: #1f1f1f;
-      color: white;
+      padding: 80px 20px;
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.4);
     }
 
-    h1 {
+    header h1 {
       margin: 0;
-      font-size: 40px;
+      font-size: 42px;
+      font-weight: 900;
+      color: #0b6ca8;
     }
 
-    h2 {
-      font-size: 22px;
-      margin-top: 8px;
-      opacity: 0.8;
+    header p {
+      margin-top: 12px;
+      font-size: 18px;
+      color: var(--text-light);
     }
 
     section {
-      max-width: 900px;
+      max-width: 1100px;
       margin: 60px auto;
-      padding: 0 20px;
+      padding: 0 25px;
     }
 
     .title {
       font-size: 28px;
-      margin-bottom: 20px;
-      border-left: 6px solid #1f1f1f;
+      font-weight: 700;
+      margin-bottom: 18px;
       padding-left: 12px;
-      font-weight: bold;
+      border-left: 6px solid var(--accent);
+      color: #0a4d74;
     }
 
-    .project {
-      background: white;
-      padding: 20px;
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 25px;
       margin-bottom: 25px;
-      border-radius: 12px;
-      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+      box-shadow: var(--card-shadow);
+      backdrop-filter: blur(6px);
+      line-height: 1.6;
     }
 
-    .project h3 {
-      margin: 0 0 10px;
+    .project-item {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .project-item img {
+      width: 260px;
+      height: 160px;
+      object-fit: cover;
+      border-radius: var(--radius);
+      box-shadow: var(--card-shadow);
+    }
+
+    .project-item div {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 30px;
+      }
+      .project-item {
+        flex-direction: column;
+      }
+      .project-item img {
+        width: 100%;
+        height: 200px;
+      }
     }
 
     footer {
       text-align: center;
       padding: 40px;
-      color: #555;
+      color: #777;
+      font-size: 14px;
     }
   </style>
 </head>
+
 <body>
 
 <header>
-  <h1>OOO 포트폴리오</h1>
-  <h2>Frontend & Backend Developer</h2>
+  <h1>신민수 포트폴리오</h1>
+  <p>Frontend · Web Development · UI/UX 관심 개발자</p>
 </header>
 
 <section>
   <div class="title">소개</div>
-  <p>안녕하세요! 웹 개발을 공부하고 있는 주니어 개발자 OOO입니다.<br>
-     다양한 프로젝트를 통해 프론트엔드와 백엔드를 모두 경험하며 성능, 구조, 문제 해결에 관심을 갖고 있습니다.</p>
+  <div class="card">
+    안녕하세요. 게임 시스템과 웹 개발의 구조적 흐름에 관심을 가지며 성장해 온 신민수입니다.<br><br>
+    마인크래프트·스타크래프트의 명령어 구조를 따라 해보던 초등학생 시절부터, <b>사용자가 어떻게 서비스를 경험하는지</b>를 늘 고민해왔습니다.
+    대학에서는 React 기반의 웹 개발과 2D 게임 개발 프로젝트를 통해 기획–구현–디버깅 전 과정을 경험하며
+    자연스럽게 사용자 중심의 개발 관점을 갖게 되었습니다.<br><br>
+    제가 만든 기능이 실제로 동작하고, 유저 반응을 보고 개선하는 과정에서  
+    <b>“사용자 경험을 개선하는 개발자”</b>라는 목표를 갖게 되었고,
+    이는 지금도 꾸준히 개발을 공부하는 원동력이 되고 있습니다.
+  </div>
 </section>
 
 <section>
-  <div class="title">기술 스택</div>
-  <p>JavaScript / HTML / CSS / React / Node.js / MySQL / Spring Boot / Git / AWS</p>
+  <div class="title">성장 과정</div>
+  <div class="card">
+    초등학교 때 게임 속 구조가 궁금해 직접 명령어를 타이핑해보며 프로그래밍에 관심을 갖기 시작했습니다.<br><br>
+    중·고등학교에서는 JavaScript로 간단한 2D 도트 게임을 제작하며 기초를 다졌고,
+    대학에서는 웹 페이지 및 2D 게임 프로젝트를 통해 협업, 문제 해결 능력, UI 설계 등 실전적인 경험을 쌓았습니다.<br><br>
+    단순히 재미로 시작했던 관심이 사용자 경험을 고민하는 개발자로 성장하게 만든 기반이 되었습니다.
+  </div>
 </section>
 
 <section>
-  <div class="title">프로젝트</div>
+  <div class="title">지원 동기</div>
+  <div class="card">
+    다양한 게임을 하면서 자연스럽게 “유저가 어떤 시점에서 불편함을 느낄까?”를 관찰하게 되었고,
+    프로젝트 경험을 통해 겉으로 보이는 화면보다 내부 시스템의 안정성이
+    사용자 경험을 결정한다는 점을 깊이 깨달았습니다.<br><br>
+    특히 주간 모니터링 직무는 단순한 문제 확인이 아니라  
+    <b>유저 입장에서 불편을 해석하고 원인을 분석하는 역할</b>이라고 이해하고 있습니다.<br><br>
+    제가 가진 관찰력과 문제 해결 경험은 이 업무에 적합하다고 생각합니다.
+  </div>
+</section>
 
-  <div class="project">
-    <h3>대팡 (AI 기반 학습 플랫폼)</h3>
-    <p>React + Node.js + MySQL 기반으로 구현한 학습 플랫폼.<br>
-       AI 요약, 문제 생성, 기록 분석 기능 등을 구현했습니다.</p>
+<section>
+  <div class="title">사회경험 및 강점</div>
+  <div class="card">
+    학과 프로젝트를 진행할 때, 팀원의 부재나 예기치 못한 문제로 개발이 지연된 경험이 많았습니다.
+    그럴 때마다 대신 해주는 것이 아니라 모르는 부분을 직접 설명하며 함께 해결해 나갔습니다.<br><br>
+    이 경험을 통해 <b>남탓을 하지 않고 팀 전체의 완성도를 끌어올리는 방식</b>으로 문제를 해결하는 법을 배웠습니다.
+    또한 팀장을 맡아 프로젝트를 주도한 경험 덕분에 소통 능력과 조율 능력도 자연스럽게 향상되었습니다.
+  </div>
+</section>
+
+<section>
+  <div class="title">경력 & 활동</div>
+  <div class="card">
+    <b>📌 군 복무</b><br>
+    · 육군 통신병 병장 전역 (2022.05.04 ~ 2023.11.23)<br><br>
+
+    <b>📌 교내 활동</b><br>
+    · 2023.03 ~ 2023.08 — 자바 보조 튜터링<br>
+    · 2024.11 ~ 2025.02 — 반도체 생산관리시스템 엔지니어(초급) 취득<br>
+    · 2025.04 ~ 2025.12 — 대림대 CSI 동아리 웹페이지 제작 프로젝트<br><br>
+
+    <b>📌 수상</b><br>
+    · 대림대 해커톤 장려상 (2024)
+  </div>
+</section>
+
+<section>
+  <div class="title">자격증</div>
+  <div class="card">
+    · 운전면허 1종보통 — 2021.05.28<br>
+    · (추가 예정 시 업데이트 가능)
+  </div>
+</section>
+
+<section>
+  <div class="title">프로젝트 경험</div>
+
+  <div class="card project-item">
+    <img src="https://via.placeholder.com/300x200?text=Daepang" alt="project image" />
+    <div>
+      <h3>대팡 — AI 학습 플랫폼</h3>
+      React + Node.js + MySQL 기반 AI 학습 서비스.<br>
+      텍스트 요약, 문제 생성, 기록 분석 등의 기능을 구현하며  
+      사용자 경험 중심의 인터페이스 설계를 담당했습니다.
+    </div>
   </div>
 
-  <div class="project">
-    <h3>면접몬 (AI 모의면접 플랫폼)</h3>
-    <p>OpenAI 기반 AI 피드백 시스템 구축.<br>
-       레벨 시스템, 평가 UI 등 주요 구조를 설계했습니다.</p>
+  <div class="card project-item">
+    <img src="https://via.placeholder.com/300x200?text=InterviewMon" />
+    <div>
+      <h3>면접몬 — AI 모의면접</h3>
+      질문 생성 → 답변 분석 → 피드백까지 이어지는  
+      전체 흐름을 구성하고 레벨UI·평가UI 등 프론트의 주요 기능을 구현했습니다.
+    </div>
   </div>
 
-  <div class="project">
-    <h3>Spring Boot 쇼핑몰 프로젝트</h3>
-    <p>JPA 기반 CRUD, 로그인/회원가입, 장바구니 등 백엔드 구조를 학습하며 구현했습니다.</p>
+  <div class="card project-item">
+    <img src="https://via.placeholder.com/300x200?text=SpringShop" />
+    <div>
+      <h3>Spring Boot 쇼핑몰</h3>
+      JPA 기반 CRUD, 로그인/회원가입, 장바구니 기능을 구현하며  
+      백엔드 데이터 흐름 전반을 학습했습니다.
+    </div>
   </div>
 
+</section>
+
+<section>
+  <div class="title">입사 후 포부</div>
+  <div class="card">
+    입사 초기에는 회사 시스템과 모니터링 프로세스를 빠르게 익히고,
+    6개월 이내에는 맡은 영역에서 문제 분석과 대응을 안정적으로 수행하겠습니다.<br><br>
+    “내가 유저라면 어떤 해결을 원할까?”라는 관점으로 문의를 응대하고,  
+    반복되는 문제를 분석해 개선점을 제안할 수 있는 인재가 되고 싶습니다.<br><br>
+    1년 차에는 운영 품질 향상에 직접 기여하며,  
+    유저가 불편함을 느끼기 전에 먼저 감지하는 구성원이 되고자 합니다.
+  </div>
 </section>
 
 <section>
   <div class="title">연락처</div>
-  <p>Email: example@example.com</p>
-  <p>GitHub: https://github.com/yourname</p>
+  <div class="card">
+    Email: aksvmfkd3@naver.com<br>
+    GitHub: https://github.com/ZonezIpex
+  </div>
 </section>
 
 <footer>
-  ⓒ 2025 OOO Portfolio
+  © 2025 신민수 Portfolio — All Rights Reserved.
 </footer>
 
 </body>
