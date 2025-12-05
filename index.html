@@ -333,14 +333,18 @@
       flex: 1 1 45%;
       min-width: 260px;
       display: flex;
+      align-items: stretch;
+      background: #dbeafe;
     }
 
     .project-image img {
       width: 100%;
-      height: 220px; /* 고정 높이로 카드 높이 축소 */
-      object-fit: cover;
+      max-height: 260px; /* 너무 크지 않게 제한하면서 전체가 보이도록 */
+      height: auto;
+      object-fit: contain; /* 잘리지 않게 전체 이미지 표시 */
       border-radius: 20px 0 0 20px;
       display: block;
+      margin: auto;
     }
 
     .project-content {
@@ -395,12 +399,47 @@
 
       .project-image img {
         border-radius: 20px 20px 0 0;
-        height: 200px;
+        max-height: 220px;
       }
 
       .project-content {
         padding: 18px 18px 16px;
       }
+    }
+
+    /* ===== 맨 위로 버튼 ===== */
+    .to-top-btn {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 1000;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: none;
+      background: var(--btn-bg);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 8px 22px rgba(37, 99, 235, 0.4);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(12px);
+      transition: opacity 0.25s ease, transform 0.25s ease,
+        background 0.2s ease;
+    }
+
+    .to-top-btn.show {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .to-top-btn:hover {
+      background: var(--btn-bg-hover);
     }
 
     footer {
@@ -417,7 +456,7 @@
     <ul class="nav-menu">
       <li><a onclick="goTo('intro')">소개</a></li>
       <li><a onclick="goTo('growth')">성장 과정</a></li>
-      <li><a onclick="goTo('career')">경력</a></li>
+      <li><a onclick="goTo('career')">교육활동</a></li>
       <li><a onclick="goTo('contact')">연락처</a></li>
       <li><a onclick="goTo('projects')">프로젝트</a></li>
       <li>
@@ -513,7 +552,7 @@
 
   <!-- ===== 경력 & 활동 ===== -->
   <section id="career">
-    <div class="title">경력 & 활동</div>
+    <div class="title">교육 & 활동</div>
     <div class="card">
       · 육군 통신병 병장 전역 (2022.05 ~ 2023.11)<br />
       · Java 튜터링 보조(2023)<br />
@@ -536,7 +575,7 @@
     </div>
   </section>
 
-  <!-- ===== PROJECTS (시간순: 대팡 → 면접몬 → 이력서 → 코드어드벤쳐) ===== -->
+  <!-- ===== PROJECTS ===== -->
   <section id="projects">
     <div class="title">프로젝트</div>
 
@@ -686,6 +725,11 @@
 
   <footer>© 2025 신민수 Portfolio — All Rights Reserved.</footer>
 
+  <!-- 맨 위로 버튼 -->
+  <button id="toTopBtn" class="to-top-btn" onclick="scrollToTop()">
+    ↑ 맨 위로
+  </button>
+
   <script>
     /* ===== 커스텀 느린 스크롤 ===== */
     function goTo(id) {
@@ -738,6 +782,43 @@
     );
 
     sections.forEach((sec) => observer.observe(sec));
+
+    /* ===== 맨 위로 버튼 표시 제어 ===== */
+    const toTopBtn = document.getElementById("toTopBtn");
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 400) {
+        toTopBtn.classList.add("show");
+      } else {
+        toTopBtn.classList.remove("show");
+      }
+    });
+
+    function scrollToTop() {
+      const startY = window.scrollY;
+      const distance = -startY;
+      const duration = 900;
+      let startTime = null;
+
+      function easeInOutQuad(t) {
+        return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+      }
+
+      function animation(currentTime) {
+        if (startTime === null) startTime = currentTime;
+        const timeElapsed = currentTime - startTime;
+        const progress = Math.min(timeElapsed / duration, 1);
+        const eased = easeInOutQuad(progress);
+
+        window.scrollTo(0, startY + distance * eased);
+
+        if (timeElapsed < duration) {
+          requestAnimationFrame(animation);
+        }
+      }
+
+      requestAnimationFrame(animation);
+    }
   </script>
 </body>
 </html>
