@@ -1,34 +1,39 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>신민수 포트폴리오</title>
 
   <style>
     :root {
       --bg: #e9f6ff;
       --text: #1f1f1f;
-      --card-bg: rgba(255,255,255,0.55);
+      --card-bg: rgba(255, 255, 255, 0.55);
       --accent: #4ab8ff;
-      --shadow: 0 10px 28px rgba(0,0,0,0.18);
-      --shadow-hover: 0 16px 38px rgba(0,0,0,0.26);
+      --shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+      --shadow-hover: 0 16px 38px rgba(0, 0, 0, 0.26);
+      --btn-bg: #2563eb;
+      --btn-bg-hover: #1d4ed8;
     }
 
     body.dark {
       --bg: #0f172a;
       --text: #e2e8f0;
-      --card-bg: rgba(30,41,59,0.55);
+      --card-bg: rgba(30, 41, 59, 0.55);
       --accent: #60a5fa;
-      --shadow: 0 10px 28px rgba(0,0,0,0.48);
-      --shadow-hover: 0 16px 42px rgba(0,0,0,0.65);
+      --shadow: 0 10px 28px rgba(0, 0, 0, 0.48);
+      --shadow-hover: 0 16px 42px rgba(0, 0, 0, 0.65);
+      --btn-bg: #3b82f6;
+      --btn-bg-hover: #1d4ed8;
     }
 
     body {
       margin: 0;
       background: var(--bg);
       color: var(--text);
-      font-family: "Pretendard", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: "Pretendard", system-ui, -apple-system, BlinkMacSystemFont,
+        sans-serif;
       transition: background 0.35s ease, color 0.35s ease;
     }
 
@@ -37,41 +42,44 @@
       position: fixed;
       top: 0;
       width: 100%;
-      height: 70px;
+      min-height: 56px;
       display: flex;
       align-items: center;
       justify-content: center;
       backdrop-filter: blur(12px);
-      background: rgba(255,255,255,0.35);
-      box-shadow: 0 2px 14px rgba(0,0,0,0.12);
+      background: rgba(255, 255, 255, 0.35);
+      box-shadow: 0 2px 14px rgba(0, 0, 0, 0.12);
       z-index: 999;
     }
 
     body.dark nav {
-      background: rgba(16,23,38,0.45);
+      background: rgba(16, 23, 38, 0.45);
     }
 
     .nav-menu {
       display: flex;
       align-items: center;
       list-style: none;
-      gap: 28px;
-      padding: 0;
+      gap: 24px;
+      padding: 8px 16px;
       margin: 0;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
     .nav-menu a {
       cursor: pointer;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 600;
       text-decoration: none;
       color: var(--text);
       transition: 0.25s;
+      white-space: nowrap;
     }
 
     .nav-menu a:hover {
       color: var(--accent);
-      text-shadow: 0 0 6px rgba(0,140,255,0.45);
+      text-shadow: 0 0 6px rgba(0, 140, 255, 0.45);
     }
 
     .dark-toggle {
@@ -80,16 +88,33 @@
       padding: 6px 12px;
       border-radius: 999px;
       color: #fff;
-      font-size: 14px;
+      font-size: 13px;
       box-shadow: var(--shadow);
       border: none;
       display: flex;
       align-items: center;
       gap: 4px;
+      white-space: nowrap;
     }
 
     .dark-toggle span {
-      font-size: 13px;
+      font-size: 12px;
+    }
+
+    @media (max-width: 480px) {
+      .nav-menu {
+        gap: 10px;
+        padding-inline: 8px;
+      }
+
+      .nav-menu a {
+        font-size: 13px;
+      }
+
+      .dark-toggle {
+        padding: 4px 10px;
+        font-size: 12px;
+      }
     }
 
     /* ===== HERO (프로필 카드) ===== */
@@ -102,7 +127,7 @@
     .hero-card {
       max-width: 900px;
       width: 100%;
-      background: rgba(255,255,255,0.9);
+      background: rgba(255, 255, 255, 0.9);
       border-radius: 26px;
       box-shadow: var(--shadow);
       display: flex;
@@ -113,7 +138,7 @@
     }
 
     body.dark .hero-card {
-      background: rgba(15,23,42,0.9);
+      background: rgba(15, 23, 42, 0.9);
     }
 
     .hero-profile-wrapper {
@@ -223,18 +248,72 @@
       line-height: 1.7;
       backdrop-filter: blur(14px);
       box-shadow: var(--shadow);
-      border: 1px solid rgba(255,255,255,0.5);
+      border: 1px solid rgba(255, 255, 255, 0.5);
       transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
     }
 
     .card:hover {
       transform: translateY(-6px);
       box-shadow: var(--shadow-hover);
-      background: rgba(255,255,255,0.75);
+      background: rgba(255, 255, 255, 0.75);
     }
 
     body.dark .card:hover {
-      background: rgba(30,41,59,0.7);
+      background: rgba(30, 41, 59, 0.7);
+    }
+
+    /* ===== SKILLS ===== */
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .tag {
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      background: rgba(148, 163, 184, 0.18);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+
+    body.dark .tag {
+      background: rgba(30, 64, 175, 0.4);
+      border-color: rgba(129, 140, 248, 0.6);
+    }
+
+    /* ===== BUTTON 공통 ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 14px;
+      margin-top: 10px;
+      border-radius: 999px;
+      border: none;
+      background: var(--btn-bg);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.2s ease,
+        box-shadow 0.2s ease;
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      background: var(--btn-bg-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
     }
 
     /* ===== PROJECT CARDS (좌측 이미지 / 우측 텍스트) ===== */
@@ -264,7 +343,7 @@
     .project-content {
       flex: 1 1 55%;
       min-width: 280px;
-      padding: 24px 26px;
+      padding: 24px 26px 20px;
     }
 
     .project-content h3 {
@@ -299,6 +378,13 @@
       color: #93c5fd;
     }
 
+    .project-actions {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
     @media (max-width: 768px) {
       .project-layout {
         flex-direction: column;
@@ -310,7 +396,7 @@
       }
 
       .project-content {
-        padding: 20px 18px 22px;
+        padding: 20px 18px 18px;
       }
     }
 
@@ -323,248 +409,332 @@
 </head>
 
 <body>
+  <!-- ===== HEADER ===== -->
+  <nav>
+    <ul class="nav-menu">
+      <li><a onclick="goTo('intro')">소개</a></li>
+      <li><a onclick="goTo('growth')">성장 과정</a></li>
+      <li><a onclick="goTo('career')">경력</a></li>
+      <li><a onclick="goTo('contact')">연락처</a></li>
+      <li><a onclick="goTo('projects')">프로젝트</a></li>
+      <li>
+        <button class="dark-toggle" onclick="toggleDark()">
+          🌙 <span>다크</span>
+        </button>
+      </li>
+    </ul>
+  </nav>
 
-<!-- ===== HEADER ===== -->
-<nav>
-  <ul class="nav-menu">
-    <li><a onclick="goTo('intro')">소개</a></li>
-    <li><a onclick="goTo('growth')">성장 과정</a></li>
-    <li><a onclick="goTo('career')">경력</a></li>
-    <li><a onclick="goTo('contact')">연락처</a></li>
-    <li><a onclick="goTo('projects')">프로젝트</a></li>
-    <li>
-      <button class="dark-toggle" onclick="toggleDark()">
-        🌙 <span>다크</span>
-      </button>
-    </li>
-  </ul>
-</nav>
-
-<!-- ===== HERO (프로필 카드) ===== -->
-<header class="hero">
-  <div class="hero-card">
-    <div class="hero-profile-wrapper">
-      <img src="증명사진.png" class="hero-profile" alt="프로필 사진">
-    </div>
-
-    <div class="hero-text">
-      <h1>신민수 | 프론트엔드 개발자</h1>
-      <div class="hero-role">Frontend · Web · UI/UX</div>
-      <p class="hero-sub">
-        ✋ 새로운 기술과 환경을 두려워하지 않고,  
-        사용자 경험을 개선하는 웹 서비스를 만들고 싶은 개발자 신민수입니다.
-      </p>
-
-      <div class="hero-contact">
-        <div>📧 <a href="mailto:aksvmfkd3@naver.com">aksvmfkd3@naver.com</a></div>
-        <div>💻 <a href="https://github.com/ZonezIpex" target="_blank">GitHub</a></div>
-        <div>📱 010-0000-0000 <!-- 실제 번호로 수정 --></div>
+  <!-- ===== HERO (프로필 카드) ===== -->
+  <header class="hero">
+    <div class="hero-card">
+      <div class="hero-profile-wrapper">
+        <img src="증명사진.png" class="hero-profile" alt="프로필 사진" />
       </div>
-    </div>
-  </div>
-</header>
 
-<!-- ===== INTRO ===== -->
-<section id="intro">
-  <div class="title">소개</div>
-  <div class="card">
-    안녕하세요. 게임 시스템과 웹 개발 흐름에 관심을 갖고 꾸준히 성장해온 신민수입니다.
-    React 기반 웹 서비스와 2D 게임 개발 프로젝트를 진행하며 사용자 경험 중심의 개발을 목표로 하고 있습니다.
-  </div>
-</section>
-
-<!-- ===== 성장 과정 ===== -->
-<section id="growth">
-  <div class="title">성장 과정</div>
-  <div class="card">
-    어릴 때 게임 구조가 궁금해 명령어를 따라해보며 프로그래밍에 흥미를 느꼈습니다.
-    JavaScript 2D 게임 제작과 React 기반 웹 프로젝트를 거치며 개발자로서의 방향성을 잡았습니다.
-  </div>
-</section>
-
-<!-- ===== 경력 & 활동 ===== -->
-<section id="career">
-  <div class="title">경력 & 활동</div>
-  <div class="card">
-    · 육군 통신병 병장 전역 (2022.05 ~ 2023.11)<br>
-    · Java 튜터링 보조(2023)<br>
-    · 반도체 생산관리시스템 엔지니어 초급 취득(2024~2025)<br>
-    · CSI 동아리 웹 제작 프로젝트(2025)<br>
-    · 대림대 해커톤 장려상(2024)
-  </div>
-</section>
-
-<!-- ===== CONTACT 섹션 ===== -->
-<section id="contact">
-  <div class="title">연락처</div>
-  <div class="card">
-    📧 Email: aksvmfkd3@naver.com<br>
-    🧑‍💻 GitHub: <a href="https://github.com/ZonezIpex" target="_blank">https://github.com/ZonezIpex</a><br>
-    📱 연락처: 010-0000-0000
-  </div>
-</section>
-
-<!-- ===== PROJECTS (맨 아래) ===== -->
-<section id="projects">
-  <div class="title">프로젝트</div>
-
-  <!-- 1. 이력서 플랫폼 (AiR) -->
-  <div class="card project-card">
-    <div class="project-layout">
-      <div class="project-image">
-        <img src="이력서 플랫폼 메인페이지.png" alt="이력서 플랫폼 메인페이지">
-      </div>
-      <div class="project-content">
-        <h3>AiR — 회사 맞춤 AI 이력서 플랫폼</h3>
-        <p class="project-summary">
-          지원하려는 회사의 이력서 양식과 공고 내용을 기반으로,  
-          자동으로 맞춤 이력서를 생성해 주는 AI 이력서 제작 서비스입니다.
+      <div class="hero-text">
+        <h1>신민수 | 프론트엔드 개발자</h1>
+        <div class="hero-role">Frontend · Web · UI/UX</div>
+        <p class="hero-sub">
+          ✋ 새로운 기술과 환경을 두려워하지 않고,  
+          사용자 경험을 개선하는 웹 서비스를 만들고 싶은 개발자 신민수입니다.
         </p>
-        <ul>
-          <li>기존 AI 이력서 서비스의 “양식 재작성” 문제를 분석하고, 회사별 PDF 이력서를 AI가 읽어 CSS 형태로 자동 변환</li>
-          <li>사용자가 입력한 기본 이력 정보를 바탕으로, 지원 직무·회사에 맞춘 이력서 레이아웃과 문구를 템플릿화</li>
-          <li>React와 Styled-components로 반응형 UI 구현, Axios로 백엔드와 비동기 통신</li>
-          <li>Spring Boot·JWT 기반 인증, REST API 설계, MySQL + Nginx + Ubuntu 환경으로 배포 구성</li>
-        </ul>
-        <div class="project-tech">
-          React · Styled-components · Axios · Spring Boot · JWT · REST API · MySQL · Nginx
+
+        <div class="hero-contact">
+          <div>
+            📧
+            <a href="mailto:aksvmfkd3@naver.com">aksvmfkd3@naver.com</a>
+          </div>
+          <div>
+            💻
+            <a href="https://github.com/ZonezIpex" target="_blank">GitHub</a>
+          </div>
+          <div>📱 010-0000-0000</div>
         </div>
       </div>
     </div>
-  </div>
+  </header>
 
-  <!-- 2. 대팡 -->
-  <div class="card project-card">
-    <div class="project-layout">
-      <div class="project-image">
-        <img src="대팡 메인페이지.png" alt="대팡 메인페이지">
+  <!-- ===== INTRO ===== -->
+  <section id="intro">
+    <div class="title">소개</div>
+    <div class="card">
+      안녕하세요. 게임 시스템과 웹 개발 흐름에 관심을 갖고 꾸준히 성장해온 신민수입니다.
+      React 기반 웹 서비스와 2D 게임 개발 프로젝트를 진행하며 사용자 경험 중심의 개발을
+      목표로 하고 있습니다.
+    </div>
+  </section>
+
+  <!-- ===== 성장 과정 ===== -->
+  <section id="growth">
+    <div class="title">성장 과정</div>
+    <div class="card">
+      어릴 때 게임 구조가 궁금해 명령어를 따라해보며 프로그래밍에 흥미를 느꼈습니다.
+      JavaScript 2D 게임 제작과 React 기반 웹 프로젝트를 거치며 개발자로서의 방향성을
+      잡았습니다.
+    </div>
+  </section>
+
+  <!-- ===== 기술 스택 ===== -->
+  <section id="skills">
+    <div class="title">기술 스택</div>
+    <div class="card">
+      <strong>Frontend</strong>
+      <div class="skill-tags">
+        <span class="tag">HTML5</span>
+        <span class="tag">CSS3</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">React</span>
+        <span class="tag">Styled-components</span>
       </div>
-      <div class="project-content">
-        <h3>대팡 — 필기·요약·퀴즈 통합 AI 학습 플랫폼</h3>
-        <p class="project-summary">
-          대학생·취준생이 흩어진 학습/취업 자료를 한 곳에서 관리하고,  
-          AI로 퀴즈를 생성해 효율적으로 공부할 수 있는 웹 서비스입니다.
-        </p>
-        <ul>
-          <li>시험·자격증·취업 준비 자료를 통합 관리할 수 있는 학습 대시보드 구현</li>
-          <li>업로드한 필기·요약 내용에서 AI가 자동으로 퀴즈를 생성해 복습 효율 향상</li>
-          <li>자격증·진로를 위한 로드맵과 자료 공유 기능 설계</li>
-          <li>프론트엔드 화면 구성과 주요 UX 흐름 설계·구현 담당</li>
-        </ul>
-        <div class="project-tech">
-          React · Node.js · MySQL · OpenAI API
+      <br />
+      <strong>Backend & DB</strong>
+      <div class="skill-tags">
+        <span class="tag">Node.js</span>
+        <span class="tag">Express</span>
+        <span class="tag">Spring Boot</span>
+        <span class="tag">REST API</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">MongoDB</span>
+      </div>
+      <br />
+      <strong>기타</strong>
+      <div class="skill-tags">
+        <span class="tag">Git / GitHub</span>
+        <span class="tag">JWT 인증</span>
+        <span class="tag">OpenAI API</span>
+        <span class="tag">Nginx · Ubuntu</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 경력 & 활동 ===== -->
+  <section id="career">
+    <div class="title">경력 & 활동</div>
+    <div class="card">
+      · 육군 통신병 병장 전역 (2022.05 ~ 2023.11)<br />
+      · Java 튜터링 보조(2023)<br />
+      · 반도체 생산관리시스템 엔지니어 초급 취득(2024~2025)<br />
+      · CSI 동아리 웹 제작 프로젝트(2025)<br />
+      · 대림대 해커톤 장려상(2024)
+    </div>
+  </section>
+
+  <!-- ===== CONTACT 섹션 ===== -->
+  <section id="contact">
+    <div class="title">연락처</div>
+    <div class="card">
+      📧 Email: aksvmfkd3@naver.com<br />
+      🧑‍💻 GitHub:
+      <a href="https://github.com/ZonezIpex" target="_blank"
+        >https://github.com/ZonezIpex</a
+      ><br />
+      📱 연락처: 010-0000-0000
+    </div>
+  </section>
+
+  <!-- ===== PROJECTS (시간순: 대팡 → 면접몬 → 이력서 → 코드어드벤쳐) ===== -->
+  <section id="projects">
+    <div class="title">프로젝트</div>
+
+    <!-- 1. 대팡 -->
+    <div class="card project-card">
+      <div class="project-layout">
+        <div class="project-image">
+          <img src="대팡 메인페이지.png" alt="대팡 메인페이지" />
+        </div>
+        <div class="project-content">
+          <h3>대팡 — 필기·요약·퀴즈 통합 AI 학습 플랫폼</h3>
+          <p class="project-summary">
+            대학생·취준생이 흩어진 학습/취업 자료를 한 곳에서 관리하고,
+            AI로 퀴즈를 생성해 효율적으로 공부할 수 있는 웹 서비스입니다.
+          </p>
+          <ul>
+            <li>시험·자격증·취업 준비 자료를 통합 관리하는 학습 대시보드 구현</li>
+            <li>업로드한 필기·요약 내용에서 AI가 자동으로 퀴즈를 생성해 복습 효율 향상</li>
+            <li>자격증·진로를 위한 로드맵과 자료 공유 기능 설계</li>
+            <li>프론트엔드 화면 구성과 주요 UX 흐름 설계·구현 담당</li>
+          </ul>
+          <div class="project-tech">
+            React · Node.js · MySQL · OpenAI API
+          </div>
+          <div class="project-actions">
+            <a
+              class="btn"
+              href="https://youtu.be/hRCiG1fAoIU"
+              target="_blank"
+              rel="noopener noreferrer"
+              >🎥 대팡 시연 영상 보기</a
+            >
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- 3. 면접몬 -->
-  <div class="card project-card">
-    <div class="project-layout">
-      <div class="project-image">
-        <img src="면접몬 메인페이지.png" alt="면접몬 메인페이지">
-      </div>
-      <div class="project-content">
-        <h3>면접몬 — AI 모의면접 & 피드백 플랫폼</h3>
-        <p class="project-summary">
-          AI를 활용해 실전과 같은 환경에서 모의면접을 연습하고,  
-          답변에 대한 맞춤 피드백을 받을 수 있는 서비스입니다.
-        </p>
-        <ul>
-          <li>지원 직무·기업에 맞춘 면접 질문 자동 생성 및 난이도 조절</li>
-          <li>타이머·점수 시스템으로 실제 면접과 비슷한 긴장감 제공</li>
-          <li>ChatGPT 기반 답변 분석 및 STAR 구조 피드백 제공</li>
-          <li>추후 음성 인터뷰, 이력서·자기소개서 연동 기능 확장 계획</li>
-        </ul>
-        <div class="project-tech">
-          React · Node.js · OpenAI API · MongoDB
+    <!-- 2. 면접몬 -->
+    <div class="card project-card">
+      <div class="project-layout">
+        <div class="project-image">
+          <img src="면접몬 메인페이지.png" alt="면접몬 메인페이지" />
+        </div>
+        <div class="project-content">
+          <h3>면접몬 — AI 모의면접 & 피드백 플랫폼</h3>
+          <p class="project-summary">
+            AI를 활용해 실전과 같은 환경에서 모의면접을 연습하고,  
+            답변에 대한 맞춤 피드백을 받을 수 있는 서비스입니다.
+          </p>
+          <ul>
+            <li>지원 직무·기업에 맞춘 면접 질문 자동 생성 및 난이도 조절</li>
+            <li>타이머·점수 시스템으로 실제 면접과 비슷한 긴장감 제공</li>
+            <li>ChatGPT 기반 답변 분석 및 STAR 구조 피드백 제공</li>
+            <li>추후 음성 인터뷰, 이력서·자기소개서 연동 기능 확장 계획</li>
+          </ul>
+          <div class="project-tech">
+            React · Node.js · OpenAI API · MongoDB
+          </div>
+          <div class="project-actions">
+            <a
+              class="btn"
+              href="https://youtu.be/Zkb4l3z0vZA"
+              target="_blank"
+              rel="noopener noreferrer"
+              >🎥 면접몬 시연 영상 보기</a
+            >
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- 4. 코드어드벤쳐 -->
-  <div class="card project-card">
-    <div class="project-layout">
-      <div class="project-image">
-        <img src="코드어드벤쳐 메인페이지.png" alt="코드어드벤쳐 메인페이지">
-      </div>
-      <div class="project-content">
-        <h3>코드어드벤쳐 — 게임형 코딩 학습 플랫폼</h3>
-        <p class="project-summary">
-          픽셀 아트 게임처럼 스테이지를 클리어하면서 여러 언어를  
-          자연스럽게 익히는 게임 기반 코딩 학습 프로젝트입니다.
-        </p>
-        <ul>
-          <li>C, Java, Python, HTML, CSS, JS 등 언어별 스테이지 구성</li>
-          <li>몬스터와 전투, 단계별 난이도 구조로 학습 동기부여 강화</li>
-          <li>피드백을 반영해 문제 UI, 몬스터 종류, 스토리 요소를 반복 개선</li>
-          <li>프론트엔드 화면 구성과 게임 분위기에 맞는 UI 디자인 담당</li>
-        </ul>
-        <div class="project-tech">
-          React · Canvas · 게임 UI 디자인
+    <!-- 3. 이력서 플랫폼 (AiR) -->
+    <div class="card project-card">
+      <div class="project-layout">
+        <div class="project-image">
+          <img
+            src="이력서 플랫폼 메인페이지.png"
+            alt="이력서 플랫폼 메인페이지"
+          />
+        </div>
+        <div class="project-content">
+          <h3>AiR — 회사 맞춤 AI 이력서 플랫폼</h3>
+          <p class="project-summary">
+            지원하려는 회사의 이력서 양식과 공고 내용을 기반으로,  
+            자동으로 맞춤 이력서를 생성해 주는 AI 이력서 제작 서비스입니다.
+          </p>
+          <ul>
+            <li>회사별 PDF 이력서를 AI가 읽어 CSS 형태로 자동 변환해 재사용 가능한 템플릿 생성</li>
+            <li>사용자가 등록한 기본 이력 정보를 바탕으로, 지원 직무·회사에 맞춘 이력서 레이아웃과 문구 자동 구성</li>
+            <li>React + Styled-components로 반응형 UI 구현, Axios로 백엔드와 비동기 통신</li>
+            <li>Spring Boot·JWT 기반 인증, REST API 설계, MySQL + Nginx + Ubuntu 환경으로 배포 구성</li>
+          </ul>
+          <div class="project-tech">
+            React · Styled-components · Axios · Spring Boot · JWT · REST API ·
+            MySQL · Nginx
+          </div>
+          <div class="project-actions">
+            <a
+              class="btn"
+              href="https://youtu.be/YqpiUFLkf74"
+              target="_blank"
+              rel="noopener noreferrer"
+              >🎥 이력서 플랫폼 시연 영상 보기</a
+            >
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
 
-<footer>
-  © 2025 신민수 Portfolio — All Rights Reserved.
-</footer>
+    <!-- 4. 코드어드벤쳐 -->
+    <div class="card project-card">
+      <div class="project-layout">
+        <div class="project-image">
+          <img
+            src="코드어드벤쳐 메인페이지.png"
+            alt="코드어드벤쳐 메인페이지"
+          />
+        </div>
+        <div class="project-content">
+          <h3>코드어드벤쳐 — 게임형 코딩 학습 플랫폼</h3>
+          <p class="project-summary">
+            픽셀 아트 게임처럼 스테이지를 클리어하면서 여러 언어를  
+            자연스럽게 익히는 게임 기반 코딩 학습 프로젝트입니다.
+          </p>
+          <ul>
+            <li>C, Java, Python, HTML, CSS, JS 등 언어별 스테이지 구성</li>
+            <li>몬스터와 전투, 단계별 난이도 구조로 학습 동기부여 강화</li>
+            <li>피드백을 반영해 문제 UI, 몬스터 종류, 스토리 요소를 반복 개선</li>
+            <li>프론트엔드 화면 구성과 게임 분위기에 맞는 UI 디자인 담당</li>
+          </ul>
+          <div class="project-tech">
+            React · Canvas · 게임 UI 디자인
+          </div>
+          <div class="project-actions">
+            <a
+              class="btn"
+              href="https://youtu.be/nA3KwnHWKcE"
+              target="_blank"
+              rel="noopener noreferrer"
+              >🎥 코드어드벤쳐 시연 영상 보기</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<script>
-  /* ===== 커스텀 느린 스크롤 ===== */
-  function goTo(id) {
-    const target = document.getElementById(id);
-    const headerOffset = 80;
-    const targetY = target.getBoundingClientRect().top + window.scrollY - headerOffset;
-    const startY = window.scrollY;
-    const distance = targetY - startY;
-    const duration = 900; // ms
-    let startTime = null;
+  <footer>© 2025 신민수 Portfolio — All Rights Reserved.</footer>
 
-    function easeInOutQuad(t) {
-      return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-    }
+  <script>
+    /* ===== 커스텀 느린 스크롤 ===== */
+    function goTo(id) {
+      const target = document.getElementById(id);
+      const headerOffset = 80;
+      const targetY =
+        target.getBoundingClientRect().top + window.scrollY - headerOffset;
+      const startY = window.scrollY;
+      const distance = targetY - startY;
+      const duration = 900; // ms
+      let startTime = null;
 
-    function animation(currentTime) {
-      if (startTime === null) startTime = currentTime;
-      const timeElapsed = currentTime - startTime;
-      const progress = Math.min(timeElapsed / duration, 1);
-      const eased = easeInOutQuad(progress);
-
-      window.scrollTo(0, startY + distance * eased);
-
-      if (timeElapsed < duration) {
-        requestAnimationFrame(animation);
+      function easeInOutQuad(t) {
+        return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
       }
+
+      function animation(currentTime) {
+        if (startTime === null) startTime = currentTime;
+        const timeElapsed = currentTime - startTime;
+        const progress = Math.min(timeElapsed / duration, 1);
+        const eased = easeInOutQuad(progress);
+
+        window.scrollTo(0, startY + distance * eased);
+
+        if (timeElapsed < duration) {
+          requestAnimationFrame(animation);
+        }
+      }
+
+      requestAnimationFrame(animation);
     }
 
-    requestAnimationFrame(animation);
-  }
+    /* ===== 다크모드 ===== */
+    function toggleDark() {
+      document.body.classList.toggle("dark");
+    }
 
-  /* ===== 다크모드 ===== */
-  function toggleDark() {
-    document.body.classList.toggle('dark');
-  }
+    /* ===== 스크롤 등장 애니메이션 ===== */
+    const sections = document.querySelectorAll("section");
 
-  /* ===== 스크롤 등장 애니메이션 ===== */
-  const sections = document.querySelectorAll('section');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
 
-  const observer = new IntersectionObserver(
-    entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    },
-    { threshold: 0.2 }
-  );
-
-  sections.forEach(sec => observer.observe(sec));
-</script>
-
+    sections.forEach((sec) => observer.observe(sec));
+  </script>
 </body>
 </html>
