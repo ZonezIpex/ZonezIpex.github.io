@@ -92,50 +92,103 @@
       font-size: 13px;
     }
 
-    /* ===== HERO ===== */
+    /* ===== HERO (프로필 카드) ===== */
     header.hero {
-      padding: 150px 20px 90px;
+      padding: 150px 20px 80px;
       display: flex;
       justify-content: center;
     }
 
-    .hero-container {
+    .hero-card {
+      max-width: 900px;
+      width: 100%;
+      background: rgba(255,255,255,0.9);
+      border-radius: 26px;
+      box-shadow: var(--shadow);
       display: flex;
       align-items: center;
       gap: 40px;
-      max-width: 900px;
+      padding: 32px 40px;
+      backdrop-filter: blur(12px);
+    }
+
+    body.dark .hero-card {
+      background: rgba(15,23,42,0.9);
+    }
+
+    .hero-profile-wrapper {
+      flex: 0 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .hero-profile {
-      width: 155px;
-      height: 155px;
+      width: 160px;
+      height: 160px;
       border-radius: 50%;
       object-fit: cover;
       box-shadow: var(--shadow);
+      border: 4px solid #ffffff;
+    }
+
+    .hero-text {
+      flex: 1;
     }
 
     .hero-text h1 {
-      font-size: 46px;
-      margin: 0 0 10px 0;
-      color: var(--accent);
+      font-size: 40px;
+      margin: 0 0 8px 0;
       font-weight: 900;
-      text-shadow: 0 3px 12px rgba(0,0,0,0.15);
-      white-space: nowrap;
+      color: #111827;
     }
 
-    .hero-text p {
+    body.dark .hero-text h1 {
+      color: #f9fafb;
+    }
+
+    .hero-role {
       font-size: 20px;
-      opacity: 0.9;
+      font-weight: 600;
+      margin-bottom: 12px;
     }
 
-    @media (max-width: 780px) {
-      .hero-container {
+    .hero-sub {
+      font-size: 15px;
+      color: #4b5563;
+      margin-bottom: 18px;
+    }
+
+    body.dark .hero-sub {
+      color: #e5e7eb;
+    }
+
+    .hero-contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 20px;
+      font-size: 14px;
+    }
+
+    .hero-contact a {
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .hero-contact a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 820px) {
+      .hero-card {
         flex-direction: column;
         text-align: center;
+        padding: 28px 24px;
       }
-      .hero-text h1 {
-        white-space: normal;
-        font-size: 34px;
+
+      .hero-contact {
+        justify-content: center;
       }
     }
 
@@ -241,9 +294,9 @@
   <ul class="nav-menu">
     <li><a onclick="goTo('intro')">소개</a></li>
     <li><a onclick="goTo('growth')">성장 과정</a></li>
-    <li><a onclick="goTo('projects')">프로젝트</a></li>
     <li><a onclick="goTo('career')">경력</a></li>
     <li><a onclick="goTo('contact')">연락처</a></li>
+    <li><a onclick="goTo('projects')">프로젝트</a></li>
     <li>
       <button class="dark-toggle" onclick="toggleDark()">
         🌙 <span>다크</span>
@@ -252,14 +305,26 @@
   </ul>
 </nav>
 
-<!-- ===== HERO ===== -->
+<!-- ===== HERO (프로필 카드) ===== -->
 <header class="hero">
-  <div class="hero-container">
-    <img src="증명사진.png" class="hero-profile" alt="프로필 사진">
+  <div class="hero-card">
+    <div class="hero-profile-wrapper">
+      <img src="증명사진.png" class="hero-profile" alt="프로필 사진">
+    </div>
 
     <div class="hero-text">
-      <h1>신민수 포트폴리오</h1>
-      <p>Frontend Developer · Web Developer · UI/UX 관심</p>
+      <h1>신민수 | 프론트엔드 개발자</h1>
+      <div class="hero-role">Frontend · Web · UI/UX</div>
+      <p class="hero-sub">
+        ✋ 새로운 기술과 환경을 두려워하지 않고,  
+        사용자 경험을 개선하는 웹 서비스를 만들고 싶은 개발자 신민수입니다.
+      </p>
+
+      <div class="hero-contact">
+        <div>📧 <a href="mailto:aksvmfkd3@naver.com">aksvmfkd3@naver.com</a></div>
+        <div>💻 <a href="https://github.com/ZonezIpex" target="_blank">GitHub</a></div>
+        <div>📱 010-0000-0000 <!-- 여기에 본인 번호로 수정 --></div>
+      </div>
     </div>
   </div>
 </header>
@@ -282,7 +347,29 @@
   </div>
 </section>
 
-<!-- ===== 프로젝트 ===== -->
+<!-- ===== 경력 & 활동 ===== -->
+<section id="career">
+  <div class="title">경력 & 활동</div>
+  <div class="card">
+    · 육군 통신병 병장 전역 (2022.05 ~ 2023.11)<br>
+    · Java 튜터링 보조(2023)<br>
+    · 반도체 생산관리시스템 엔지니어 초급 취득(2024~2025)<br>
+    · CSI 동아리 웹 제작 프로젝트(2025)<br>
+    · 대림대 해커톤 장려상(2024)
+  </div>
+</section>
+
+<!-- ===== CONTACT 섹션 ===== -->
+<section id="contact">
+  <div class="title">연락처</div>
+  <div class="card">
+    📧 Email: aksvmfkd3@naver.com<br>
+    🧑‍💻 GitHub: <a href="https://github.com/ZonezIpex" target="_blank">https://github.com/ZonezIpex</a><br>
+    📱 연락처: 010-0000-0000 <!-- 여기도 원하면 번호 수정 -->
+  </div>
+</section>
+
+<!-- ===== PROJECTS (맨 아래로 이동) ===== -->
 <section id="projects">
   <div class="title">프로젝트</div>
 
@@ -332,27 +419,6 @@
         <li>프론트엔드 화면 구성과 게임 분위기에 맞는 UI를 담당</li>
       </ul>
     </div>
-  </div>
-</section>
-
-<!-- ===== 경력 ===== -->
-<section id="career">
-  <div class="title">경력 & 활동</div>
-  <div class="card">
-    · 육군 통신병 병장 전역 (2022.05 ~ 2023.11)<br>
-    · Java 튜터링 보조(2023)<br>
-    · 반도체 생산관리시스템 엔지니어 초급 취득(2024~2025)<br>
-    · CSI 동아리 웹 제작 프로젝트(2025)<br>
-    · 대림대 해커톤 장려상(2024)
-  </div>
-</section>
-
-<!-- ===== CONTACT ===== -->
-<section id="contact">
-  <div class="title">연락처</div>
-  <div class="card">
-    📧 Email: aksvmfkd3@naver.com<br>
-    🧑‍💻 GitHub: https://github.com/ZonezIpex
   </div>
 </section>
 
