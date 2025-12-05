@@ -12,7 +12,7 @@
       --card-bg: rgba(255,255,255,0.55);
       --accent: #4ab8ff;
       --shadow: 0 10px 28px rgba(0,0,0,0.18);
-      --shadow-hover: 0 14px 35px rgba(0,0,0,0.25);
+      --shadow-hover: 0 16px 38px rgba(0,0,0,0.26);
     }
 
     body.dark {
@@ -20,16 +20,16 @@
       --text: #e2e8f0;
       --card-bg: rgba(30,41,59,0.55);
       --accent: #60a5fa;
-      --shadow: 0 10px 28px rgba(0,0,0,0.45);
-      --shadow-hover: 0 14px 40px rgba(0,0,0,0.6);
+      --shadow: 0 10px 28px rgba(0,0,0,0.48);
+      --shadow-hover: 0 16px 42px rgba(0,0,0,0.65);
     }
 
     body {
       margin: 0;
       background: var(--bg);
       color: var(--text);
-      font-family: "Pretendard", sans-serif;
-      transition: 0.35s ease;
+      font-family: "Pretendard", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      transition: background 0.35s ease, color 0.35s ease;
     }
 
     /* ===== HEADER ===== */
@@ -40,8 +40,7 @@
       height: 70px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: 0 40px;
+      justify-content: center;
       backdrop-filter: blur(12px);
       background: rgba(255,255,255,0.35);
       box-shadow: 0 2px 14px rgba(0,0,0,0.12);
@@ -54,15 +53,16 @@
 
     .nav-menu {
       display: flex;
+      align-items: center;
       list-style: none;
-      gap: 30px;
+      gap: 28px;
       padding: 0;
       margin: 0;
     }
 
     .nav-menu a {
       cursor: pointer;
-      font-size: 17px;
+      font-size: 16px;
       font-weight: 600;
       text-decoration: none;
       color: var(--text);
@@ -71,23 +71,30 @@
 
     .nav-menu a:hover {
       color: var(--accent);
-      text-shadow: 0 0 6px rgba(0,140,255,0.5);
+      text-shadow: 0 0 6px rgba(0,140,255,0.45);
     }
 
     .dark-toggle {
       cursor: pointer;
       background: var(--accent);
-      padding: 7px 13px;
-      border-radius: 12px;
+      padding: 6px 12px;
+      border-radius: 999px;
       color: #fff;
-      font-size: 15px;
+      font-size: 14px;
       box-shadow: var(--shadow);
-      margin-left: 20px;
+      border: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .dark-toggle span {
+      font-size: 13px;
     }
 
     /* ===== HERO ===== */
     header.hero {
-      padding: 160px 20px 100px;
+      padding: 150px 20px 90px;
       display: flex;
       justify-content: center;
     }
@@ -108,20 +115,28 @@
     }
 
     .hero-text h1 {
-      font-size: 48px;
-      margin: 0;
+      font-size: 46px;
+      margin: 0 0 10px 0;
       color: var(--accent);
       font-weight: 900;
       text-shadow: 0 3px 12px rgba(0,0,0,0.15);
+      white-space: nowrap;
     }
 
     .hero-text p {
       font-size: 20px;
-      opacity: 0.85;
+      opacity: 0.9;
     }
 
-    @media(max-width: 780px) {
-      .hero-container { flex-direction: column; text-align:center; }
+    @media (max-width: 780px) {
+      .hero-container {
+        flex-direction: column;
+        text-align: center;
+      }
+      .hero-text h1 {
+        white-space: normal;
+        font-size: 34px;
+      }
     }
 
     /* ===== SECTIONS ===== */
@@ -131,7 +146,7 @@
       padding: 0 20px;
       opacity: 0;
       transform: translateY(40px);
-      transition: 0.9s ease;
+      transition: opacity 0.9s ease, transform 0.9s ease;
     }
 
     section.visible {
@@ -140,7 +155,7 @@
     }
 
     .title {
-      font-size: 30px;
+      font-size: 28px;
       font-weight: 800;
       margin-bottom: 15px;
       border-left: 6px solid var(--accent);
@@ -150,18 +165,23 @@
     .card {
       background: var(--card-bg);
       border-radius: 20px;
-      padding: 28px;
+      padding: 26px;
       margin-bottom: 25px;
       line-height: 1.7;
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(14px);
       box-shadow: var(--shadow);
-      border: 1px solid rgba(255,255,255,0.4);
-      transition: 0.35s ease;
+      border: 1px solid rgba(255,255,255,0.5);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
     }
 
     .card:hover {
       transform: translateY(-6px);
       box-shadow: var(--shadow-hover);
+      background: rgba(255,255,255,0.75);
+    }
+
+    body.dark .card:hover {
+      background: rgba(30,41,59,0.7);
     }
 
     /* ===== PROJECT CARDS ===== */
@@ -170,7 +190,6 @@
       gap: 20px;
       flex-wrap: wrap;
       align-items: center;
-      transition: 0.3s ease;
     }
 
     .project-item img {
@@ -179,11 +198,18 @@
       object-fit: cover;
       border-radius: 18px;
       box-shadow: var(--shadow);
+      background: #dbeafe;
     }
 
-    @media(max-width:768px){
-      .project-item { flex-direction:column; }
-      .project-item img { width:100%; height:220px; }
+    @media (max-width: 768px) {
+      .project-item {
+        flex-direction: column;
+      }
+
+      .project-item img {
+        width: 100%;
+        height: 220px;
+      }
     }
 
     footer {
@@ -204,14 +230,18 @@
     <li><a onclick="goTo('projects')">프로젝트</a></li>
     <li><a onclick="goTo('career')">경력</a></li>
     <li><a onclick="goTo('contact')">연락처</a></li>
+    <li>
+      <button class="dark-toggle" onclick="toggleDark()">
+        🌙 <span>다크</span>
+      </button>
+    </li>
   </ul>
-  <div class="dark-toggle" onclick="toggleDark()">🌙</div>
 </nav>
 
 <!-- ===== HERO ===== -->
 <header class="hero">
   <div class="hero-container">
-    <img src="증명사진.png" class="hero-profile">
+    <img src="증명사진.png" class="hero-profile" alt="프로필 사진">
 
     <div class="hero-text">
       <h1>신민수 포트폴리오</h1>
@@ -243,16 +273,16 @@
   <div class="title">프로젝트</div>
 
   <div class="card project-item">
-    <img src="대팡 메인페이지.png">
+    <img src="대팡 메인페이지.png" alt="대팡 메인페이지">
     <div>
       <h3>대팡 — AI 학습 플랫폼</h3>
-      React + Node.js + MySQL 기반 AI 학습 서비스로  
+      React + Node.js + MySQL 기반 AI 학습 서비스로
       텍스트 요약, 문제 생성, 기록 분석 기능을 구현했습니다.
     </div>
   </div>
 
   <div class="card project-item">
-    <img src="면접몬 메인페이지.png">
+    <img src="면접몬 메인페이지.png" alt="면접몬 메인페이지">
     <div>
       <h3>면접몬 — AI 모의면접</h3>
       질문 생성 → 분석 → 피드백까지 이어지는 UI, 레벨·점수 시스템 등을 제작했습니다.
@@ -260,13 +290,12 @@
   </div>
 
   <div class="card project-item">
-    <img src="코드드벤처 메인페이지.png">
+    <img src="코드어드벤쳐 메인페이지.png" alt="코드어드벤쳐 메인페이지">
     <div>
-      <h3>코드드벤처 — 코딩 학습 플랫폼</h3>
+      <h3>코드어드벤쳐 메인페이지 — 코딩 학습 플랫폼</h3>
       코딩 개념을 쉽게 배울 수 있도록 구성된 학습형 웹사이트의 UI 구조를 설계했습니다.
     </div>
   </div>
-
 </section>
 
 <!-- ===== 경력 ===== -->
@@ -295,30 +324,49 @@
 </footer>
 
 <script>
-  /* ===== 부드러운 스크롤 ===== */
+  /* ===== 커스텀 느린 스크롤 ===== */
   function goTo(id) {
     const target = document.getElementById(id);
-    const offset = target.getBoundingClientRect().top + window.scrollY - 80;
+    const headerOffset = 80;
+    const targetY = target.getBoundingClientRect().top + window.scrollY - headerOffset;
+    const startY = window.scrollY;
+    const distance = targetY - startY;
+    const duration = 900; // ms
+    let startTime = null;
 
-    window.scrollTo({
-      top: offset,
-      behavior: "smooth"
-    });
+    function easeInOutQuad(t) {
+      return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+    }
+
+    function animation(currentTime) {
+      if (startTime === null) startTime = currentTime;
+      const timeElapsed = currentTime - startTime;
+      const progress = Math.min(timeElapsed / duration, 1);
+      const eased = easeInOutQuad(progress);
+
+      window.scrollTo(0, startY + distance * eased);
+
+      if (timeElapsed < duration) {
+        requestAnimationFrame(animation);
+      }
+    }
+
+    requestAnimationFrame(animation);
   }
 
   /* ===== 다크모드 ===== */
   function toggleDark() {
-    document.body.classList.toggle("dark");
+    document.body.classList.toggle('dark');
   }
 
   /* ===== 스크롤 등장 애니메이션 ===== */
-  const sections = document.querySelectorAll("section");
+  const sections = document.querySelectorAll('section');
 
   const observer = new IntersectionObserver(
     entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
+          entry.target.classList.add('visible');
         }
       });
     },
