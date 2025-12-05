@@ -7,243 +7,277 @@
 
   <style>
     :root {
-      --bg-gradient: linear-gradient(180deg, #b7e8ff 0%, #d4f1ff 40%, #ffffff 100%);
+      --bg: #e9f6ff;
+      --text: #1f1f1f;
+      --card-bg: rgba(255,255,255,0.65);
       --accent: #4ab8ff;
-      --card-bg: rgba(255, 255, 255, 0.6);
-      --radius: 18px;
-      --shadow: 0 8px 20px rgba(0,0,0,0.15);
+      --shadow: 0 8px 20px rgba(0,0,0,0.12);
+      --transition: 0.3s ease;
     }
 
-    /* 기본 스타일 */
+    /* 다크모드 변수 */
+    body.dark {
+      --bg: #0f172a;
+      --text: #e2e8f0;
+      --card-bg: rgba(30,41,59,0.7);
+      --shadow: 0 8px 25px rgba(0,0,0,0.5);
+      --accent: #60a5fa;
+    }
+
     body {
       margin: 0;
+      background: var(--bg);
+      color: var(--text);
       font-family: "Pretendard", sans-serif;
-      background: var(--bg-gradient);
+      transition: background 0.4s, color 0.4s;
     }
 
-    /* ===== 헤더 네비게이션 (SPA 느낌) ===== */
+    /* 헤더 */
     nav {
       position: fixed;
       top: 0;
       width: 100%;
-      backdrop-filter: blur(10px);
-      background: rgba(255,255,255,0.4);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      height: 75px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      background: rgba(255,255,255,0.35);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 2px 18px rgba(0,0,0,0.15);
       z-index: 999;
-      padding: 12px 0;
+      transition: var(--transition);
+    }
+
+    body.dark nav {
+      background: rgba(15,23,42,0.4);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .profile-pic {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: var(--shadow);
+    }
+
+    .logo-text {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text);
     }
 
     nav ul {
-      list-style: none;
       display: flex;
-      justify-content: center;
-      gap: 40px;
-      padding: 0;
+      list-style: none;
+      gap: 30px;
       margin: 0;
     }
 
     nav a {
+      color: var(--text);
       text-decoration: none;
-      font-weight: 700;
-      font-size: 18px;
-      color: #0b6ca8;
+      font-weight: 600;
       cursor: pointer;
-      transition: 0.25s;
+      transition: var(--transition);
     }
 
     nav a:hover {
-      color: #0072c8;
-      text-shadow: 0 0 6px rgba(0, 162, 255, 0.4);
+      color: var(--accent);
     }
 
-    /* ===== 상단 Hero 영역 ===== */
+    /* 다크모드 버튼 */
+    .dark-toggle {
+      cursor: pointer;
+      background: var(--accent);
+      padding: 8px 14px;
+      border-radius: 15px;
+      color: #fff;
+      font-size: 14px;
+      transition: var(--transition);
+      box-shadow: var(--shadow);
+    }
+
+    /* Hero 영역 */
     header {
-      padding: 120px 20px 80px;
+      padding: 150px 20px 100px;
       text-align: center;
     }
 
     header h1 {
       font-size: 48px;
-      color: #0b6ca8;
-      margin-bottom: 12px;
-      text-shadow: 0 3px 8px rgba(0,0,0,0.15);
-      font-weight: 900;
+      margin-bottom: 10px;
+      color: var(--accent);
+      text-shadow: 0 3px 12px rgba(0,0,0,0.2);
     }
 
     header p {
       font-size: 20px;
-      color: #333;
-      opacity: 0.85;
+      opacity: 0.9;
     }
 
-    /* ===== 공통 섹션 ===== */
+    /* 공통 섹션 */
     section {
       max-width: 1100px;
       margin: 80px auto;
       padding: 0 20px;
-      scroll-margin-top: 110px;
-      animation: fadeIn 0.7s ease forwards;
       opacity: 0;
+      transform: translateY(40px);
+      transition: 0.9s ease;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .title {
       font-size: 30px;
-      font-weight: 800;
       margin-bottom: 18px;
-      padding-left: 14px;
+      font-weight: 800;
       border-left: 6px solid var(--accent);
-      color: #0a4d74;
+      padding-left: 12px;
     }
 
     .card {
       background: var(--card-bg);
       box-shadow: var(--shadow);
-      border-radius: var(--radius);
+      border-radius: 18px;
       padding: 25px;
       line-height: 1.7;
       margin-bottom: 25px;
-      backdrop-filter: blur(6px);
+      backdrop-filter: blur(10px);
     }
 
-    /* ===== 프로젝트 카드 ===== */
+    /* 프로젝트 카드 */
     .project-item {
       display: flex;
       flex-wrap: wrap;
       gap: 20px;
       align-items: center;
-      transition: 0.3s;
+      transition: var(--transition);
     }
 
     .project-item:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 26px rgba(0,0,0,0.2);
+      transform: translateY(-6px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.2);
     }
 
     .project-item img {
       width: 280px;
       height: 170px;
-      border-radius: var(--radius);
+      border-radius: 18px;
       object-fit: cover;
       box-shadow: var(--shadow);
     }
 
-    /* 반응형 */
-    @media (max-width: 768px) {
-      header h1 { font-size: 32px; }
-      nav ul { gap: 20px; }
+    @media(max-width: 768px) {
+      header h1 { font-size: 34px; }
       .project-item { flex-direction: column; }
-      .project-item img { width: 100%; height: 200px; }
+      .project-item img { width: 100%; height: 220px; }
     }
 
     footer {
       text-align: center;
       padding: 40px;
-      color: #444;
-      margin-top: 60px;
+      opacity: 0.7;
     }
   </style>
 </head>
 
 <body>
 
-<!-- ===== 네비게이션 ===== -->
+<!-- ===== 헤더 ===== -->
 <nav>
+  <div class="nav-left">
+    <img src="profile.jpg" class="profile-pic">
+    <div class="logo-text">신민수 Portfolio</div>
+  </div>
+
   <ul>
-    <li><a onclick="scrollToSection('intro')">소개</a></li>
-    <li><a onclick="scrollToSection('growth')">성장 과정</a></li>
-    <li><a onclick="scrollToSection('projects')">프로젝트</a></li>
-    <li><a onclick="scrollToSection('career')">경력</a></li>
-    <li><a onclick="scrollToSection('contact')">연락처</a></li>
+    <li><a onclick="goTo('intro')">소개</a></li>
+    <li><a onclick="goTo('growth')">성장 과정</a></li>
+    <li><a onclick="goTo('projects')">프로젝트</a></li>
+    <li><a onclick="goTo('career')">경력</a></li>
+    <li><a onclick="goTo('contact')">연락처</a></li>
   </ul>
+
+  <div class="dark-toggle" onclick="toggleDark()">🌙 다크모드</div>
 </nav>
 
-<!-- ===== Hero 영역 ===== -->
+<!-- Hero -->
 <header>
   <h1>신민수 포트폴리오</h1>
   <p>Frontend Developer · Web Developer · UI/UX 관심</p>
 </header>
 
-<!-- ===== 소개 ===== -->
+<!-- 소개 -->
 <section id="intro">
   <div class="title">소개</div>
   <div class="card">
-    안녕하세요. 게임 시스템과 웹 개발의 구조적 흐름에 관심을 가지고 꾸준히 성장해온 신민수입니다.<br><br>
-    마인크래프트·스타크래프트의 명령어 구조를 따라 해보던 어린 시절부터
-    사용자가 어떤 경험을 하게 되는지를 늘 고민해왔습니다.<br><br>
-    대학에서는 React 기반 웹 서비스와 2D 게임 개발 프로젝트를 진행하며
-    기획–구현–디버깅까지 개발의 전체 흐름을 직접 경험했습니다.<br><br>
-    이러한 과정 속에서 <b>“사용자 경험을 개선하는 개발자”</b>라는 목표를 갖게 되었습니다.
+    안녕하세요. 게임 시스템과 웹 개발 흐름에 관심을 갖고 꾸준히 성장해온 신민수입니다.
+    React 기반 웹 서비스와 2D 게임 개발 프로젝트를 진행하며 사용자 경험 중심의 개발을 목표로 하고 있습니다.
   </div>
 </section>
 
-<!-- ===== 성장 과정 ===== -->
+<!-- 성장 과정 -->
 <section id="growth">
   <div class="title">성장 과정</div>
   <div class="card">
-    초등학교 때 게임 속 구조가 궁금해 명령어를 직접 따라 해보며 프로그래밍을 접하게 되었습니다.<br><br>
-    중·고등학교에서는 JavaScript로 2D 도트 게임을 제작하며 기초를 잡았고,
-    대학에서는 웹서비스와 게임 프로젝트를 수행하며 협업 능력과 문제 해결 능력을 키웠습니다.<br><br>
-    단순한 흥미가 아니라, 사용자가 편하게 즐길 수 있는 기술을 만들고 싶다는
-    개발자로서의 방향성을 갖게 되었습니다.
+    어릴 때 게임 구조가 궁금해 명령어를 직접 따라해 보며 프로그래밍에 흥미를 느꼈습니다.
+    이후 JavaScript 2D 게임 제작, React 웹 프로젝트를 거치며 개발자로서의 방향성을 잡았습니다.
   </div>
 </section>
 
-<!-- ===== 프로젝트 섹션 ===== -->
+<!-- 프로젝트 -->
 <section id="projects">
   <div class="title">프로젝트</div>
 
   <div class="card project-item">
-    <img src="https://via.placeholder.com/300x200?text=Daepang"/>
+    <img src="https://via.placeholder.com/300x200?text=Daepang">
     <div>
       <h3>대팡 — AI 학습 플랫폼</h3>
-      React + Node.js + MySQL 기반 AI 학습 서비스로  
-      텍스트 요약, 문제 생성, 기록 분석 기능을 구현했습니다.<br>
-      UI 흐름과 사용자 중심 인터페이스 설계를 맡았습니다.
+      React + Node.js + MySQL 기반 학습 플랫폼으로 AI 요약·문제생성 기능을 구현했습니다.
     </div>
   </div>
 
   <div class="card project-item">
-    <img src="https://via.placeholder.com/300x200?text=InterviewMon"/>
+    <img src="https://via.placeholder.com/300x200?text=InterviewMon">
     <div>
       <h3>면접몬 — AI 모의면접</h3>
-      질문 생성 → 답변 분석 → AI 피드백까지 이어지는 전체 흐름을 구성하고  
-      평가 UI·레벨 시스템 등 주요 프론트엔드를 제작했습니다.
+      질문 생성 → 분석 → 피드백까지 이어지는 흐름의 UI·레벨 시스템 등을 제작했습니다.
     </div>
   </div>
 
   <div class="card project-item">
-    <img src="https://via.placeholder.com/300x200?text=SpringBoot+Shop"/>
+    <img src="https://via.placeholder.com/300x200?text=SpringShop">
     <div>
       <h3>Spring Boot 쇼핑몰</h3>
-      로그인/회원가입, 상품 CRUD, 장바구니 기능을 구현하며  
-      백엔드 구조와 JPA 흐름을 실전으로 익혔습니다.
+      CRUD, 로그인, 장바구니 등 핵심 기능을 구현하며 백엔드 구조를 실전으로 익혔습니다.
     </div>
   </div>
+
 </section>
 
-<!-- ===== 경력 & 활동 ===== -->
+<!-- 경력 -->
 <section id="career">
   <div class="title">경력 & 활동</div>
   <div class="card">
-    <b>군 복무</b><br>
-    · 육군 통신병 병장 전역 (2022.05.04 ~ 2023.11.23)<br><br>
-
-    <b>교내 활동</b><br>
-    · 자바 보조 튜터링 (2023.03 ~ 2023.08)<br>
-    · 반도체 생산관리시스템 엔지니어(초급) 취득 (2024.11 ~ 2025.02)<br>
-    · CSI 동아리 — 웹페이지 제작 프로젝트 (2025.04 ~ 2025.12)<br><br>
-
-    <b>수상</b><br>
-    · 대림대 해커톤 장려상 (2024)
+    · 육군 통신병 병장 전역 (2022.05 ~ 2023.11)<br>
+    · Java 튜터링 보조(2023)<br>
+    · 반도체 생산관리시스템 엔지니어 초급 취득(2024~2025)<br>
+    · CSI 동아리 웹 제작 프로젝트(2025)<br>
+    · 대림대 해커톤 장려상(2024)
   </div>
 </section>
 
-<!-- ===== 연락처 ===== -->
+<!-- 연락처 -->
 <section id="contact">
   <div class="title">연락처</div>
   <div class="card">
@@ -257,10 +291,33 @@
 </footer>
 
 <script>
-  // 부드러운 스크롤 이동
-  function scrollToSection(id) {
-    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+  /* 부드러운 스크롤 이동 */
+  function goTo(id) {
+    const target = document.getElementById(id);
+    window.scrollTo({ 
+      top: target.offsetTop - 70,
+      behavior: "smooth"
+    });
   }
+
+  /* 다크모드 */
+  function toggleDark() {
+    document.body.classList.toggle("dark");
+  }
+
+  /* 스크롤 애니메이션 (IntersectionObserver) */
+  const sections = document.querySelectorAll("section");
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    },
+    { threshold: 0.2 }
+  );
+  sections.forEach(sec => observer.observe(sec));
 </script>
 
 </body>
