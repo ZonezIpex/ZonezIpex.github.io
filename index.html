@@ -318,7 +318,7 @@
       box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
     }
 
-    /* ===== PROJECT CARDS (좌측 이미지 / 우측 텍스트) ===== */
+    /* ===== PROJECT CARDS ===== */
     .project-card {
       padding: 0;
       overflow: hidden;
@@ -327,28 +327,33 @@
     .project-layout {
       display: flex;
       flex-wrap: wrap;
+      align-items: stretch;
     }
 
+    /* 이미지가 PC에서 너무 크게 늘어나면서 깨져 보이는 걸 방지:
+       - 너비/높이 비율 유지 (height:auto)
+       - 최대 너비 제한 (max-width)
+       - object-fit: contain 으로 잘리지 않게 */
     .project-image {
-      flex: 1 1 45%;
-      min-width: 260px;
+      flex: 0 0 360px;       /* 왼쪽 영역 고정 폭 */
+      max-width: 360px;
       display: flex;
-      align-items: stretch;
+      justify-content: center;
+      align-items: center;
       background: #dbeafe;
     }
 
     .project-image img {
       width: 100%;
-      max-height: 260px; /* 너무 크지 않게 제한하면서 전체가 보이도록 */
       height: auto;
-      object-fit: contain; /* 잘리지 않게 전체 이미지 표시 */
+      max-height: 260px;
+      object-fit: contain;
       border-radius: 20px 0 0 20px;
       display: block;
-      margin: auto;
     }
 
     .project-content {
-      flex: 1 1 55%;
+      flex: 1 1 auto;
       min-width: 280px;
       padding: 22px 24px 18px;
     }
@@ -395,6 +400,11 @@
     @media (max-width: 768px) {
       .project-layout {
         flex-direction: column;
+      }
+
+      .project-image {
+        flex: 1 1 auto;
+        max-width: 100%;
       }
 
       .project-image img {
@@ -647,7 +657,7 @@
       </div>
     </div>
 
-    <!-- 3. 이력서 플랫폼 (AiR) -->
+    <!-- 3. 이력서 플랫폼 -->
     <div class="card project-card">
       <div class="project-layout">
         <div class="project-image">
@@ -739,7 +749,7 @@
         target.getBoundingClientRect().top + window.scrollY - headerOffset;
       const startY = window.scrollY;
       const distance = targetY - startY;
-      const duration = 900; // ms
+      const duration = 900;
       let startTime = null;
 
       function easeInOutQuad(t) {
@@ -783,7 +793,7 @@
 
     sections.forEach((sec) => observer.observe(sec));
 
-    /* ===== 맨 위로 버튼 표시 제어 ===== */
+    /* ===== 맨 위로 버튼 ===== */
     const toTopBtn = document.getElementById("toTopBtn");
 
     window.addEventListener("scroll", () => {
