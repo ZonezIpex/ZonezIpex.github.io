@@ -192,7 +192,7 @@
       }
     }
 
-    /* ===== SECTIONS ===== */
+    /* ===== SECTIONS 공통 ===== */
     section {
       max-width: 1100px;
       margin: 80px auto;
@@ -237,45 +237,80 @@
       background: rgba(30,41,59,0.7);
     }
 
-    /* ===== PROJECT CARDS ===== */
-    .project-item {
+    /* ===== PROJECT CARDS (좌측 이미지 / 우측 텍스트) ===== */
+    .project-card {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .project-layout {
       display: flex;
-      gap: 20px;
       flex-wrap: wrap;
-      align-items: center;
     }
 
-    .project-item img {
-      width: 280px;
-      height: 170px;
+    .project-image {
+      flex: 1 1 45%;
+      min-width: 260px;
+    }
+
+    .project-image img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
-      border-radius: 18px;
-      box-shadow: var(--shadow);
-      background: #dbeafe;
+      border-radius: 20px 0 0 20px;
+      display: block;
     }
 
-    .project-item h3 {
-      margin-top: 0;
-      margin-bottom: 8px;
+    .project-content {
+      flex: 1 1 55%;
+      min-width: 280px;
+      padding: 24px 26px;
     }
 
-    .project-item ul {
+    .project-content h3 {
+      margin: 0 0 10px 0;
+      font-size: 22px;
+      font-weight: 900;
+    }
+
+    .project-summary {
+      margin: 0 0 10px 0;
+      font-size: 15px;
+    }
+
+    .project-content ul {
       margin: 8px 0 0 18px;
       padding: 0;
+      font-size: 14px;
     }
 
-    .project-item li {
-      margin-bottom: 3px;
+    .project-content li {
+      margin-bottom: 4px;
+    }
+
+    .project-tech {
+      margin-top: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #2563eb;
+    }
+
+    body.dark .project-tech {
+      color: #93c5fd;
     }
 
     @media (max-width: 768px) {
-      .project-item {
+      .project-layout {
         flex-direction: column;
       }
 
-      .project-item img {
-        width: 100%;
+      .project-image img {
+        border-radius: 20px 20px 0 0;
         height: 220px;
+      }
+
+      .project-content {
+        padding: 20px 18px 22px;
       }
     }
 
@@ -323,7 +358,7 @@
       <div class="hero-contact">
         <div>📧 <a href="mailto:aksvmfkd3@naver.com">aksvmfkd3@naver.com</a></div>
         <div>💻 <a href="https://github.com/ZonezIpex" target="_blank">GitHub</a></div>
-        <div>📱 010-0000-0000 <!-- 여기에 본인 번호로 수정 --></div>
+        <div>📱 010-0000-0000 <!-- 실제 번호로 수정 --></div>
       </div>
     </div>
   </div>
@@ -365,59 +400,111 @@
   <div class="card">
     📧 Email: aksvmfkd3@naver.com<br>
     🧑‍💻 GitHub: <a href="https://github.com/ZonezIpex" target="_blank">https://github.com/ZonezIpex</a><br>
-    📱 연락처: 010-0000-0000 <!-- 여기도 원하면 번호 수정 -->
+    📱 연락처: 010-0000-0000
   </div>
 </section>
 
-<!-- ===== PROJECTS (맨 아래로 이동) ===== -->
+<!-- ===== PROJECTS (맨 아래) ===== -->
 <section id="projects">
   <div class="title">프로젝트</div>
 
-  <!-- 대팡 -->
-  <div class="card project-item">
-    <img src="대팡 메인페이지.png" alt="대팡 메인페이지">
-    <div>
-      <h3>대팡 — 필기·요약·퀴즈 통합 AI 학습 플랫폼</h3>
-      대학생·취준생이 흩어진 학습/취업 자료를 한 곳에서 관리하고,
-      AI로 퀴즈를 생성해 효율적으로 공부할 수 있는 웹 서비스입니다.
-      <ul>
-        <li>시험·자격증·취업 준비 자료를 통합 관리</li>
-        <li>업로드한 필기/요약에서 AI가 자동으로 퀴즈 생성</li>
-        <li>자격증·진로를 위한 로드맵과 자료 공유 기능 제공</li>
-        <li>프론트엔드 화면 구성과 주요 UX 흐름을 설계·구현</li>
-      </ul>
+  <!-- 1. 이력서 플랫폼 (AiR) -->
+  <div class="card project-card">
+    <div class="project-layout">
+      <div class="project-image">
+        <img src="이력서 플랫폼 메인페이지.png" alt="이력서 플랫폼 메인페이지">
+      </div>
+      <div class="project-content">
+        <h3>AiR — 회사 맞춤 AI 이력서 플랫폼</h3>
+        <p class="project-summary">
+          지원하려는 회사의 이력서 양식과 공고 내용을 기반으로,  
+          자동으로 맞춤 이력서를 생성해 주는 AI 이력서 제작 서비스입니다.
+        </p>
+        <ul>
+          <li>기존 AI 이력서 서비스의 “양식 재작성” 문제를 분석하고, 회사별 PDF 이력서를 AI가 읽어 CSS 형태로 자동 변환</li>
+          <li>사용자가 입력한 기본 이력 정보를 바탕으로, 지원 직무·회사에 맞춘 이력서 레이아웃과 문구를 템플릿화</li>
+          <li>React와 Styled-components로 반응형 UI 구현, Axios로 백엔드와 비동기 통신</li>
+          <li>Spring Boot·JWT 기반 인증, REST API 설계, MySQL + Nginx + Ubuntu 환경으로 배포 구성</li>
+        </ul>
+        <div class="project-tech">
+          React · Styled-components · Axios · Spring Boot · JWT · REST API · MySQL · Nginx
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- 면접몬 -->
-  <div class="card project-item">
-    <img src="면접몬 메인페이지.png" alt="면접몬 메인페이지">
-    <div>
-      <h3>면접몬 — AI 모의면접 & 피드백 플랫폼</h3>
-      AI를 활용해 실전과 같은 환경에서 모의면접을 연습하고,
-      답변에 대한 맞춤 피드백을 받을 수 있는 서비스입니다.
-      <ul>
-        <li>지원 직무·기업에 맞춘 면접 질문 자동 생성</li>
-        <li>타이머·점수 기반으로 실제 면접 같은 긴장감 제공</li>
-        <li>ChatGPT 기반 답변 분석 및 STAR 구조 피드백</li>
-        <li>추후 음성 인터뷰, 이력서·자기소개서 연동까지 확장 계획</li>
-      </ul>
+  <!-- 2. 대팡 -->
+  <div class="card project-card">
+    <div class="project-layout">
+      <div class="project-image">
+        <img src="대팡 메인페이지.png" alt="대팡 메인페이지">
+      </div>
+      <div class="project-content">
+        <h3>대팡 — 필기·요약·퀴즈 통합 AI 학습 플랫폼</h3>
+        <p class="project-summary">
+          대학생·취준생이 흩어진 학습/취업 자료를 한 곳에서 관리하고,  
+          AI로 퀴즈를 생성해 효율적으로 공부할 수 있는 웹 서비스입니다.
+        </p>
+        <ul>
+          <li>시험·자격증·취업 준비 자료를 통합 관리할 수 있는 학습 대시보드 구현</li>
+          <li>업로드한 필기·요약 내용에서 AI가 자동으로 퀴즈를 생성해 복습 효율 향상</li>
+          <li>자격증·진로를 위한 로드맵과 자료 공유 기능 설계</li>
+          <li>프론트엔드 화면 구성과 주요 UX 흐름 설계·구현 담당</li>
+        </ul>
+        <div class="project-tech">
+          React · Node.js · MySQL · OpenAI API
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- 코드어드벤쳐 -->
-  <div class="card project-item">
-    <img src="코드어드벤쳐 메인페이지.png" alt="코드어드벤쳐 메인페이지">
-    <div>
-      <h3>코드어드벤쳐 — 게임형 코딩 학습 플랫폼</h3>
-      픽셀 아트 게임처럼 스테이지를 클리어하면서 여러 언어를
-      자연스럽게 익히는 게임 기반 코딩 학습 프로젝트입니다.
-      <ul>
-        <li>C, Java, Python, HTML, CSS, JS 등 다양한 언어 스테이지 제공</li>
-        <li>몬스터와 전투, 단계별 스테이지 구조로 동기부여 강화</li>
-        <li>피드백을 반영해 문제 UI, 몬스터 종류, 스토리 요소를 개선</li>
-        <li>프론트엔드 화면 구성과 게임 분위기에 맞는 UI를 담당</li>
-      </ul>
+  <!-- 3. 면접몬 -->
+  <div class="card project-card">
+    <div class="project-layout">
+      <div class="project-image">
+        <img src="면접몬 메인페이지.png" alt="면접몬 메인페이지">
+      </div>
+      <div class="project-content">
+        <h3>면접몬 — AI 모의면접 & 피드백 플랫폼</h3>
+        <p class="project-summary">
+          AI를 활용해 실전과 같은 환경에서 모의면접을 연습하고,  
+          답변에 대한 맞춤 피드백을 받을 수 있는 서비스입니다.
+        </p>
+        <ul>
+          <li>지원 직무·기업에 맞춘 면접 질문 자동 생성 및 난이도 조절</li>
+          <li>타이머·점수 시스템으로 실제 면접과 비슷한 긴장감 제공</li>
+          <li>ChatGPT 기반 답변 분석 및 STAR 구조 피드백 제공</li>
+          <li>추후 음성 인터뷰, 이력서·자기소개서 연동 기능 확장 계획</li>
+        </ul>
+        <div class="project-tech">
+          React · Node.js · OpenAI API · MongoDB
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 코드어드벤쳐 -->
+  <div class="card project-card">
+    <div class="project-layout">
+      <div class="project-image">
+        <img src="코드어드벤쳐 메인페이지.png" alt="코드어드벤쳐 메인페이지">
+      </div>
+      <div class="project-content">
+        <h3>코드어드벤쳐 — 게임형 코딩 학습 플랫폼</h3>
+        <p class="project-summary">
+          픽셀 아트 게임처럼 스테이지를 클리어하면서 여러 언어를  
+          자연스럽게 익히는 게임 기반 코딩 학습 프로젝트입니다.
+        </p>
+        <ul>
+          <li>C, Java, Python, HTML, CSS, JS 등 언어별 스테이지 구성</li>
+          <li>몬스터와 전투, 단계별 난이도 구조로 학습 동기부여 강화</li>
+          <li>피드백을 반영해 문제 UI, 몬스터 종류, 스토리 요소를 반복 개선</li>
+          <li>프론트엔드 화면 구성과 게임 분위기에 맞는 UI 디자인 담당</li>
+        </ul>
+        <div class="project-tech">
+          React · Canvas · 게임 UI 디자인
+        </div>
+      </div>
     </div>
   </div>
 </section>
