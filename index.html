@@ -201,6 +201,20 @@
       background: #dbeafe;
     }
 
+    .project-item h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+
+    .project-item ul {
+      margin: 8px 0 0 18px;
+      padding: 0;
+    }
+
+    .project-item li {
+      margin-bottom: 3px;
+    }
+
     @media (max-width: 768px) {
       .project-item {
         flex-direction: column;
@@ -272,28 +286,51 @@
 <section id="projects">
   <div class="title">프로젝트</div>
 
+  <!-- 대팡 -->
   <div class="card project-item">
     <img src="대팡 메인페이지.png" alt="대팡 메인페이지">
     <div>
-      <h3>대팡 — AI 학습 플랫폼</h3>
-      React + Node.js + MySQL 기반 AI 학습 서비스로
-      텍스트 요약, 문제 생성, 기록 분석 기능을 구현했습니다.
+      <h3>대팡 — 필기·요약·퀴즈 통합 AI 학습 플랫폼</h3>
+      대학생·취준생이 흩어진 학습/취업 자료를 한 곳에서 관리하고,
+      AI로 퀴즈를 생성해 효율적으로 공부할 수 있는 웹 서비스입니다.
+      <ul>
+        <li>시험·자격증·취업 준비 자료를 통합 관리</li>
+        <li>업로드한 필기/요약에서 AI가 자동으로 퀴즈 생성</li>
+        <li>자격증·진로를 위한 로드맵과 자료 공유 기능 제공</li>
+        <li>프론트엔드 화면 구성과 주요 UX 흐름을 설계·구현</li>
+      </ul>
     </div>
   </div>
 
+  <!-- 면접몬 -->
   <div class="card project-item">
     <img src="면접몬 메인페이지.png" alt="면접몬 메인페이지">
     <div>
-      <h3>면접몬 — AI 모의면접</h3>
-      질문 생성 → 분석 → 피드백까지 이어지는 UI, 레벨·점수 시스템 등을 제작했습니다.
+      <h3>면접몬 — AI 모의면접 & 피드백 플랫폼</h3>
+      AI를 활용해 실전과 같은 환경에서 모의면접을 연습하고,
+      답변에 대한 맞춤 피드백을 받을 수 있는 서비스입니다.
+      <ul>
+        <li>지원 직무·기업에 맞춘 면접 질문 자동 생성</li>
+        <li>타이머·점수 기반으로 실제 면접 같은 긴장감 제공</li>
+        <li>ChatGPT 기반 답변 분석 및 STAR 구조 피드백</li>
+        <li>추후 음성 인터뷰, 이력서·자기소개서 연동까지 확장 계획</li>
+      </ul>
     </div>
   </div>
 
+  <!-- 코드어드벤쳐 -->
   <div class="card project-item">
     <img src="코드어드벤쳐 메인페이지.png" alt="코드어드벤쳐 메인페이지">
     <div>
-      <h3>코드어드벤쳐 메인페이지 — 코딩 학습 플랫폼</h3>
-      코딩 개념을 쉽게 배울 수 있도록 구성된 학습형 웹사이트의 UI 구조를 설계했습니다.
+      <h3>코드어드벤쳐 — 게임형 코딩 학습 플랫폼</h3>
+      픽셀 아트 게임처럼 스테이지를 클리어하면서 여러 언어를
+      자연스럽게 익히는 게임 기반 코딩 학습 프로젝트입니다.
+      <ul>
+        <li>C, Java, Python, HTML, CSS, JS 등 다양한 언어 스테이지 제공</li>
+        <li>몬스터와 전투, 단계별 스테이지 구조로 동기부여 강화</li>
+        <li>피드백을 반영해 문제 UI, 몬스터 종류, 스토리 요소를 개선</li>
+        <li>프론트엔드 화면 구성과 게임 분위기에 맞는 UI를 담당</li>
+      </ul>
     </div>
   </div>
 </section>
