@@ -330,24 +330,17 @@
       align-items: stretch;
     }
 
-    /* 이미지가 PC에서 너무 크게 늘어나면서 깨져 보이는 걸 방지:
-       - 너비/높이 비율 유지 (height:auto)
-       - 최대 너비 제한 (max-width)
-       - object-fit: contain 으로 잘리지 않게 */
+    /* 👉 여기 부분을 “원래 버전”으로 롤백 */
     .project-image {
-      flex: 0 0 360px;       /* 왼쪽 영역 고정 폭 */
-      max-width: 360px;
+      flex: 1 1 45%;
+      min-width: 260px;
       display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #dbeafe;
     }
 
     .project-image img {
       width: 100%;
-      height: auto;
-      max-height: 260px;
-      object-fit: contain;
+      height: 260px;        /* 좌측 절반 꽉 차게 */
+      object-fit: cover;    /* 비율 유지 + 잘 어울리게 크롭 */
       border-radius: 20px 0 0 20px;
       display: block;
     }
@@ -409,7 +402,7 @@
 
       .project-image img {
         border-radius: 20px 20px 0 0;
-        max-height: 220px;
+        height: 200px;
       }
 
       .project-content {
