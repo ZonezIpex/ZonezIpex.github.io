@@ -9,18 +9,19 @@
     :root {
       --bg: #e9f6ff;
       --text: #1f1f1f;
-      --card-bg: rgba(255,255,255,0.65);
+      --card-bg: rgba(255,255,255,0.55);
       --accent: #4ab8ff;
-      --shadow: 0 8px 20px rgba(0,0,0,0.12);
+      --shadow: 0 10px 28px rgba(0,0,0,0.18);
+      --shadow-hover: 0 14px 35px rgba(0,0,0,0.25);
     }
 
-    /* 다크모드 변수 */
     body.dark {
       --bg: #0f172a;
       --text: #e2e8f0;
-      --card-bg: rgba(30,41,59,0.7);
-      --shadow: 0 8px 25px rgba(0,0,0,0.45);
+      --card-bg: rgba(30,41,59,0.55);
       --accent: #60a5fa;
+      --shadow: 0 10px 28px rgba(0,0,0,0.45);
+      --shadow-hover: 0 14px 40px rgba(0,0,0,0.6);
     }
 
     body {
@@ -28,10 +29,10 @@
       background: var(--bg);
       color: var(--text);
       font-family: "Pretendard", sans-serif;
-      transition: background 0.4s, color 0.4s;
+      transition: 0.35s ease;
     }
 
-    /* ===== 헤더 ===== */
+    /* ===== HEADER ===== */
     nav {
       position: fixed;
       top: 0;
@@ -41,50 +42,54 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 40px;
-      background: rgba(255,255,255,0.35);
       backdrop-filter: blur(12px);
-      box-shadow: 0 2px 18px rgba(0,0,0,0.12);
+      background: rgba(255,255,255,0.35);
+      box-shadow: 0 2px 14px rgba(0,0,0,0.12);
       z-index: 999;
     }
+
     body.dark nav {
-      background: rgba(15,23,42,0.45);
+      background: rgba(16,23,38,0.45);
     }
 
     .nav-menu {
       display: flex;
-      gap: 30px;
       list-style: none;
-      margin: 0;
+      gap: 30px;
       padding: 0;
+      margin: 0;
     }
 
     .nav-menu a {
       cursor: pointer;
+      font-size: 17px;
+      font-weight: 600;
       text-decoration: none;
       color: var(--text);
-      font-weight: 600;
-      font-size: 17px;
+      transition: 0.25s;
     }
+
     .nav-menu a:hover {
       color: var(--accent);
+      text-shadow: 0 0 6px rgba(0,140,255,0.5);
     }
 
     .dark-toggle {
       cursor: pointer;
       background: var(--accent);
-      padding: 7px 14px;
-      border-radius: 14px;
+      padding: 7px 13px;
+      border-radius: 12px;
       color: #fff;
-      font-size: 14px;
+      font-size: 15px;
       box-shadow: var(--shadow);
+      margin-left: 20px;
     }
 
-    /* ===== HERO 영역 ===== */
+    /* ===== HERO ===== */
     header.hero {
-      padding: 170px 20px 100px;
+      padding: 160px 20px 100px;
       display: flex;
       justify-content: center;
-      align-items: center;
     }
 
     .hero-container {
@@ -95,8 +100,8 @@
     }
 
     .hero-profile {
-      width: 150px;
-      height: 150px;
+      width: 155px;
+      height: 155px;
       border-radius: 50%;
       object-fit: cover;
       box-shadow: var(--shadow);
@@ -104,9 +109,9 @@
 
     .hero-text h1 {
       font-size: 48px;
-      margin: 0 0 10px 0;
-      font-weight: 900;
+      margin: 0;
       color: var(--accent);
+      font-weight: 900;
       text-shadow: 0 3px 12px rgba(0,0,0,0.15);
     }
 
@@ -116,20 +121,17 @@
     }
 
     @media(max-width: 780px) {
-      .hero-container {
-        flex-direction: column;
-        text-align: center;
-      }
+      .hero-container { flex-direction: column; text-align:center; }
     }
 
-    /* ===== 공통 섹션 ===== */
+    /* ===== SECTIONS ===== */
     section {
       max-width: 1100px;
       margin: 80px auto;
       padding: 0 20px;
       opacity: 0;
       transform: translateY(40px);
-      transition: 1s ease;
+      transition: 0.9s ease;
     }
 
     section.visible {
@@ -140,33 +142,35 @@
     .title {
       font-size: 30px;
       font-weight: 800;
-      margin-bottom: 18px;
+      margin-bottom: 15px;
       border-left: 6px solid var(--accent);
       padding-left: 12px;
     }
 
     .card {
       background: var(--card-bg);
-      box-shadow: var(--shadow);
-      border-radius: 18px;
-      padding: 25px;
+      border-radius: 20px;
+      padding: 28px;
       margin-bottom: 25px;
       line-height: 1.7;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,0.4);
+      transition: 0.35s ease;
     }
 
-    /* ===== 프로젝트 카드 ===== */
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    /* ===== PROJECT CARDS ===== */
     .project-item {
       display: flex;
       gap: 20px;
       flex-wrap: wrap;
       align-items: center;
-      transition: 0.3s;
-    }
-
-    .project-item:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 12px 28px rgba(0,0,0,0.2);
+      transition: 0.3s ease;
     }
 
     .project-item img {
@@ -177,27 +181,22 @@
       box-shadow: var(--shadow);
     }
 
-    @media(max-width: 768px) {
-      .project-item {
-        flex-direction: column;
-      }
-      .project-item img {
-        width: 100%;
-        height: 200px;
-      }
+    @media(max-width:768px){
+      .project-item { flex-direction:column; }
+      .project-item img { width:100%; height:220px; }
     }
 
     footer {
       text-align: center;
       padding: 40px;
-      opacity: 0.7;
+      opacity: 0.6;
     }
   </style>
 </head>
 
 <body>
 
-<!-- ===== 헤더 ===== -->
+<!-- ===== HEADER ===== -->
 <nav>
   <ul class="nav-menu">
     <li><a onclick="goTo('intro')">소개</a></li>
@@ -206,7 +205,6 @@
     <li><a onclick="goTo('career')">경력</a></li>
     <li><a onclick="goTo('contact')">연락처</a></li>
   </ul>
-
   <div class="dark-toggle" onclick="toggleDark()">🌙</div>
 </nav>
 
@@ -222,7 +220,7 @@
   </div>
 </header>
 
-<!-- ===== 소개 ===== -->
+<!-- ===== INTRO ===== -->
 <section id="intro">
   <div class="title">소개</div>
   <div class="card">
@@ -235,8 +233,8 @@
 <section id="growth">
   <div class="title">성장 과정</div>
   <div class="card">
-    어릴 때 게임 구조가 궁금해 명령어를 따라하면서 프로그래밍에 흥미를 느꼈습니다.
-    이후 JavaScript 2D 게임 제작과 React 웹 프로젝트를 거치며 개발자로서의 방향을 잡았습니다.
+    어릴 때 게임 구조가 궁금해 명령어를 따라해보며 프로그래밍에 흥미를 느꼈습니다.
+    JavaScript 2D 게임 제작과 React 기반 웹 프로젝트를 거치며 개발자로서의 방향성을 잡았습니다.
   </div>
 </section>
 
@@ -245,28 +243,30 @@
   <div class="title">프로젝트</div>
 
   <div class="card project-item">
-    <img src="https://via.placeholder.com/300x200?text=Daepang">
+    <img src="대팡 메인페이지.png">
     <div>
       <h3>대팡 — AI 학습 플랫폼</h3>
-      React + Node.js + MySQL 기반의 학습 플랫폼으로 AI 요약·문제 생성 기능을 구현했습니다.
+      React + Node.js + MySQL 기반 AI 학습 서비스로  
+      텍스트 요약, 문제 생성, 기록 분석 기능을 구현했습니다.
     </div>
   </div>
 
   <div class="card project-item">
-    <img src="https://via.placeholder.com/300x200?text=InterviewMon">
+    <img src="면접몬 메인페이지.png">
     <div>
       <h3>면접몬 — AI 모의면접</h3>
-      질문 생성 → 분석 → 피드백까지 이어지는 UI·레벨 시스템 등을 제작했습니다.
+      질문 생성 → 분석 → 피드백까지 이어지는 UI, 레벨·점수 시스템 등을 제작했습니다.
     </div>
   </div>
 
   <div class="card project-item">
-    <img src="https://via.placeholder.com/300x200?text=SpringShop">
+    <img src="코드드벤처 메인페이지.png">
     <div>
-      <h3>Spring Boot 쇼핑몰</h3>
-      CRUD, 로그인, 장바구니 등 핵심 기능을 구현하며 백엔드 구조를 실전으로 익혔습니다.
+      <h3>코드드벤처 — 코딩 학습 플랫폼</h3>
+      코딩 개념을 쉽게 배울 수 있도록 구성된 학습형 웹사이트의 UI 구조를 설계했습니다.
     </div>
   </div>
+
 </section>
 
 <!-- ===== 경력 ===== -->
@@ -281,7 +281,7 @@
   </div>
 </section>
 
-<!-- ===== 연락처 ===== -->
+<!-- ===== CONTACT ===== -->
 <section id="contact">
   <div class="title">연락처</div>
   <div class="card">
@@ -295,27 +295,35 @@
 </footer>
 
 <script>
-  /* 부드러운 스크롤 */
+  /* ===== 부드러운 스크롤 ===== */
   function goTo(id) {
-    document.getElementById(id).scrollIntoView({
-      behavior: "smooth",
-      block: "start"
+    const target = document.getElementById(id);
+    const offset = target.getBoundingClientRect().top + window.scrollY - 80;
+
+    window.scrollTo({
+      top: offset,
+      behavior: "smooth"
     });
   }
 
-  /* 다크모드 */
+  /* ===== 다크모드 ===== */
   function toggleDark() {
     document.body.classList.toggle("dark");
   }
 
-  /* 섹션 등장 애니메이션 */
+  /* ===== 스크롤 등장 애니메이션 ===== */
   const sections = document.querySelectorAll("section");
 
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add("visible");
-    });
-  }, { threshold: 0.15 });
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    },
+    { threshold: 0.2 }
+  );
 
   sections.forEach(sec => observer.observe(sec));
 </script>
