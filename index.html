@@ -1,1761 +1,889 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>신민수 | Frontend · Web · UI/UX Portfolio</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>신민수 포트폴리오</title>
 
-    <meta
-      name="description"
-      content="신민수 포트폴리오 — Frontend · Web · UI/UX. 사용자 흐름과 경험을 개선하는 웹 서비스를 만듭니다."
-    />
-    <meta name="theme-color" content="#4ab8ff" />
+  <style>
+    :root {
+      --bg-top: #e4f2ff;
+      --bg-bottom: #b9e0ff;
+      --text: #1f1f1f;
+      --card-bg: rgba(255, 255, 255, 0.55);
+      --accent: #4ab8ff;
+      --shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+      --shadow-hover: 0 16px 38px rgba(0, 0, 0, 0.26);
+      --btn-bg: #2563eb;
+      --btn-bg-hover: #1d4ed8;
+    }
 
-    <!-- OG (공유용) -->
-    <meta property="og:title" content="신민수 | 포트폴리오" />
-    <meta
-      property="og:description"
-      content="Frontend · Web · UI/UX — 사용자 경험을 개선하는 웹 서비스를 만드는 신민수의 포트폴리오"
-    />
-    <!-- 필요 시 썸네일 이미지 경로로 교체 -->
-    <meta property="og:image" content="assets/img/og.png" />
+    body.dark {
+      --bg-top: #020617;
+      --bg-bottom: #0f172a;
+      --text: #e2e8f0;
+      --card-bg: rgba(30, 41, 59, 0.55);
+      --accent: #60a5fa;
+      --shadow: 0 10px 28px rgba(0, 0, 0, 0.48);
+      --shadow-hover: 0 16px 42px rgba(0, 0, 0, 0.65);
+      --btn-bg: #3b82f6;
+      --btn-bg-hover: #1d4ed8;
+    }
 
-    <!-- Pretendard (선택: 외부 로드. 원하면 폰트 파일을 직접 넣어도 됨) -->
-    <link
-      rel="stylesheet"
-      as="style"
-      crossorigin
-      href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/variable/pretendardvariable.css"
-    />
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
+      color: var(--text);
+      font-family: "Pretendard", system-ui, -apple-system, BlinkMacSystemFont,
+        sans-serif;
+      transition: background 0.35s ease, color 0.35s ease;
+    }
 
-    <style>
-      :root {
-        --bg-top: #e4f2ff;
-        --bg-bottom: #b9e0ff;
-        --text: #0f172a;
-        --muted: rgba(15, 23, 42, 0.7);
+    /* ===== HEADER ===== */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      min-height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.35);
+      box-shadow: 0 2px 14px rgba(0, 0, 0, 0.12);
+      z-index: 999;
+    }
 
-        --card-bg: rgba(255, 255, 255, 0.6);
-        --card-bg-strong: rgba(255, 255, 255, 0.82);
-        --border: rgba(255, 255, 255, 0.55);
+    body.dark nav {
+      background: rgba(16, 23, 38, 0.45);
+    }
 
-        --accent: #4ab8ff;
-        --accent-2: #2563eb;
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      list-style: none;
+      gap: 24px;
+      padding: 8px 16px;
+      margin: 0;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
 
-        --shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
-        --shadow-hover: 0 16px 40px rgba(0, 0, 0, 0.26);
+    .nav-menu a {
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--text);
+      transition: 0.25s;
+      white-space: nowrap;
+    }
 
-        --btn-bg: #2563eb;
-        --btn-bg-hover: #1d4ed8;
+    .nav-menu a:hover {
+      color: var(--accent);
+      text-shadow: 0 0 6px rgba(0, 140, 255, 0.45);
+    }
 
-        --radius-xl: 26px;
-        --radius-lg: 20px;
-        --radius-md: 14px;
+    .dark-toggle {
+      cursor: pointer;
+      background: var(--accent);
+      padding: 6px 12px;
+      border-radius: 999px;
+      color: #fff;
+      font-size: 13px;
+      box-shadow: var(--shadow);
+      border: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
 
-        --nav-h: 64px;
-      }
+    .dark-toggle span {
+      font-size: 12px;
+    }
 
-      body.dark {
-        --bg-top: #020617;
-        --bg-bottom: #0b1226;
-        --text: #e2e8f0;
-        --muted: rgba(226, 232, 240, 0.74);
-
-        --card-bg: rgba(30, 41, 59, 0.6);
-        --card-bg-strong: rgba(15, 23, 42, 0.86);
-        --border: rgba(96, 165, 250, 0.22);
-
-        --accent: #60a5fa;
-        --accent-2: #93c5fd;
-
-        --shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
-        --shadow-hover: 0 18px 44px rgba(0, 0, 0, 0.7);
-
-        --btn-bg: #3b82f6;
-        --btn-bg-hover: #2563eb;
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-
-      html,
-      body {
-        height: 100%;
-      }
-
-      body {
-        margin: 0;
-        color: var(--text);
-        font-family: Pretendard, system-ui, -apple-system, BlinkMacSystemFont,
-          "Segoe UI", Roboto, sans-serif;
-        transition: background 0.35s ease, color 0.35s ease;
-
-        background: radial-gradient(
-            900px 520px at 12% 10%,
-            rgba(74, 184, 255, 0.3),
-            transparent 60%
-          ),
-          radial-gradient(
-            800px 520px at 90% 20%,
-            rgba(37, 99, 235, 0.25),
-            transparent 60%
-          ),
-          linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
-      }
-
-      a {
-        color: inherit;
-      }
-
-      /* 접근성: 스킵 링크 */
-      .skip-link {
-        position: absolute;
-        left: -999px;
-        top: 0;
-        padding: 10px 14px;
-        background: #111827;
-        color: #fff;
-        border-radius: 10px;
-        z-index: 9999;
-      }
-      .skip-link:focus {
-        left: 12px;
-        top: 12px;
-        outline: 3px solid rgba(96, 165, 250, 0.9);
-      }
-
-      /* ===== NAV ===== */
-      nav {
-        position: fixed;
-        inset: 0 0 auto 0;
-        height: var(--nav-h);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 999;
-
-        backdrop-filter: blur(14px);
-        background: rgba(255, 255, 255, 0.35);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.35);
-        box-shadow: 0 2px 14px rgba(0, 0, 0, 0.12);
-      }
-
-      body.dark nav {
-        background: rgba(2, 6, 23, 0.5);
-        border-bottom: 1px solid rgba(96, 165, 250, 0.15);
-      }
-
-      .nav-inner {
-        width: min(1100px, calc(100% - 24px));
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-      }
-
-      .brand {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        font-weight: 900;
-        letter-spacing: -0.3px;
-        text-decoration: none;
-        white-space: nowrap;
-      }
-
-      .brand-badge {
-        width: 12px;
-        height: 12px;
-        border-radius: 999px;
-        background: radial-gradient(
-          circle at 30% 30%,
-          var(--accent),
-          var(--accent-2)
-        );
-        box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
-      }
-
+    @media (max-width: 480px) {
       .nav-menu {
-        display: flex;
-        align-items: center;
-        list-style: none;
-        gap: 18px;
-        padding: 0;
-        margin: 0;
-        flex-wrap: wrap;
-        justify-content: center;
+        gap: 10px;
+        padding-inline: 8px;
       }
 
       .nav-menu a {
-        font-size: 14px;
-        font-weight: 700;
-        text-decoration: none;
-        color: var(--text);
-        opacity: 0.9;
-        transition: 0.25s;
-        padding: 8px 10px;
-        border-radius: 999px;
-      }
-
-      .nav-menu a:hover {
-        color: var(--accent);
-        text-shadow: 0 0 6px rgba(0, 140, 255, 0.35);
-        background: rgba(255, 255, 255, 0.35);
-      }
-
-      body.dark .nav-menu a:hover {
-        background: rgba(96, 165, 250, 0.12);
-      }
-
-      .nav-menu a.active {
-        color: var(--accent-2);
-        background: rgba(37, 99, 235, 0.12);
-      }
-
-      body.dark .nav-menu a.active {
-        color: #bfdbfe;
-        background: rgba(96, 165, 250, 0.14);
-      }
-
-      .nav-actions {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .icon-btn {
-        cursor: pointer;
-        border: 1px solid rgba(255, 255, 255, 0.45);
-        background: rgba(255, 255, 255, 0.35);
-        color: var(--text);
-        padding: 8px 10px;
-        border-radius: 999px;
-        font-weight: 800;
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        box-shadow: var(--shadow);
-        transition: transform 0.2s ease, background 0.2s ease,
-          border-color 0.2s ease;
-        white-space: nowrap;
-      }
-
-      body.dark .icon-btn {
-        border-color: rgba(96, 165, 250, 0.18);
-        background: rgba(2, 6, 23, 0.35);
-      }
-
-      .icon-btn:hover {
-        transform: translateY(-1px);
-        border-color: rgba(74, 184, 255, 0.55);
-      }
-
-      .icon-btn:focus-visible,
-      .btn:focus-visible,
-      .chip-btn:focus-visible,
-      input:focus-visible,
-      details summary:focus-visible {
-        outline: 3px solid rgba(96, 165, 250, 0.65);
-        outline-offset: 2px;
-      }
-
-      @media (max-width: 900px) {
-        .brand {
-          display: none;
-        }
-        .nav-inner {
-          justify-content: center;
-        }
-        .nav-actions {
-          position: absolute;
-          right: 12px;
-        }
-      }
-
-      @media (max-width: 520px) {
-        nav {
-          height: 72px;
-        }
-        :root {
-          --nav-h: 72px;
-        }
-        .nav-menu {
-          gap: 8px;
-        }
-        .nav-menu a {
-          font-size: 13px;
-          padding: 7px 9px;
-        }
-        .icon-btn {
-          padding: 7px 10px;
-        }
-      }
-
-      /* ===== LAYOUT ===== */
-      main {
-        padding-top: calc(var(--nav-h) + 28px);
-      }
-
-      .container {
-        width: min(1100px, calc(100% - 40px));
-        margin: 0 auto;
-      }
-
-      section {
-        margin: 70px auto;
-        opacity: 0;
-        transform: translateY(36px);
-        transition: opacity 0.9s ease, transform 0.9s ease;
-        scroll-margin-top: calc(var(--nav-h) + 18px);
-      }
-
-      section.visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      .section-title {
-        display: flex;
-        align-items: flex-end;
-        justify-content: space-between;
-        gap: 14px;
-        margin-bottom: 14px;
-      }
-
-      .section-title h2 {
-        margin: 0;
-        font-size: clamp(22px, 2.6vw, 30px);
-        font-weight: 950;
-        letter-spacing: -0.6px;
-        padding-left: 12px;
-        border-left: 6px solid var(--accent);
-      }
-
-      .section-sub {
-        margin: 0;
-        color: var(--muted);
-        font-size: 14px;
-        font-weight: 650;
-      }
-
-      .card {
-        background: var(--card-bg);
-        border: 1px solid var(--border);
-        border-radius: var(--radius-lg);
-        box-shadow: var(--shadow);
-        backdrop-filter: blur(14px);
-        padding: 26px;
-        transition: transform 0.28s ease, box-shadow 0.28s ease,
-          background 0.28s ease, border-color 0.28s ease;
-      }
-
-      .card:hover {
-        transform: translateY(-6px);
-        box-shadow: var(--shadow-hover);
-        background: var(--card-bg-strong);
-        border-color: rgba(74, 184, 255, 0.55);
-      }
-
-      body.dark .card:hover {
-        border-color: rgba(96, 165, 250, 0.55);
-      }
-
-      /* ===== HERO ===== */
-      header.hero {
-        padding: 42px 0 10px;
-      }
-
-      .hero-grid {
-        display: grid;
-        grid-template-columns: 180px 1fr;
-        gap: 26px;
-        align-items: center;
-        padding: 28px;
-        border-radius: var(--radius-xl);
-        background: var(--card-bg-strong);
-        border: 1px solid var(--border);
-        box-shadow: var(--shadow);
-        backdrop-filter: blur(14px);
-      }
-
-      body.dark .hero-grid {
-        background: rgba(15, 23, 42, 0.86);
-      }
-
-      .hero-photo {
-        width: 180px;
-        height: 180px;
-        border-radius: 22px;
-        object-fit: cover;
-        border: 1px solid rgba(255, 255, 255, 0.55);
-        box-shadow: 0 16px 34px rgba(0, 0, 0, 0.18);
-      }
-
-      body.dark .hero-photo {
-        border-color: rgba(96, 165, 250, 0.2);
-      }
-
-      .hero-headline {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-      }
-
-      .hero-headline h1 {
-        margin: 0;
-        font-size: clamp(28px, 3.2vw, 42px);
-        font-weight: 950;
-        letter-spacing: -0.9px;
-        line-height: 1.12;
-      }
-
-      .hero-role {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        align-items: center;
-      }
-
-      .chip {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 6px 12px;
-        border-radius: 999px;
-        font-size: 12px;
-        font-weight: 800;
-        color: var(--text);
-        background: rgba(148, 163, 184, 0.18);
-        border: 1px solid rgba(148, 163, 184, 0.35);
-        user-select: none;
-      }
-
-      body.dark .chip {
-        background: rgba(96, 165, 250, 0.12);
-        border-color: rgba(96, 165, 250, 0.22);
-      }
-
-      .chip strong {
-        font-weight: 950;
-      }
-
-      .hero-intro {
-        margin: 0;
-        color: var(--muted);
-        font-size: 15px;
-        line-height: 1.75;
-        font-weight: 650;
-      }
-
-      .hero-actions {
-        margin-top: 12px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        padding: 10px 14px;
-        border-radius: 999px;
-        border: none;
-        background: var(--btn-bg);
-        color: #fff;
         font-size: 13px;
-        font-weight: 850;
-        cursor: pointer;
-        text-decoration: none;
-        transition: background 0.2s ease, transform 0.2s ease,
-          box-shadow 0.2s ease;
-        box-shadow: 0 8px 22px rgba(37, 99, 235, 0.35);
-        white-space: nowrap;
       }
 
-      .btn:hover {
-        background: var(--btn-bg-hover);
-        transform: translateY(-1px);
-      }
-
-      .btn-secondary {
-        background: rgba(255, 255, 255, 0);
-        color: var(--btn-bg);
-        border: 1px solid rgba(37, 99, 235, 0.4);
-        box-shadow: none;
-      }
-
-      .btn-secondary:hover {
-        background: rgba(219, 234, 254, 0.9);
-      }
-
-      body.dark .btn-secondary {
-        color: #bfdbfe;
-        border-color: rgba(147, 197, 253, 0.45);
-        background: rgba(2, 6, 23, 0.25);
-      }
-
-      body.dark .btn-secondary:hover {
-        background: rgba(30, 64, 175, 0.5);
-      }
-
-      .hero-meta {
-        margin-top: 12px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px 16px;
-        color: var(--muted);
-        font-size: 13px;
-        font-weight: 700;
-      }
-
-      .hero-meta a {
-        color: var(--accent-2);
-        text-decoration: none;
-        font-weight: 900;
-      }
-
-      .hero-meta a:hover {
-        text-decoration: underline;
-      }
-
-      @media (max-width: 820px) {
-        .hero-grid {
-          grid-template-columns: 1fr;
-          text-align: center;
-          justify-items: center;
-        }
-        .hero-photo {
-          width: 160px;
-          height: 160px;
-        }
-        .hero-actions {
-          justify-content: center;
-        }
-        .hero-meta {
-          justify-content: center;
-        }
-        .hero-role {
-          justify-content: center;
-        }
-      }
-
-      /* ===== SKILLS ===== */
-      .skills-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 14px;
-      }
-
-      .skills-grid .card {
-        height: 100%;
-      }
-
-      @media (max-width: 920px) {
-        .skills-grid {
-          grid-template-columns: 1fr;
-        }
-      }
-
-      .tag-list {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-top: 10px;
-      }
-
-      .tag {
-        padding: 5px 10px;
-        border-radius: 999px;
-        font-size: 12px;
-        font-weight: 800;
-        background: rgba(148, 163, 184, 0.18);
-        border: 1px solid rgba(148, 163, 184, 0.35);
-      }
-
-      body.dark .tag {
-        background: rgba(96, 165, 250, 0.12);
-        border-color: rgba(96, 165, 250, 0.22);
-      }
-
-      /* ===== TIMELINE ===== */
-      .timeline {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        display: grid;
-        gap: 12px;
-      }
-
-      .timeline li {
-        position: relative;
-        padding: 14px 14px 14px 16px;
-        border-radius: var(--radius-md);
-        background: rgba(255, 255, 255, 0.35);
-        border: 1px solid rgba(255, 255, 255, 0.42);
-      }
-
-      body.dark .timeline li {
-        background: rgba(2, 6, 23, 0.25);
-        border-color: rgba(96, 165, 250, 0.16);
-      }
-
-      .timeline .t-title {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px 12px;
-        align-items: baseline;
-        margin-bottom: 6px;
-        font-weight: 950;
-        letter-spacing: -0.2px;
-      }
-
-      .timeline .t-date {
-        font-size: 12px;
-        font-weight: 900;
-        color: var(--accent-2);
-        background: rgba(37, 99, 235, 0.12);
-        border: 1px solid rgba(37, 99, 235, 0.18);
+      .dark-toggle {
         padding: 4px 10px;
-        border-radius: 999px;
-      }
-
-      body.dark .timeline .t-date {
-        color: #bfdbfe;
-        background: rgba(96, 165, 250, 0.14);
-        border-color: rgba(96, 165, 250, 0.18);
-      }
-
-      .timeline .t-desc {
-        margin: 0;
-        color: var(--muted);
-        font-weight: 650;
-        line-height: 1.7;
-        font-size: 14px;
-      }
-
-      /* ===== PROJECTS ===== */
-      .project-toolbar {
-        display: grid;
-        grid-template-columns: 1fr auto;
-        gap: 12px;
-        margin-bottom: 14px;
-        align-items: center;
-      }
-
-      .search-box {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 12px 14px;
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.35);
-        border: 1px solid rgba(255, 255, 255, 0.5);
-        box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
-      }
-
-      body.dark .search-box {
-        background: rgba(2, 6, 23, 0.25);
-        border-color: rgba(96, 165, 250, 0.16);
-        box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35);
-      }
-
-      .search-box span {
-        font-weight: 950;
-        opacity: 0.7;
-      }
-
-      .search-box input {
-        width: 100%;
-        border: none;
-        outline: none;
-        background: transparent;
-        color: var(--text);
-        font-size: 14px;
-        font-weight: 750;
-      }
-
-      .chip-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        justify-content: flex-end;
-      }
-
-      .chip-btn {
-        cursor: pointer;
-        border: 1px solid rgba(148, 163, 184, 0.35);
-        background: rgba(148, 163, 184, 0.15);
-        color: var(--text);
-        padding: 7px 12px;
-        border-radius: 999px;
         font-size: 12px;
-        font-weight: 900;
-        transition: transform 0.18s ease, background 0.18s ease,
-          border-color 0.18s ease;
-        user-select: none;
-        white-space: nowrap;
+      }
+    }
+
+    /* ===== HERO (프로필 카드) ===== */
+    header.hero {
+      padding: 150px 20px 70px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .hero-card {
+      max-width: 900px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 26px;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      padding: 32px 40px;
+      backdrop-filter: blur(12px);
+    }
+
+    body.dark .hero-card {
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .hero-profile-wrapper {
+      flex: 0 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-profile {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: var(--shadow);
+      border: 4px solid #ffffff;
+    }
+
+    .hero-text {
+      flex: 1;
+    }
+
+    .hero-text h1 {
+      font-size: 40px;
+      margin: 0 0 8px 0;
+      font-weight: 900;
+      color: #111827;
+    }
+
+    body.dark .hero-text h1 {
+      color: #f9fafb;
+    }
+
+    .hero-role {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .hero-sub {
+      font-size: 15px;
+      color: #4b5563;
+      margin-bottom: 18px;
+    }
+
+    body.dark .hero-sub {
+      color: #e5e7eb;
+    }
+
+    .hero-contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 20px;
+      font-size: 14px;
+    }
+
+    .hero-contact a {
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .hero-contact a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 820px) {
+      .hero-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 28px 24px;
       }
 
-      body.dark .chip-btn {
-        border-color: rgba(96, 165, 250, 0.2);
-        background: rgba(96, 165, 250, 0.1);
+      .hero-contact {
+        justify-content: center;
       }
+    }
 
-      .chip-btn:hover {
-        transform: translateY(-1px);
-        border-color: rgba(74, 184, 255, 0.55);
-      }
+    /* ===== SECTIONS 공통 ===== */
+    section {
+      max-width: 1100px;
+      margin: 70px auto;
+      padding: 0 20px;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
 
-      .chip-btn.active {
-        background: rgba(37, 99, 235, 0.16);
-        border-color: rgba(37, 99, 235, 0.32);
-        color: var(--accent-2);
-      }
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-      body.dark .chip-btn.active {
-        background: rgba(96, 165, 250, 0.18);
-        border-color: rgba(96, 165, 250, 0.28);
-        color: #bfdbfe;
-      }
+    .title {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 15px;
+      border-left: 6px solid var(--accent);
+      padding-left: 12px;
+    }
 
-      @media (max-width: 920px) {
-        .project-toolbar {
-          grid-template-columns: 1fr;
-        }
-        .chip-row {
-          justify-content: flex-start;
-        }
-      }
+    .card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 26px;
+      margin-bottom: 25px;
+      line-height: 1.7;
+      backdrop-filter: blur(14px);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      transition: transform 0.3s ease, box-shadow 0.3s ease,
+        background 0.3s ease, border-color 0.3s ease;
+    }
 
-      .project-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-      }
+    /* 카드 hover 시 살짝 떠오르면서 테두리 색 강조 */
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+      background: rgba(255, 255, 255, 0.75);
+      border-color: rgba(74, 184, 255, 0.9);
+    }
 
-      @media (max-width: 920px) {
-        .project-grid {
-          grid-template-columns: 1fr;
-        }
-      }
+    body.dark .card {
+      border-color: rgba(30, 64, 175, 0.6);
+    }
 
-      .project-card {
-        padding: 0;
-        overflow: hidden;
-      }
+    body.dark .card:hover {
+      background: rgba(30, 41, 59, 0.7);
+      border-color: rgba(96, 165, 250, 0.95);
+    }
 
-      .project-cover {
-        display: grid;
-        grid-template-columns: 1fr;
+    /* ===== SKILLS ===== */
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .tag {
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      background: rgba(148, 163, 184, 0.18);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+
+    body.dark .tag {
+      background: rgba(30, 64, 175, 0.4);
+      border-color: rgba(129, 140, 248, 0.6);
+    }
+
+    /* ===== BUTTON 공통 ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 14px;
+      margin-top: 10px;
+      border-radius: 999px;
+      border: none;
+      background: var(--btn-bg);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.2s ease,
+        box-shadow 0.2s ease;
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      background: var(--btn-bg-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+    }
+
+    /* GitHub용 서브 버튼 */
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.0);
+      color: var(--btn-bg);
+      border: 1px solid rgba(37, 99, 235, 0.4);
+      box-shadow: none;
+      margin-left: 4px;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(219, 234, 254, 0.9);
+    }
+
+    body.dark .btn-secondary {
+      color: #bfdbfe;
+      border-color: rgba(147, 197, 253, 0.8);
+      background: rgba(15, 23, 42, 0.6);
+    }
+
+    body.dark .btn-secondary:hover {
+      background: rgba(30, 64, 175, 0.8);
+    }
+
+    /* ===== PROJECT CARDS ===== */
+    .project-card {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .project-layout {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: stretch;
+    }
+
+    /* 반반 레이아웃 */
+    .project-image {
+      flex: 1 1 50%;
+      min-width: 280px;
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      overflow: hidden;
+    }
+
+    .project-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 20px 0 0 20px;
+      display: block;
+    }
+
+    .project-content {
+      flex: 1 1 50%;
+      min-width: 280px;
+      padding: 22px 24px 18px;
+    }
+
+    .project-content h3 {
+      margin: 0 0 10px 0;
+      font-size: 22px;
+      font-weight: 900;
+    }
+
+    .project-summary {
+      margin: 0 0 10px 0;
+      font-size: 15px;
+    }
+
+    .project-content ul {
+      margin: 8px 0 0 18px;
+      padding: 0;
+      font-size: 14px;
+    }
+
+    .project-content li {
+      margin-bottom: 4px;
+    }
+
+    .project-tech {
+      margin-top: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #2563eb;
+    }
+
+    body.dark .project-tech {
+      color: #93c5fd;
+    }
+
+    .project-actions {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .project-layout {
+        flex-direction: column;
       }
 
       .project-image {
-        position: relative;
-        height: 240px;
-        overflow: hidden;
-        background: radial-gradient(
-            520px 220px at 10% 20%,
-            rgba(74, 184, 255, 0.35),
-            transparent 60%
-          ),
-          radial-gradient(
-            520px 220px at 80% 30%,
-            rgba(37, 99, 235, 0.28),
-            transparent 60%
-          );
-        border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-      }
-
-      body.dark .project-image {
-        border-bottom-color: rgba(96, 165, 250, 0.14);
+        flex: 1 1 auto;
+        max-width: 100%;
       }
 
       .project-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
+        border-radius: 20px 20px 0 0;
+        height: auto;
       }
 
-      .project-body {
-        padding: 18px 18px 18px;
+      .project-content {
+        padding: 18px 18px 16px;
       }
+    }
 
-      .project-top {
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 10px;
-      }
+    /* ===== 맨 위로 버튼 ===== */
+    .to-top-btn {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 1000;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: none;
+      background: var(--btn-bg);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 8px 22px rgba(37, 99, 235, 0.4);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(12px);
+      transition: opacity 0.25s ease, transform 0.25s ease,
+        background 0.2s ease;
+    }
 
-      .project-title {
-        margin: 0;
-        font-size: 18px;
-        font-weight: 950;
-        letter-spacing: -0.4px;
-        line-height: 1.25;
-      }
+    .to-top-btn.show {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
 
-      .project-subtitle {
-        margin: 8px 0 0 0;
-        color: var(--muted);
-        font-size: 14px;
-        font-weight: 700;
-        line-height: 1.65;
-      }
+    .to-top-btn:hover {
+      background: var(--btn-bg-hover);
+    }
 
-      .project-badges {
-        margin-top: 12px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-      }
+    footer {
+      text-align: center;
+      padding: 40px;
+      opacity: 0.6;
+    }
+  </style>
+</head>
 
-      .badge {
-        font-size: 12px;
-        font-weight: 900;
-        padding: 5px 10px;
-        border-radius: 999px;
-        border: 1px solid rgba(148, 163, 184, 0.35);
-        background: rgba(148, 163, 184, 0.14);
-      }
+<body>
+  <!-- ===== HEADER ===== -->
+  <nav>
+    <ul class="nav-menu">
+      <li><a onclick="goTo('intro')">소개</a></li>
+      <li><a onclick="goTo('growth')">성장 과정</a></li>
+      <li><a onclick="goTo('career')">교육활동</a></li>
+      <li><a onclick="goTo('contact')">연락처</a></li>
+      <li><a onclick="goTo('projects')">프로젝트</a></li>
+      <li>
+        <button class="dark-toggle" onclick="toggleDark()">
+          🌙 <span>다크</span>
+        </button>
+      </li>
+    </ul>
+  </nav>
 
-      body.dark .badge {
-        border-color: rgba(96, 165, 250, 0.2);
-        background: rgba(96, 165, 250, 0.1);
-      }
+  <!-- ===== HERO (프로필 카드) ===== -->
+  <header class="hero">
+    <div class="hero-card">
+      <div class="hero-profile-wrapper">
+        <img src="증명사진.png" class="hero-profile" alt="프로필 사진" />
+      </div>
 
-      .project-tech {
-        margin-top: 10px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-      }
+      <div class="hero-text">
+        <h1>신민수 | 프론트엔드 개발자</h1>
+        <div class="hero-role">Frontend · Web · UI/UX</div>
+        <p class="hero-sub">
+          ✋ 새로운 기술과 환경을 두려워하지 않고,  
+          사용자 경험을 개선하는 웹 서비스를 만들고 싶은 개발자 신민수입니다.
+        </p>
 
-      .project-actions {
-        margin-top: 12px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-      }
-
-      details {
-        margin-top: 10px;
-        border-radius: 14px;
-        background: rgba(255, 255, 255, 0.25);
-        border: 1px solid rgba(255, 255, 255, 0.4);
-        padding: 10px 12px;
-      }
-      body.dark details {
-        background: rgba(2, 6, 23, 0.22);
-        border-color: rgba(96, 165, 250, 0.16);
-      }
-      details summary {
-        cursor: pointer;
-        font-weight: 900;
-        list-style: none;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 10px;
-      }
-      details summary::-webkit-details-marker {
-        display: none;
-      }
-      details summary .arrow {
-        opacity: 0.7;
-        transition: transform 0.2s ease;
-      }
-      details[open] summary .arrow {
-        transform: rotate(180deg);
-      }
-      details ul {
-        margin: 10px 0 0 18px;
-        padding: 0;
-        color: var(--muted);
-        font-weight: 650;
-        line-height: 1.7;
-        font-size: 14px;
-      }
-      details li {
-        margin-bottom: 4px;
-      }
-
-      /* ===== CONTACT ===== */
-      .contact-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 14px;
-      }
-      @media (max-width: 920px) {
-        .contact-grid {
-          grid-template-columns: 1fr;
-        }
-      }
-      .contact-item {
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-      }
-      .contact-item .label {
-        font-size: 12px;
-        font-weight: 900;
-        color: var(--muted);
-      }
-      .contact-item a {
-        color: var(--accent-2);
-        font-weight: 950;
-        text-decoration: none;
-      }
-      .contact-item a:hover {
-        text-decoration: underline;
-      }
-
-      /* ===== TO TOP ===== */
-      .to-top-btn {
-        position: fixed;
-        right: 18px;
-        bottom: 18px;
-        z-index: 1000;
-        padding: 10px 14px;
-        border-radius: 999px;
-        border: none;
-        background: var(--btn-bg);
-        color: #fff;
-        font-size: 13px;
-        font-weight: 900;
-        cursor: pointer;
-        box-shadow: 0 10px 26px rgba(37, 99, 235, 0.42);
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        opacity: 0;
-        pointer-events: none;
-        transform: translateY(12px);
-        transition: opacity 0.25s ease, transform 0.25s ease,
-          background 0.2s ease;
-      }
-
-      .to-top-btn.show {
-        opacity: 1;
-        pointer-events: auto;
-        transform: translateY(0);
-      }
-
-      .to-top-btn:hover {
-        background: var(--btn-bg-hover);
-      }
-
-      footer {
-        text-align: center;
-        padding: 40px 12px 54px;
-        opacity: 0.75;
-        font-weight: 700;
-        color: var(--muted);
-      }
-
-      /* ===== Reduced Motion ===== */
-      @media (prefers-reduced-motion: reduce) {
-        * {
-          transition: none !important;
-          animation: none !important;
-          scroll-behavior: auto !important;
-        }
-        section {
-          opacity: 1 !important;
-          transform: none !important;
-        }
-      }
-    </style>
-  </head>
-
-  <body>
-    <a class="skip-link" href="#main">본문으로 바로가기</a>
-
-    <!-- ===== NAV ===== -->
-    <nav aria-label="상단 내비게이션">
-      <div class="nav-inner">
-        <a class="brand" href="#top" data-nav>
-          <span class="brand-badge" aria-hidden="true"></span>
-          <span>SHIN MIN SU</span>
-        </a>
-
-        <ul class="nav-menu">
-          <li><a href="#intro" data-nav>소개</a></li>
-          <li><a href="#skills" data-nav>기술</a></li>
-          <li><a href="#experience" data-nav>교육·활동</a></li>
-          <li><a href="#projects" data-nav>프로젝트</a></li>
-          <li><a href="#contact" data-nav>연락처</a></li>
-        </ul>
-
-        <div class="nav-actions">
-          <button
-            class="icon-btn"
-            type="button"
-            id="darkToggle"
-            aria-label="다크 모드 토글"
-          >
-            🌙 <span id="darkLabel">다크</span>
-          </button>
+        <div class="hero-contact">
+          <div>
+            📧
+            <a href="mailto:aksvmfkd3@naver.com">aksvmfkd3@naver.com</a>
+          </div>
+          <div>
+            💻
+            <a href="https://github.com/ZonezIpex" target="_blank">GitHub</a>
+          </div>
+          <div>📱 010-4759-5082</div>
         </div>
       </div>
-    </nav>
+    </div>
+  </header>
 
-    <main id="main" class="container">
-      <!-- ===== HERO ===== -->
-      <header class="hero" id="top">
-        <div class="hero-grid">
-          <!-- 사진 경로만 네 파일에 맞게 바꾸면 됨 -->
-          <img
-            src="assets/img/profile.jpg"
-            class="hero-photo"
-            alt="신민수 프로필 사진"
-            onerror="this.src='assets/img/profile-placeholder.png';"
-          />
+  <!-- ===== INTRO ===== -->
+  <section id="intro">
+    <div class="title">소개</div>
+    <div class="card">
+      안녕하세요. 게임 시스템과 웹 개발 흐름에 관심을 갖고 꾸준히 성장해온 신민수입니다.
+      React 기반 웹 서비스와 2D 게임 개발 프로젝트를 진행하며 사용자 경험 중심의 개발을
+      목표로 하고 있습니다.
+    </div>
+  </section>
 
-          <div class="hero-headline">
-            <h1>신민수 · Frontend Developer</h1>
+  <!-- ===== 성장 과정 ===== -->
+  <section id="growth">
+    <div class="title">성장 과정</div>
+    <div class="card">
+      어릴 때 게임 구조가 궁금해 명령어를 따라해보며 프로그래밍에 흥미를 느꼈습니다.
+      JavaScript 2D 게임 제작과 React 기반 웹 프로젝트를 거치며 개발자로서의 방향성을
+      잡았습니다.
+    </div>
+  </section>
 
-            <div class="hero-role" aria-label="핵심 키워드">
-              <span class="chip">Frontend</span>
-              <span class="chip">Web</span>
-              <span class="chip"><strong>UI/UX</strong></span>
-              <span class="chip">Design-friendly</span>
-            </div>
+  <!-- ===== 기술 스택 ===== -->
+  <section id="skills">
+    <div class="title">기술 스택</div>
+    <div class="card">
+      <strong>Frontend</strong>
+      <div class="skill-tags">
+        <span class="tag">HTML5</span>
+        <span class="tag">CSS3</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">React</span>
+        <span class="tag">Styled-components</span>
+      </div>
+      <br />
+      <strong>Backend & DB</strong>
+      <div class="skill-tags">
+        <span class="tag">Node.js</span>
+        <span class="tag">Express</span>
+        <span class="tag">Spring Boot</span>
+        <span class="tag">REST API</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">MongoDB</span>
+      </div>
+      <br />
+      <strong>기타</strong>
+      <div class="skill-tags">
+        <span class="tag">Git / GitHub</span>
+        <span class="tag">JWT 인증</span>
+        <span class="tag">OpenAI API</span>
+        <span class="tag">Nginx · Ubuntu</span>
+      </div>
+    </div>
+  </section>
 
-            <p class="hero-intro">
-              기술과 디자인을 함께 고려해, <b>사용자 흐름이 자연스러운 화면</b>과
-              <b>신뢰도 있는 경험</b>을 만드는 개발자입니다. 팀 프로젝트에서
-              프론트엔드와 UI 설계를 주도하며, 피드백을 반영해 완성도를 끌어올리는
-              방식으로 성장해왔습니다.
-            </p>
+  <!-- ===== 경력 & 활동 ===== -->
+  <section id="career">
+    <div class="title">교육 & 활동</div>
+    <div class="card">
+      · 육군 통신병 병장 전역 (2022.05 ~ 2023.11)<br />
+      · Java 튜터링 보조(2023)<br />
+      · 반도체 생산관리시스템 엔지니어 초급 취득(2024~2025)<br />
+      · CSI 동아리 웹 제작 프로젝트(2025)<br />
+      · 대림대 해커톤 장려상(2024)
+    </div>
+  </section>
 
-            <div class="hero-actions">
-              <!-- PDF 파일은 리포지토리에 넣고 경로만 맞추면 다운로드/열람 가능 -->
-              <a class="btn" href="assets/docs/이력서.pdf" target="_blank" rel="noopener noreferrer">
-                📄 이력서 PDF
-              </a>
-              <a class="btn btn-secondary" href="assets/docs/포트폴리오.pdf" target="_blank" rel="noopener noreferrer">
-                🗂️ 포트폴리오 PDF
-              </a>
-              <a class="btn btn-secondary" href="#projects" data-nav>
-                🚀 프로젝트 보기
-              </a>
-            </div>
+  <!-- ===== CONTACT 섹션 ===== -->
+  <section id="contact">
+    <div class="title">연락처</div>
+    <div class="card">
+      📧 Email: aksvmfkd3@naver.com<br />
+      🧑‍💻 GitHub:
+      <a href="https://github.com/ZonezIpex" target="_blank"
+        >https://github.com/ZonezIpex</a
+      ><br />
+      📱 연락처: 010-4759-5082
+    </div>
+  </section>
 
-            <div class="hero-meta" aria-label="연락 정보">
-              <div>
-                📧
-                <a href="mailto:aksvmfkd3@naver.com">aksvmfkd3@naver.com</a>
-              </div>
-              <div>
-                💻
-                <a
-                  href="https://github.com/ZonezIpex"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >github.com/ZonezIpex</a
-                >
-              </div>
-              <div>📱 010-4759-5082</div>
-              <!-- 공개용이면 상세 주소 대신 "서울" 정도만 추천 -->
-              <div>📍 서울특별시(관악구)</div>
-            </div>
-          </div>
+  <!-- ===== PROJECTS ===== -->
+  <section id="projects">
+    <div class="title">프로젝트</div>
+
+    <!-- 1. 대팡 -->
+    <div class="card project-card">
+      <div class="project-layout">
+        <div class="project-image">
+          <img src="대팡 메인페이지.png" alt="대팡 메인페이지" />
         </div>
-      </header>
-
-      <!-- ===== INTRO ===== -->
-      <section id="intro" aria-label="소개 섹션">
-        <div class="section-title">
-          <h2>소개</h2>
-          <p class="section-sub">사용자 경험과 화면 흐름을 중심으로 설계합니다</p>
-        </div>
-
-        <div class="card">
-          <p style="margin: 0; line-height: 1.8; font-weight: 650; color: var(--muted)">
-            게임과 웹 서비스를 접하며 “작은 UI 차이가 사용자의 행동을 바꾼다”는 점에
-            흥미를 느꼈고, 프로젝트를 통해 화면 설계–구현–개선을 반복해왔습니다.
-            특히 팀 프로젝트에서 <b>프론트엔드 총괄/디자인 총괄</b> 역할을 맡아
-            UI 구조를 정리하고, 피드백을 반영해 완성도를 높이는 경험을 많이 했습니다.
+        <div class="project-content">
+          <h3>대팡 — 필기·요약·퀴즈 통합 AI 학습 플랫폼</h3>
+          <p class="project-summary">
+            대학생·취준생이 흩어진 학습/취업 자료를 한 곳에서 관리하고,
+            AI로 퀴즈를 생성해 효율적으로 공부할 수 있는 웹 서비스입니다.
           </p>
-
-          <div class="tag-list" aria-label="강점">
-            <span class="tag">사용자 흐름 중심 설계</span>
-            <span class="tag">컴포넌트/상태 구조화</span>
-            <span class="tag">팀 협업 · 소통</span>
-            <span class="tag">디자인 감각 기반 UI 구현</span>
+          <ul>
+            <li>시험·자격증·취업 준비 자료를 통합 관리하는 학습 대시보드 구현</li>
+            <li>업로드한 필기·요약 내용에서 AI가 자동으로 퀴즈를 생성해 복습 효율 향상</li>
+            <li>자격증·진로를 위한 로드맵과 자료 공유 기능 설계</li>
+            <li>프론트엔드 화면 구성과 주요 UX 흐름 설계·구현 담당</li>
+          </ul>
+          <div class="project-tech">
+            React · Node.js · MySQL · OpenAI API
+          </div>
+          <div class="project-actions">
+            <a
+              class="btn"
+              href="https://youtu.be/hRCiG1fAoIU"
+              target="_blank"
+              rel="noopener noreferrer"
+              >🎥 대팡 시연 영상 보기</a
+            >
+            <a
+              class="btn btn-secondary"
+              href="https://github.com/ZonezIpex/DaepangIntroduction.git"
+              target="_blank"
+              rel="noopener noreferrer"
+              >💻 GitHub 저장소</a
+            >
           </div>
         </div>
-      </section>
+      </div>
+    </div>
 
-      <!-- ===== SKILLS ===== -->
-      <section id="skills" aria-label="기술 스택 섹션">
-        <div class="section-title">
-          <h2>기술 스택</h2>
-          <p class="section-sub">프로젝트에서 실제로 사용해본 기술 중심</p>
+    <!-- 2. 면접몬 -->
+    <div class="card project-card">
+      <div class="project-layout">
+        <div class="project-image">
+          <img src="면접몬 메인페이지.png" alt="면접몬 메인페이지" />
         </div>
-
-        <div class="skills-grid">
-          <div class="card">
-            <div style="font-weight: 950; font-size: 16px; letter-spacing: -0.2px">
-              Frontend
-            </div>
-            <div class="tag-list" id="skillsFrontend"></div>
+        <div class="project-content">
+          <h3>면접몬 — AI 모의면접 & 피드백 플랫폼</h3>
+          <p class="project-summary">
+            AI를 활용해 실전과 같은 환경에서 모의면접을 연습하고,  
+            답변에 대한 맞춤 피드백을 받을 수 있는 서비스입니다.
+          </p>
+          <ul>
+            <li>지원 직무·기업에 맞춘 면접 질문 자동 생성 및 난이도 조절</li>
+            <li>타이머·점수 시스템으로 실제 면접과 비슷한 긴장감 제공</li>
+            <li>ChatGPT 기반 답변 분석 및 STAR 구조 피드백 제공</li>
+            <li>추후 음성 인터뷰, 이력서·자기소개서 연동 기능 확장 계획</li>
+          </ul>
+          <div class="project-tech">
+            React · Node.js · OpenAI API · MongoDB
           </div>
-
-          <div class="card">
-            <div style="font-weight: 950; font-size: 16px; letter-spacing: -0.2px">
-              Backend & DB
-            </div>
-            <div class="tag-list" id="skillsBackend"></div>
-          </div>
-
-          <div class="card">
-            <div style="font-weight: 950; font-size: 16px; letter-spacing: -0.2px">
-              Tools · Design · Deploy
-            </div>
-            <div class="tag-list" id="skillsTools"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ===== EXPERIENCE ===== -->
-      <section id="experience" aria-label="교육 및 활동 섹션">
-        <div class="section-title">
-          <h2>교육 · 활동</h2>
-          <p class="section-sub">학력 / 수상 / 활동 / 병역</p>
-        </div>
-
-        <div class="card" style="margin-bottom: 14px">
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px">
-            <div>
-              <div style="font-weight: 950; margin-bottom: 10px">학력</div>
-              <ul class="timeline">
-                <li>
-                  <div class="t-title">
-                    <span>대림대학교 · 컴퓨터정보학부</span>
-                    <span class="t-date">2021.03 ~ 2026.02(예정)</span>
-                  </div>
-                  <p class="t-desc">평균학점 3.6 / 4.5</p>
-                </li>
-                <li>
-                  <div class="t-title">
-                    <span>남강고등학교</span>
-                    <span class="t-date">2018.03 ~ 2021.02</span>
-                  </div>
-                  <p class="t-desc">졸업</p>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <div style="font-weight: 950; margin-bottom: 10px">수상 · 자격</div>
-              <ul class="timeline">
-                <li>
-                  <div class="t-title">
-                    <span>대림 해커톤 대회 · 장려상</span>
-                    <span class="t-date">2024</span>
-                  </div>
-                  <p class="t-desc">코린이들을 위한 코딩 게임 개발</p>
-                </li>
-                <li>
-                  <div class="t-title">
-                    <span>성적 장학금(C장학금)</span>
-                    <span class="t-date">2024</span>
-                  </div>
-                  <p class="t-desc">성적 우수</p>
-                </li>
-                <li>
-                  <div class="t-title">
-                    <span>반도체 생산관리시스템 엔지니어(초급)</span>
-                    <span class="t-date">2024.11.23 ~ 2025.02.01</span>
-                  </div>
-                  <p class="t-desc">과정 수료/취득</p>
-                </li>
-                <li>
-                  <div class="t-title">
-                    <span>자동차 운전면허 1종보통</span>
-                    <span class="t-date">2021.05.28</span>
-                  </div>
-                  <p class="t-desc">서울특별시경찰청장</p>
-                </li>
-              </ul>
-            </div>
+          <div class="project-actions">
+            <a
+              class="btn"
+              href="https://youtu.be/Zkb4l3z0vZA"
+              target="_blank"
+              rel="noopener noreferrer"
+              >🎥 면접몬 시연 영상 보기</a
+            >
+            <a
+              class="btn btn-secondary"
+              href="https://github.com/ZonezIpex/MenjupmonIntroduction.git"
+              target="_blank"
+              rel="noopener noreferrer"
+              >💻 GitHub 저장소</a
+            >
           </div>
         </div>
+      </div>
+    </div>
 
-        <div class="card">
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px">
-            <div>
-              <div style="font-weight: 950; margin-bottom: 10px">대외/교내 활동</div>
-              <ul class="timeline">
-                <li>
-                  <div class="t-title">
-                    <span>대림대 CSI 동아리 · 웹페이지 제작</span>
-                    <span class="t-date">2025.04.01 ~ 2025.12.05</span>
-                  </div>
-                  <p class="t-desc">웹페이지 제작 프로젝트 참여</p>
-                </li>
-                <li>
-                  <div class="t-title">
-                    <span>자바 튜터링 · 보조 튜터</span>
-                    <span class="t-date">2023.03 ~ 2023.08</span>
-                  </div>
-                  <p class="t-desc">학습 지원 및 전달력/소통 역량 강화</p>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <div style="font-weight: 950; margin-bottom: 10px">병역</div>
-              <ul class="timeline">
-                <li>
-                  <div class="t-title">
-                    <span>육군 · 소대 통신병(병장)</span>
-                    <span class="t-date">2022.05.04 ~ 2023.11.23</span>
-                  </div>
-                  <p class="t-desc">
-                    제2신속대응사단 예하 / 제201신속대응여단 / 1대대 1중대 2소대
-                  </p>
-                </li>
-              </ul>
-              <div class="tag-list" aria-label="협업 역량">
-                <span class="tag">팀 커뮤니케이션</span>
-                <span class="tag">리더십</span>
-                <span class="tag">문제 해결</span>
-                <span class="tag">책임감</span>
-              </div>
-            </div>
+    <!-- 3. 이력서 플랫폼 -->
+    <div class="card project-card">
+      <div class="project-layout">
+        <div class="project-image">
+          <img
+            src="이력서 플랫폼 메인페이지.png"
+            alt="이력서 플랫폼 메인페이지"
+          />
+        </div>
+        <div class="project-content">
+          <h3>AiR — 회사 맞춤 AI 이력서 플랫폼</h3>
+          <p class="project-summary">
+            지원하려는 회사의 이력서 양식과 공고 내용을 기반으로,  
+            자동으로 맞춤 이력서를 생성해 주는 AI 이력서 제작 서비스입니다.
+          </p>
+          <ul>
+            <li>회사별 PDF 이력서를 AI가 읽어 CSS 형태로 자동 변환해 재사용 가능한 템플릿 생성</li>
+            <li>사용자가 등록한 기본 이력 정보를 바탕으로, 지원 직무·회사에 맞춘 이력서 레이아웃과 문구 자동 구성</li>
+            <li>React + Styled-components로 반응형 UI 구현, Axios로 백엔드와 비동기 통신</li>
+            <li>Spring Boot·JWT 기반 인증, REST API 설계, MySQL + Nginx + Ubuntu 환경으로 배포 구성</li>
+          </ul>
+          <div class="project-tech">
+            React · Styled-components · Axios · Spring Boot · JWT · REST API ·
+            MySQL · Nginx
+          </div>
+          <div class="project-actions">
+            <a
+              class="btn"
+              href="https://youtu.be/YqpiUFLkf74"
+              target="_blank"
+              rel="noopener noreferrer"
+              >🎥 이력서 플랫폼 시연 영상 보기</a
+            >
+            <a
+              class="btn btn-secondary"
+              href="https://github.com/ZonezIpex/Team_project.git"
+              target="_blank"
+              rel="noopener noreferrer"
+              >💻 GitHub 저장소</a
+            >
           </div>
         </div>
-      </section>
+      </div>
+    </div>
 
-      <!-- ===== PROJECTS ===== -->
-      <section id="projects" aria-label="프로젝트 섹션">
-        <div class="section-title">
-          <h2>프로젝트</h2>
-          <p class="section-sub">검색/태그로 빠르게 정리 (프로젝트가 늘어나도 OK)</p>
+    <!-- 4. 코드어드벤쳐 -->
+    <div class="card project-card">
+      <div class="project-layout">
+        <div class="project-image">
+          <img
+            src="코드어드벤쳐 메인페이지.png"
+            alt="코드어드벤쳐 메인페이지"
+          />
         </div>
-
-        <div class="project-toolbar">
-          <div class="search-box">
-            <span aria-hidden="true">🔎</span>
-            <input
-              id="projectSearch"
-              type="text"
-              placeholder="프로젝트 이름/기술/키워드로 검색 (예: React, AI, MySQL)"
-              autocomplete="off"
-            />
+        <div class="project-content">
+          <h3>코드어드벤쳐 — 게임형 코딩 학습 플랫폼</h3>
+          <p class="project-summary">
+            픽셀 아트 게임처럼 스테이지를 클리어하면서 여러 언어를  
+            자연스럽게 익히는 게임 기반 코딩 학습 프로젝트입니다.
+          </p>
+          <ul>
+            <li>C, Java, Python, HTML, CSS, JS 등 언어별 스테이지 구성</li>
+            <li>몬스터와 전투, 단계별 난이도 구조로 학습 동기부여 강화</li>
+            <li>피드백을 반영해 문제 UI, 몬스터 종류, 스토리 요소를 반복 개선</li>
+            <li>프론트엔드 화면 구성과 게임 분위기에 맞는 UI 디자인 담당</li>
+          </ul>
+          <div class="project-tech">
+            React · Canvas · 게임 UI 디자인
           </div>
-          <div class="chip-row" id="projectTagRow"></div>
-        </div>
-
-        <div class="project-grid" id="projectGrid" aria-live="polite"></div>
-      </section>
-
-      <!-- ===== CONTACT ===== -->
-      <section id="contact" aria-label="연락처 섹션">
-        <div class="section-title">
-          <h2>연락처</h2>
-          <p class="section-sub">가볍게 메시지 남겨줘도 좋아요</p>
-        </div>
-
-        <div class="card">
-          <div class="contact-grid">
-            <div class="contact-item">
-              <div class="label">Email</div>
-              <a href="mailto:aksvmfkd3@naver.com">aksvmfkd3@naver.com</a>
-            </div>
-
-            <div class="contact-item">
-              <div class="label">GitHub</div>
-              <a
-                href="https://github.com/ZonezIpex"
-                target="_blank"
-                rel="noopener noreferrer"
-                >https://github.com/ZonezIpex</a
-              >
-            </div>
-
-            <div class="contact-item">
-              <div class="label">Portfolio</div>
-              <a
-                href="https://zonezipex.github.io/"
-                target="_blank"
-                rel="noopener noreferrer"
-                >https://zonezipex.github.io/</a
-              >
-            </div>
-
-            <div class="contact-item">
-              <div class="label">Phone</div>
-              <div style="font-weight: 950">010-4759-5082</div>
-            </div>
-          </div>
-
-          <div style="margin-top: 14px; display: flex; flex-wrap: wrap; gap: 10px">
-            <a class="btn" href="mailto:aksvmfkd3@naver.com">✉️ 이메일 보내기</a>
-            <a class="btn btn-secondary" href="#top" data-nav>⬆️ 맨 위로</a>
+          <div class="project-actions">
+            <a
+              class="btn"
+              href="https://youtu.be/nA3KwnHWKcE"
+              target="_blank"
+              rel="noopener noreferrer"
+              >🎥 코드어드벤쳐 시연 영상 보기</a
+            >
+            <a
+              class="btn btn-secondary"
+              href="https://github.com/ZonezIpex/Codeadventuredealim.git"
+              target="_blank"
+              rel="noopener noreferrer"
+              >💻 GitHub 저장소</a
+            >
           </div>
         </div>
-      </section>
-    </main>
+      </div>
+    </div>
+  </section>
 
-    <footer>© <span id="year"></span> 신민수 Portfolio — All Rights Reserved.</footer>
+  <footer>© 2025 신민수 Portfolio — All Rights Reserved.</footer>
 
-    <button id="toTopBtn" class="to-top-btn" type="button" aria-label="맨 위로">
-      ↑ 맨 위로
-    </button>
+  <!-- 맨 위로 버튼 -->
+  <button id="toTopBtn" class="to-top-btn" onclick="scrollToTop()">
+    ↑ 맨 위로
+  </button>
 
-    <script>
-      /********************
-       * 1) 데이터만 추가하면 확장되는 구조
-       ********************/
-      const PROFILE = {
-        name: "신민수",
-        role: "Frontend Developer · Web · UI/UX",
-        email: "aksvmfkd3@naver.com",
-        phone: "010-4759-5082",
-        github: "https://github.com/ZonezIpex",
-        website: "https://zonezipex.github.io/",
-      };
+  <script>
+    /* ===== 커스텀 느린 스크롤 ===== */
+    function goTo(id) {
+      const target = document.getElementById(id);
+      const headerOffset = 80;
+      const targetY =
+        target.getBoundingClientRect().top + window.scrollY - headerOffset;
+      const startY = window.scrollY;
+      const distance = targetY - startY;
+      const duration = 900;
+      let startTime = null;
 
-      const SKILLS = {
-        frontend: ["HTML5", "CSS3", "JavaScript", "TypeScript", "React", "Styled-components"],
-        backend: ["Node.js", "Express", "Spring Boot", "REST API", "MySQL", "MongoDB"],
-        tools: ["Git/GitHub", "JWT 인증", "OpenAI API", "Nginx · Ubuntu", "Photoshop", "Illustrator", "Adobe XD", "Premiere Pro", "PPT"],
-      };
-
-      /**
-       * ✅ 프로젝트 추가 방법:
-       * 아래 PROJECTS 배열에 객체 하나 더 추가하면 끝.
-       * image는 assets/img/...로 넣고, 없으면 자동 플레이스홀더로 대체됨.
-       */
-      const PROJECTS = [
-        {
-          id: "menjupmon",
-          featured: true,
-          title: "면접몬 — AI 모의면접 & 피드백 플랫폼",
-          subtitle: "AI를 활용한 모의면접 시스템 (팀 3인)",
-          period: "2025.08.28 ~ 2025.12.04",
-          team: "3인",
-          role: "팀장 · 프론트엔드 총괄 · GitHub 관리 · 디자인 총괄 · 오류 피드백",
-          summary:
-            "지원 직무/상황에 맞춘 질문 생성, 타이머 기반 진행, 답변 분석 피드백으로 실전 감각을 높이는 모의면접 서비스.",
-          highlights: [
-            "면접 진행 단계별 UI/상태 관리 구조 설계",
-            "사용자 응답에 따른 피드백 표시 로직 분리",
-            "AI 응답 지연을 고려한 로딩/대기 UX 처리",
-          ],
-          tech: ["React", "TypeScript", "Node.js", "MySQL"],
-          tags: ["AI", "Web", "React"],
-          image: "assets/img/면접몬.png",
-          links: [
-            { label: "🎥 시연 영상", href: "https://youtu.be/Zkb4l3z0vZA", primary: true },
-            { label: "💻 소개 저장소", href: "https://github.com/ZonezIpex/MenjupmonIntroduction.git" },
-            { label: "🧩 Front", href: "https://github.com/ZonezIpex/Menjupmon-front.git" },
-            { label: "⚙️ Back", href: "https://github.com/ZonezIpex/Menjupmon-back.git" },
-          ],
-        },
-        {
-          id: "daepang",
-          featured: true,
-          title: "대팡 — 필기·요약·퀴즈 통합 AI 학습 플랫폼",
-          subtitle: "효율적 공부를 위한 올인원 플랫폼 (팀 3인)",
-          period: "2025.08.27 ~ 2025.12.03",
-          team: "3인",
-          role: "팀장 · 프론트엔드 제작 & 디자인 총괄 · 소개영상 제작/편집",
-          summary:
-            "학습 자료를 한 곳에 모으고, AI 기반 퀴즈 생성으로 복습 효율을 높이는 학습 대시보드 서비스.",
-          highlights: [
-            "사용자 흐름 기반 컴포넌트 구조 설계",
-            "상태 관리 분리로 기능 확장 대응",
-            "프론트–백엔드 API 연동 구조 정의",
-          ],
-          tech: ["React", "TypeScript", "Node.js", "MySQL", "OpenAI API"],
-          tags: ["AI", "Web", "React"],
-          image: "assets/img/대팡.png",
-          links: [
-            { label: "🎥 시연 영상", href: "https://youtu.be/hRCiG1fAoIU", primary: true },
-            { label: "💻 소개 저장소", href: "https://github.com/ZonezIpex/DaepangIntroduction.git" },
-            { label: "🧩 Front", href: "https://github.com/ZonezIpex/Daepang-front.git" },
-            { label: "⚙️ Back", href: "https://github.com/ZonezIpex/Daepang-back.git" },
-          ],
-        },
-        {
-          id: "air",
-          featured: false,
-          title: "AiR — 회사 맞춤 AI 이력서 플랫폼",
-          subtitle: "AI 이력서 작성 프로그램 (팀 8인)",
-          period: "2025.04.19 ~ 2025.06.22",
-          team: "8인",
-          role: "부팀장 · 프론트엔드 제작/총관리 · GitHub 관리 · 피드백 제공",
-          summary:
-            "회사/직무에 맞춘 이력서 초안을 빠르게 만들고, 사용자가 수정·보완할 수 있도록 돕는 이력서 제작 서비스.",
-          highlights: [
-            "이력서 입력 단계 UI 흐름/화면 전환 구조 설계",
-            "AI 생성 결과를 사용자가 수정·보완할 수 있도록 UI 분리",
-            "팀 협업을 위한 GitHub 브랜치 관리 및 코드 리뷰 진행",
-          ],
-          tech: ["React", "JavaScript", "Node.js", "MySQL"],
-          tags: ["AI", "Web"],
-          image: "assets/img/air.png",
-          links: [
-            { label: "🎥 시연 영상", href: "https://youtu.be/YqpiUFLkf74", primary: true },
-            { label: "💻 GitHub", href: "https://github.com/ZonezIpex/Team_project.git" },
-          ],
-        },
-        {
-          id: "codeventure",
-          featured: false,
-          title: "코드어드벤쳐 — 게임형 코딩 학습 플랫폼",
-          subtitle: "대림대 해커톤 프로젝트 (팀 4인)",
-          period: "2024.04 ~ 2024.07",
-          team: "4인",
-          role: "프론트엔드 개발 · UI/UX 디자인 제작",
-          summary:
-            "퀴즈를 풀며 스테이지를 진행하는 방식으로 코딩을 처음 시작하는 사람의 진입장벽을 낮춘 학습 게임.",
-          highlights: [
-            "스테이지 기반 퀴즈 진행 UI 및 상태 전환 로직 구현",
-            "사용자 답변에 따른 데미지/공격 시스템 구현",
-            "게임 몰입도를 높이는 스토리/분위기 흐름 구성",
-          ],
-          tech: ["React", "Node.js"],
-          tags: ["Game", "Web"],
-          image: "assets/img/codeventure.png",
-          links: [
-            { label: "🎥 시연 영상", href: "https://youtu.be/nA3KwnHWKcE", primary: true },
-            { label: "💻 GitHub", href: "https://github.com/ZonezIpex/Codeadventuredealim.git" },
-          ],
-        },
-      ];
-
-      /********************
-       * 2) 유틸: DOM
-       ********************/
-      const $ = (sel, parent = document) => parent.querySelector(sel);
-      const $$ = (sel, parent = document) => [...parent.querySelectorAll(sel)];
-
-      function createTag(text, cls = "tag") {
-        const span = document.createElement("span");
-        span.className = cls;
-        span.textContent = text;
-        return span;
+      function easeInOutQuad(t) {
+        return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
       }
 
-      function escapeHTML(str) {
-        return String(str)
-          .replaceAll("&", "&amp;")
-          .replaceAll("<", "&lt;")
-          .replaceAll(">", "&gt;")
-          .replaceAll('"', "&quot;")
-          .replaceAll("'", "&#039;");
-      }
+      function animation(currentTime) {
+        if (startTime === null) startTime = currentTime;
+        const timeElapsed = currentTime - startTime;
+        const progress = Math.min(timeElapsed / duration, 1);
+        const eased = easeInOutQuad(progress);
 
-      /********************
-       * 3) 렌더링: Skills
-       ********************/
-      function renderSkills() {
-        const front = $("#skillsFrontend");
-        const back = $("#skillsBackend");
-        const tools = $("#skillsTools");
+        window.scrollTo(0, startY + distance * eased);
 
-        SKILLS.frontend.forEach((t) => front.appendChild(createTag(t)));
-        SKILLS.backend.forEach((t) => back.appendChild(createTag(t)));
-        SKILLS.tools.forEach((t) => tools.appendChild(createTag(t)));
-      }
-
-      /********************
-       * 4) 렌더링: Projects + 필터
-       ********************/
-      let activeTag = "전체";
-      function getAllTags() {
-        const set = new Set(["전체"]);
-        PROJECTS.forEach((p) => (p.tags || []).forEach((t) => set.add(t)));
-        return [...set];
-      }
-
-      function renderTagRow() {
-        const row = $("#projectTagRow");
-        row.innerHTML = "";
-        getAllTags().forEach((tag) => {
-          const btn = document.createElement("button");
-          btn.type = "button";
-          btn.className = "chip-btn" + (tag === activeTag ? " active" : "");
-          btn.textContent = tag;
-          btn.addEventListener("click", () => {
-            activeTag = tag;
-            renderTagRow();
-            renderProjects();
-          });
-          row.appendChild(btn);
-        });
-      }
-
-      function matchProject(p, keyword) {
-        const k = keyword.trim().toLowerCase();
-        if (!k) return true;
-
-        const blob = [
-          p.title,
-          p.subtitle,
-          p.summary,
-          p.role,
-          (p.tech || []).join(" "),
-          (p.tags || []).join(" "),
-          (p.highlights || []).join(" "),
-        ]
-          .filter(Boolean)
-          .join(" ")
-          .toLowerCase();
-
-        return blob.includes(k);
-      }
-
-      function matchTag(p) {
-        if (activeTag === "전체") return true;
-        return (p.tags || []).includes(activeTag);
-      }
-
-      function projectCardHTML(p) {
-        const links = (p.links || [])
-          .map((l) => {
-            const cls = l.primary ? "btn" : "btn btn-secondary";
-            return `<a class="${cls}" href="${escapeHTML(
-              l.href
-            )}" target="_blank" rel="noopener noreferrer">${escapeHTML(
-              l.label
-            )}</a>`;
-          })
-          .join("");
-
-        const techTags = (p.tech || [])
-          .map((t) => `<span class="badge">${escapeHTML(t)}</span>`)
-          .join("");
-
-        const highlights = (p.highlights || [])
-          .map((h) => `<li>${escapeHTML(h)}</li>`)
-          .join("");
-
-        const cover = escapeHTML(p.image || "");
-        const title = escapeHTML(p.title || "");
-        const subtitle = escapeHTML(p.subtitle || "");
-        const period = escapeHTML(p.period || "");
-        const team = escapeHTML(p.team || "");
-        const role = escapeHTML(p.role || "");
-        const summary = escapeHTML(p.summary || "");
-
-        return `
-          <article class="card project-card">
-            <div class="project-cover">
-              <div class="project-image">
-                <img src="${cover}" alt="${title} 대표 이미지"
-                  onerror="this.style.display='none';"
-                />
-              </div>
-              <div class="project-body">
-                <div class="project-top">
-                  <div>
-                    <h3 class="project-title">${title}</h3>
-                    <p class="project-subtitle">${subtitle}</p>
-                  </div>
-                  ${
-                    p.featured
-                      ? `<span class="badge" title="대표 프로젝트">⭐ Featured</span>`
-                      : ""
-                  }
-                </div>
-
-                <div class="project-badges" aria-label="프로젝트 메타">
-                  <span class="badge">📆 ${period}</span>
-                  <span class="badge">👥 ${team}</span>
-                  <span class="badge">🧩 ${role}</span>
-                </div>
-
-                <p class="project-subtitle" style="margin-top: 10px; color: var(--muted)">
-                  ${summary}
-                </p>
-
-                <div class="project-tech" aria-label="기술 스택">
-                  ${techTags}
-                </div>
-
-                <details>
-                  <summary>
-                    <span>핵심 작업 · 상세 역할</span>
-                    <span class="arrow">▾</span>
-                  </summary>
-                  <ul>${highlights}</ul>
-                </details>
-
-                <div class="project-actions" aria-label="프로젝트 링크">
-                  ${links}
-                </div>
-              </div>
-            </div>
-          </article>
-        `;
-      }
-
-      function renderProjects() {
-        const grid = $("#projectGrid");
-        const keyword = $("#projectSearch").value || "";
-
-        const filtered = PROJECTS
-          .filter(matchTag)
-          .filter((p) => matchProject(p, keyword))
-          .sort((a, b) => Number(b.featured) - Number(a.featured));
-
-        grid.innerHTML = filtered.length
-          ? filtered.map(projectCardHTML).join("")
-          : `<div class="card" style="grid-column: 1 / -1;">
-               <div style="font-weight: 950; margin-bottom: 6px;">검색 결과가 없어요.</div>
-               <div style="color: var(--muted); font-weight: 650; line-height: 1.7;">
-                 다른 키워드로 검색하거나 태그를 "전체"로 바꿔보자.
-               </div>
-             </div>`;
-      }
-
-      /********************
-       * 5) 스크롤/애니메이션
-       ********************/
-      function smoothScrollTo(targetId) {
-        const target = document.getElementById(targetId);
-        if (!target) return;
-
-        const headerOffset = 18 + parseInt(getComputedStyle(document.documentElement).getPropertyValue("--nav-h"));
-        const targetY = target.getBoundingClientRect().top + window.scrollY - headerOffset;
-        const startY = window.scrollY;
-        const distance = targetY - startY;
-        const duration = 800;
-        let startTime = null;
-
-        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        if (reduce) {
-          window.scrollTo(0, targetY);
-          return;
+        if (timeElapsed < duration) {
+          requestAnimationFrame(animation);
         }
-
-        function easeInOutQuad(t) {
-          return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-        }
-
-        function step(currentTime) {
-          if (startTime === null) startTime = currentTime;
-          const timeElapsed = currentTime - startTime;
-          const progress = Math.min(timeElapsed / duration, 1);
-          const eased = easeInOutQuad(progress);
-          window.scrollTo(0, startY + distance * eased);
-          if (timeElapsed < duration) requestAnimationFrame(step);
-        }
-
-        requestAnimationFrame(step);
       }
 
-      function setupNav() {
-        const navLinks = $$("[data-nav]").filter((a) => a.tagName === "A");
-        navLinks.forEach((a) => {
-          const href = a.getAttribute("href") || "";
-          if (!href.startsWith("#")) return;
-          const id = href.replace("#", "");
-          a.addEventListener("click", (e) => {
-            e.preventDefault();
-            smoothScrollTo(id);
-            history.replaceState(null, "", `#${id}`);
-          });
+      requestAnimationFrame(animation);
+    }
+
+    /* ===== 다크모드 ===== */
+    function toggleDark() {
+      document.body.classList.toggle("dark");
+    }
+
+    /* ===== 스크롤 등장 애니메이션 ===== */
+    const sections = document.querySelectorAll("section");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
         });
+      },
+      { threshold: 0.2 }
+    );
 
-        // 현재 섹션에 따라 active 처리
-        const sections = $$("main section");
-        const map = new Map();
-        navLinks.forEach((a) => map.set(a.getAttribute("href"), a));
+    sections.forEach((sec) => observer.observe(sec));
 
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (!entry.isIntersecting) return;
-              const id = entry.target.getAttribute("id");
-              navLinks.forEach((l) => l.classList.remove("active"));
-              const link = map.get(`#${id}`);
-              if (link) link.classList.add("active");
-            });
-          },
-          { threshold: 0.35 }
-        );
+    /* ===== 맨 위로 버튼 ===== */
+    const toTopBtn = document.getElementById("toTopBtn");
 
-        sections.forEach((s) => observer.observe(s));
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 400) {
+        toTopBtn.classList.add("show");
+      } else {
+        toTopBtn.classList.remove("show");
+      }
+    });
+
+    function scrollToTop() {
+      const startY = window.scrollY;
+      const distance = -startY;
+      const duration = 900;
+      let startTime = null;
+
+      function easeInOutQuad(t) {
+        return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
       }
 
-      function setupReveal() {
-        const sections = $$("main section");
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) entry.target.classList.add("visible");
-            });
-          },
-          { threshold: 0.15 }
-        );
-        sections.forEach((s) => observer.observe(s));
-      }
+      function animation(currentTime) {
+        if (startTime === null) startTime = currentTime;
+        const timeElapsed = currentTime - startTime;
+        const progress = Math.min(timeElapsed / duration, 1);
+        const eased = easeInOutQuad(progress);
 
-      /********************
-       * 6) 다크 모드 (저장 + 시스템 선호 반영)
-       ********************/
-      function setupDarkMode() {
-        const btn = $("#darkToggle");
-        const label = $("#darkLabel");
+        window.scrollTo(0, startY + distance * eased);
 
-        const stored = localStorage.getItem("theme");
-        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-        if (stored === "dark" || (!stored && prefersDark)) {
-          document.body.classList.add("dark");
-          label.textContent = "라이트";
+        if (timeElapsed < duration) {
+          requestAnimationFrame(animation);
         }
-
-        btn.addEventListener("click", () => {
-          const isDark = document.body.classList.toggle("dark");
-          localStorage.setItem("theme", isDark ? "dark" : "light");
-          label.textContent = isDark ? "라이트" : "다크";
-        });
       }
 
-      /********************
-       * 7) 맨 위로 버튼
-       ********************/
-      function setupToTop() {
-        const toTopBtn = $("#toTopBtn");
-        window.addEventListener("scroll", () => {
-          if (window.scrollY > 400) toTopBtn.classList.add("show");
-          else toTopBtn.classList.remove("show");
-        });
-
-        toTopBtn.addEventListener("click", () => smoothScrollTo("top"));
-      }
-
-      /********************
-       * 8) 초기화
-       ********************/
-      function init() {
-        $("#year").textContent = new Date().getFullYear();
-        renderSkills();
-        renderTagRow();
-        renderProjects();
-
-        $("#projectSearch").addEventListener("input", renderProjects);
-
-        setupDarkMode();
-        setupReveal();
-        setupNav();
-        setupToTop();
-      }
-
-      init();
-    </script>
-  </body>
+      requestAnimationFrame(animation);
+    }
+  </script>
+</body>
 </html>
