@@ -1002,7 +1002,7 @@
 
       <section id="career">
         <h2 class="section-title" id="secAct">교육활동</h2>
-        <div class="split-grid">
+        <div class="skills-grid">
           <div class="card">
             <div class="skills-title" id="actLeftTitle">교내활동</div>
             <ul class="mini-list" id="actLeftList">
@@ -1013,10 +1013,16 @@
           </div>
 
           <div class="card">
-            <div class="skills-title" id="actRightTitle">수상 · 자격</div>
-            <ul class="mini-list" id="actRightList">
+            <div class="skills-title" id="actAwardTitle">수상</div>
+            <ul class="mini-list" id="actAwardList">
               <li>대림대 해커톤 대회 — 장려상 (2024)</li>
               <li>성적우수 장학금 — C장학금 (2024)</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="skills-title" id="actCertTitle">자격증</div>
+            <ul class="mini-list" id="actCertList">
               <li>자동차 운전면허 1종보통 (2021.05.28)</li>
             </ul>
           </div>
@@ -1180,7 +1186,8 @@
           skillsT3: "Adobe · 디자인 툴",
           skillsD3: "시각 요소 제작 · 프로토타입 · 영상 편집 기초",
           actLeftTitle: "교내활동",
-          actRightTitle: "수상 · 자격",
+          actAwardTitle: "수상",
+          actCertTitle: "자격증",
           searchPH: "프로젝트 검색",
           details: "상세 보기",
           top: "↑ 맨 위로",
@@ -1224,7 +1231,8 @@
           skillsT3: "Adobe & Design Tools",
           skillsD3: "Visual assets · Prototyping · Basic motion/video editing",
           actLeftTitle: "School Activities",
-          actRightTitle: "Awards & Certificates",
+          actAwardTitle: "Awards",
+          actCertTitle: "Certificates",
           searchPH: "Search projects",
           details: "Details",
           top: "↑ Top",
@@ -1514,7 +1522,8 @@
         $("#skillsD3").textContent = t.skillsD3;
 
         $("#actLeftTitle").textContent = t.actLeftTitle;
-        $("#actRightTitle").textContent = t.actRightTitle;
+        if ($("#actAwardTitle")) $("#actAwardTitle").textContent = t.actAwardTitle;
+        if ($("#actCertTitle")) $("#actCertTitle").textContent = t.actCertTitle;
 
         $("#projectSearch").placeholder = t.searchPH;
         $("#toTopBtn").textContent = t.top;
