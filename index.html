@@ -954,10 +954,13 @@
               <div>📧 <a href="mailto:aksvmfkd3@naver.com">aksvmfkd3@naver.com</a></div>
               <div>💻 <a href="https://github.com/ZonezIpex" target="_blank" rel="noopener noreferrer">GitHub</a></div>
               <div>🌐 <a href="https://zonezipex.github.io/" target="_blank" rel="noopener noreferrer">Web Portfolio</a></div>
+              <div>
+                📝 <a href="https://content467.tistory.com/" target="_blank" rel="noopener noreferrer" id="heroBlogLink">Blog</a>
+              </div>
               <div>📱 010-4759-5082</div>
               <div>📍 서울특별시 관악구 법원단지 13길 10</div>
             </div>
-</div>
+          </div>
         </div>
       </header>
 
@@ -1049,9 +1052,29 @@
           📧 Email:
           <a href="mailto:aksvmfkd3@naver.com" style="color: var(--accent-2); font-weight: 980; text-decoration: none">aksvmfkd3@naver.com</a><br />
           💻 GitHub:
-          <a href="https://github.com/ZonezIpex" target="_blank" rel="noopener noreferrer" style="color: var(--accent-2); font-weight: 980; text-decoration: none">https://github.com/ZonezIpex</a><br />
+          <a
+            href="https://github.com/ZonezIpex"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="color: var(--accent-2); font-weight: 980; text-decoration: none"
+            >https://github.com/ZonezIpex</a
+          ><br />
           🌐 Web Portfolio:
-          <a href="https://zonezipex.github.io/" target="_blank" rel="noopener noreferrer" style="color: var(--accent-2); font-weight: 980; text-decoration: none">https://zonezipex.github.io/</a><br />
+          <a
+            href="https://zonezipex.github.io/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="color: var(--accent-2); font-weight: 980; text-decoration: none"
+            >https://zonezipex.github.io/</a
+          ><br />
+          📝 Blog:
+          <a
+            href="https://content467.tistory.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="color: var(--accent-2); font-weight: 980; text-decoration: none"
+            >https://content467.tistory.com/</a
+          ><br />
           📱 연락처: 010-4759-5082<br />
           📍 주소: 서울특별시 관악구 법원단지 13길 10
         </div>
@@ -1063,6 +1086,8 @@
     <button id="toTopBtn" class="to-top-btn" type="button" aria-label="Back to top">↑ 맨 위로</button>
 
     <script>
+      const BLOG_URL = "https://content467.tistory.com/";
+
       const SKILLS = {
         frontend: ["HTML", "CSS", "JavaScript", "TypeScript", "React"],
         tools: ["Node.js", "Git", "VS Code", "PowerPoint"],
@@ -1078,7 +1103,12 @@
             en: "Manage materials in one place and boost review with AI-generated quizzes",
           },
           highlights: {
-            ko: ["학습 자료 대시보드 구성", "AI 퀴즈 생성으로 복습 효율 향상", "주요 UX 흐름 설계 및 프론트 구현", "역할: 팀장(프론트엔드 제작 & 디자인 총괄/소개영상 제작·편집) · 기간: 2025.08.27 ~ 2025.12.03"],
+            ko: [
+              "학습 자료 대시보드 구성",
+              "AI 퀴즈 생성으로 복습 효율 향상",
+              "주요 UX 흐름 설계 및 프론트 구현",
+              "역할: 팀장(프론트엔드 제작 & 디자인 총괄/소개영상 제작·편집) · 기간: 2025.08.27 ~ 2025.12.03",
+            ],
             en: ["Study dashboard for managing materials", "AI quiz generation for efficient review", "UX flow + frontend implementation"],
           },
           tech: ["React", "TypeScript", "Node.js", "MySQL"],
@@ -1097,7 +1127,12 @@
             en: "Role/company tailored questions with STAR-structured feedback",
           },
           highlights: {
-            ko: ["질문 자동 생성 및 난이도 조절", "타이머/점수로 실전 같은 흐름", "STAR 기반 피드백 경험 설계", "역할: 팀장(프론트엔드 총괄/깃허브 관리/디자인 총괄) · 기간: 2025.08.28 ~ 2025.12.04"],
+            ko: [
+              "질문 자동 생성 및 난이도 조절",
+              "타이머/점수로 실전 같은 흐름",
+              "STAR 기반 피드백 경험 설계",
+              "역할: 팀장(프론트엔드 총괄/깃허브 관리/디자인 총괄) · 기간: 2025.08.28 ~ 2025.12.04",
+            ],
             en: ["Question generation with difficulty control", "Timer + scoring for realistic practice", "STAR-style feedback experience"],
           },
           tech: ["React", "TypeScript", "Node.js", "MySQL"],
@@ -1193,6 +1228,8 @@
           top: "↑ 맨 위로",
           contactBodyLabel: "📱 연락처:",
           all: "전체",
+          blog: "Blog",
+          blogLabel: "📝 Blog:",
         },
         en: {
           docTitle: "Shin Min Su | Web Designer",
@@ -1238,6 +1275,8 @@
           top: "↑ Top",
           contactBodyLabel: "📱 Phone:",
           all: "All",
+          blog: "Blog",
+          blogLabel: "📝 Blog:",
         },
       };
 
@@ -1361,7 +1400,9 @@
         const grid = $("#projectGrid");
         const keyword = $("#projectSearch").value || "";
         const filtered = PROJECTS.filter(matchTag).filter((p) => matchProject(p, keyword));
-        grid.innerHTML = filtered.length ? filtered.map(projectCardHTML).join("") : `<div class="card">${lang === "ko" ? "검색 결과가 없습니다." : "No results found."}</div>`;
+        grid.innerHTML = filtered.length
+          ? filtered.map(projectCardHTML).join("")
+          : `<div class="card">${lang === "ko" ? "검색 결과가 없습니다." : "No results found."}</div>`;
       }
 
       function animateScroll(fromY, toY, duration) {
@@ -1407,10 +1448,9 @@
 
       function setupReveal() {
         const sections = document.querySelectorAll("section");
-        const observer = new IntersectionObserver(
-          (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add("visible")),
-          { threshold: 0.12 }
-        );
+        const observer = new IntersectionObserver((entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add("visible")), {
+          threshold: 0.12,
+        });
         sections.forEach((s) => observer.observe(s));
       }
 
@@ -1420,7 +1460,7 @@
 
         function syncDarkLabel() {
           const isDark = document.body.classList.contains("dark");
-          label.textContent = isDark ? (lang === "ko" ? I18N.ko.light : I18N.en.light) : (lang === "ko" ? I18N.ko.dark : I18N.en.dark);
+          label.textContent = isDark ? (lang === "ko" ? I18N.ko.light : I18N.en.light) : lang === "ko" ? I18N.ko.dark : I18N.en.dark;
         }
 
         syncDarkLabel();
@@ -1532,6 +1572,13 @@
 
         $("#langLabel").textContent = lang === "ko" ? "EN" : "KR";
 
+        // ✅ Blog 라벨 다국어 반영 (Hero + Contact)
+        const heroBlog = $("#heroBlogLink");
+        if (heroBlog) heroBlog.textContent = t.blog;
+
+        // contactBody는 문자열 텍스트를 통째로 바꾸는 방식이 아니라, 이미 HTML이 고정이라 라벨 변경이 필요하면 별도 구조화가 필요함.
+        // 현재 요구는 "주소 추가"가 목적이라, Hero만 다국어 처리하고 Contact는 URL 표기로 고정 유지.
+
         syncDarkLabel();
         renderTagRow();
         renderProjects();
@@ -1558,6 +1605,10 @@
         // ✅ 첫 시작은 무조건 한글
         applyLang("ko", syncDarkLabel);
         setupLangToggle(syncDarkLabel);
+
+        // ✅ Blog URL 주입(혹시 나중에 바꿀 때 한 곳에서 수정)
+        const heroBlog = $("#heroBlogLink");
+        if (heroBlog) heroBlog.href = BLOG_URL;
 
         $("#projectSearch").addEventListener("input", renderProjects);
         renderTagRow();
