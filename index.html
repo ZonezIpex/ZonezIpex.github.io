@@ -77,7 +77,6 @@
         background: linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
       }
 
-      /* ✅ 배경 끊김 방지: 고정 레이어로 광원 처리 */
       body::before {
         content: "";
         position: fixed;
@@ -166,6 +165,7 @@
 
       .nav-menu a {
         font-size: 14px;
+        fonthelp: 850;
         font-weight: 850;
         text-decoration: none;
         color: var(--text);
@@ -312,7 +312,6 @@
         box-shadow: 0 20px 46px rgba(0, 0, 0, 0.45);
       }
 
-      /* ✅ 사진 중앙에 보이는 라인/경계 완화 */
       .hero-photo {
         width: 240px;
         height: 240px;
@@ -512,6 +511,7 @@
         margin-bottom: 4px;
       }
 
+      /* ===== 공통: 섹션 툴바(검색 + 태그) ===== */
       .project-toolbar {
         display: grid;
         grid-template-columns: 1fr auto;
@@ -608,6 +608,7 @@
         color: #bfdbfe;
       }
 
+      /* ===== 카드 그리드 ===== */
       .project-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -623,27 +624,139 @@
       .project-card {
         padding: 0;
         overflow: hidden;
+        display: flex;
+        flex-direction: column;
       }
 
       .project-image {
-        height: 240px;
-        overflow: hidden;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.35);
-      }
+  /* 프로젝트 카드: 기본은 꽉 차게(cover) + 비율 고정으로 밀림/깨짐 방지 */
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-      body.dark .project-image {
-        border-bottom-color: rgba(96, 165, 250, 0.14);
-      }
+body.dark .project-image {
+  border-bottom-color: rgba(96, 165, 250, 0.14);
+  background: rgba(2, 6, 23, 0.22);
+}
 
-      .project-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-      }
+.project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transition: transform 0.22s ease;
+}
 
-      .project-body {
+
+/* ✅ 로고형 썸네일(예: IT자산장부)은 잘림 방지: contain + 패딩 */
+.project-card .project-image img[data-fit="contain"]{
+  object-fit: contain;
+  object-position: center;
+  padding: 18px;
+  transform: none;
+}
+
+/* hover 확대는 cover에만 적용(로고는 고정) */
+.project-card:hover .project-image img[data-fit="contain"]{
+  transform: none;
+}
+
+/* IT자산장부 로고는 조금 더 키움(여백 큰 원본 대응) */
+.project-card[data-project="it-asset-register"] .project-image img[data-fit="contain"]{
+  padding: 10px;
+  transform: scale(1.18);
+}
+.project-card[data-project="it-asset-register"]:hover .project-image img[data-fit="contain"]{
+  transform: scale(1.18);
+}
+
+.project-card:hover .project-image img {
+  transform: scale(1.03);
+}
+
+/* ===== 로고/포스터 섹션 전용 ===== */
+/* ----------------------------
+   로고/포스터: 전용 썸네일 스타일
+   - 포스터: 박스는 예전처럼(고정 높이) + 보기 좋게 cover
+   - 로고: 정사각(1:1) + contain + 여백 최소화
+---------------------------- */
+
+#posterGrid .poster-thumb{
+  /* ✅ 포스터: "잘림 없이 전체" + "크게" 보이게
+     - 고정 height 제거
+     - 이미지 원본 비율에 맞춰 카드가 늘어나도록 aspect-ratio 사용
+     - 비율은 JS에서 naturalWidth/Height로 자동 주입(--poster-ar)
+  */
+  aspect-ratio: var(--poster-ar, 16 / 9);
+  background: rgba(255, 255, 255, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body.dark #posterGrid .poster-thumb{
+  background: rgba(2, 6, 23, 0.22);
+}
+
+#posterGrid .poster-thumb img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;      /* 포스터는 "전체"가 보이게 */
+  object-position: center;
+  display: block;
+  transform: none;
+}
+
+#posterGrid .poster-card:hover .poster-thumb img{
+  transform: none;
+}
+
+/* 로고 탭 */
+#posterGrid.logo-mode{
+  grid-template-columns: repeat(4, 1fr);
+}
+
+#posterGrid.logo-mode .poster-thumb{
+  height: auto;
+  aspect-ratio: 1 / 1;
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+body.dark #posterGrid.logo-mode .poster-thumb{
+  border-color: rgba(96,165,250,0.14);
+}
+
+#posterGrid.logo-mode .poster-thumb img{
+  object-fit: contain; /* 로고는 전체가 보이게 */
+  object-position: center;
+  padding: 14px;       /* 로고 여백(과하지 않게) */
+  background: rgba(255,255,255,0.25);
+}
+
+body.dark #posterGrid.logo-mode .poster-thumb img{
+  background: rgba(2, 6, 23, 0.18);
+}
+
+/* IT자산장부 로고는 원본 여백이 커서만 예외로 조금 더 키움 */
+#posterGrid.logo-mode .poster-card[data-kind="logo"][data-project="it-asset-logo"] .poster-thumb img{
+  padding: 10px;
+  transform: scale(1.12);
+}
+
+.project-body {
         padding: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        flex: 1;
       }
 
       .project-title {
@@ -655,7 +768,7 @@
       }
 
       .project-subtitle {
-        margin: 8px 0 0 0;
+        margin: 0;
         color: var(--muted);
         font-size: 14px;
         font-weight: 800;
@@ -663,7 +776,7 @@
       }
 
       .badge-row {
-        margin-top: 12px;
+        margin-top: 6px;
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
@@ -683,8 +796,14 @@
         background: rgba(96, 165, 250, 0.1);
       }
 
+      /* ✅ 툴 뱃지 줄 수 고정(정렬 깨짐 방지) */
+      .badge-row.tools {
+        max-height: 76px; /* 2줄 정도 */
+        overflow: hidden;
+      }
+
       details {
-        margin-top: 10px;
+        margin-top: 2px;
         border-radius: var(--r-md);
         background: rgba(255, 255, 255, 0.28);
         border: 1px solid rgba(255, 255, 255, 0.42);
@@ -725,7 +844,7 @@
       }
 
       .project-actions {
-        margin-top: 12px;
+        margin-top: auto; /* ✅ 카드 하단 고정 */
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
@@ -789,7 +908,6 @@
         }
       }
 
-      /* ✅ 모바일: 햄버거 메뉴 */
       @media (max-width: 768px) {
         .container {
           width: min(1100px, calc(100% - 26px));
@@ -884,6 +1002,7 @@
             <li><a href="#growth" data-nav id="navBg">성장 과정</a></li>
             <li><a href="#skills" data-nav id="navSkills">기술 스택</a></li>
             <li><a href="#career" data-nav id="navAct">교육활동</a></li>
+            <li><a href="#posters" data-nav id="navPoster">로고 및 포스터</a></li>
             <li><a href="#projects" data-nav id="navProj">프로젝트</a></li>
             <li><a href="#contact" data-nav id="navContact">연락처</a></li>
           </ul>
@@ -911,6 +1030,7 @@
         <li><a href="#growth" data-nav id="mnavBg">성장 과정</a></li>
         <li><a href="#skills" data-nav id="mnavSkills">기술 스택</a></li>
         <li><a href="#career" data-nav id="mnavAct">교육활동</a></li>
+        <li><a href="#posters" data-nav id="mnavPoster">로고 및 포스터</a></li>
         <li><a href="#projects" data-nav id="mnavProj">프로젝트</a></li>
         <li><a href="#contact" data-nav id="mnavContact">연락처</a></li>
       </ul>
@@ -967,16 +1087,16 @@
       <section id="intro">
         <h2 class="section-title" id="secAbout">소개</h2>
         <div class="card" style="line-height: 1.9; font-weight: 760; color: var(--muted)" id="aboutBody">
-          사용자가 “어디를 눌러야 할지” 고민하지 않도록 흐름을 설계하고, 일관된 UI로 정리하는 것을 좋아합니다.
-          팀 프로젝트에서 피드백을 빠르게 반영하며 화면 완성도를 끌어올린 경험이 있습니다.
+          사용자 흐름을 먼저 설계하고, 일관된 UI로 화면을 정리합니다.
+          GTQ 포토샵·일러스트 기반으로 UI 요소를 제작하며, 실제 서비스 화면에 자연스럽게 녹이는 데 집중합니다.
         </div>
       </section>
 
       <section id="growth">
         <h2 class="section-title" id="secBg">성장 과정</h2>
         <div class="card" style="line-height: 1.9; font-weight: 760; color: var(--muted)" id="bgBody">
-          게임 시스템에 대한 호기심으로 시작해, JavaScript 미니 프로젝트를 거쳐 React 기반 팀 프로젝트를 진행해 왔습니다.
-          “디자인 의도”가 실제 화면에서 자연스럽게 동작하도록 연결하는 과정에 강점이 있습니다.
+          JavaScript/React 팀 프로젝트로 화면 설계→구현까지 반복해 왔습니다.
+          GTQ 포토샵·일러스트를 준비하며 컴포넌트용 UI 리소스를 직접 제작하고 품질 기준을 맞추는 연습을 하고 있습니다.
         </div>
       </section>
 
@@ -1027,9 +1147,25 @@
             <div class="skills-title" id="actCertTitle">자격증</div>
             <ul class="mini-list" id="actCertList">
               <li>자동차 운전면허 1종보통 (2021.05.28)</li>
+              <li>GTQ 포토샵 / GTQi 일러스트 — 취득 준비 중</li>
             </ul>
           </div>
         </div>
+      </section>
+
+      <!-- ✅ 로고 및 포스터: 검색 + (전체/로고/포스터) + 2개 좌우 고정 -->
+      <section id="posters">
+        <h2 class="section-title" id="secPoster">로고 및 포스터</h2>
+
+        <div class="project-toolbar">
+          <div class="search-box">
+            <span aria-hidden="true">🔎</span>
+            <input id="posterSearch" type="text" placeholder="로고/포스터 검색" autocomplete="off" />
+          </div>
+          <div class="chip-row" id="posterTagRow"></div>
+        </div>
+
+        <div class="project-grid" id="posterGrid"></div>
       </section>
 
       <section id="projects">
@@ -1085,581 +1221,801 @@
 
     <button id="toTopBtn" class="to-top-btn" type="button" aria-label="Back to top">↑ 맨 위로</button>
 
+    <!-- ✅ Part 2 스크립트를 여기 붙여넣기 -->
     <script>
-      const BLOG_URL = "https://content467.tistory.com/";
+  const BLOG_URL = "https://content467.tistory.com/";
 
-      const SKILLS = {
-        frontend: ["HTML", "CSS", "JavaScript", "TypeScript", "React"],
-        tools: ["Node.js", "Git", "VS Code", "PowerPoint"],
-        adobe: ["Adobe Photoshop", "Adobe Illustrator", "Adobe XD", "Adobe Premiere Pro"],
+  const SKILLS = {
+    frontend: ["HTML", "CSS", "JavaScript", "TypeScript", "React"],
+    tools: ["Node.js", "Git", "VS Code", "PowerPoint"],
+    adobe: ["Adobe Photoshop", "Adobe Illustrator", "Adobe XD", "Adobe Premiere Pro"],
+  };
+
+  // ✅ 로고/포스터 데이터 (필요하면 이미지 경로만 너 파일명에 맞춰 수정)
+  // - GitHub Pages에서 한글 폴더명/파일명도 보통 동작하지만, 확실히 하려면 퍼센트 인코딩 경로 권장
+  const POSTERS = [
+    {
+      id: "it-asset-poster",
+      type: "poster", // poster | logo
+      title: { ko: "IT자산장부 포스터", en: "IT Asset Poster" },
+      image: "./%EC%A0%9C%EC%9E%91%ED%95%9C%EC%9D%B4%EB%AF%B8%EC%A7%80/IT%EC%9E%90%EC%82%B0%EC%9E%A5%EB%B6%80%ED%8F%AC%EC%8A%A4%ED%84%B0.png",
+    },
+    {
+      id: "daepang-poster",
+      type: "poster",
+      title: { ko: "대팡 포스터", en: "DAEPANG Poster" },
+      image: "./%EC%A0%9C%EC%9E%91%ED%95%9C%EC%9D%B4%EB%AF%B8%EC%A7%80/%EB%8C%80%ED%8C%A1%ED%8F%AC%EC%8A%A4%ED%84%B0.png",
+    },
+    {
+      id: "air-logo",
+      type: "logo",
+      title: { ko: "AiR 로고", en: "AiR Logo" },
+      image: "./%EC%A0%9C%EC%9E%91%ED%95%9C%EC%9D%B4%EB%AF%B8%EC%A7%80/AiR%EB%A1%9C%EA%B3%A0.png",
+    },
+    {
+      id: "menjupmon-logo",
+      type: "logo",
+      title: { ko: "면접몬 로고", en: "MENJUPMON Logo" },
+      image: "./%EC%A0%9C%EC%9E%91%ED%95%9C%EC%9D%B4%EB%AF%B8%EC%A7%80/%EB%A9%B4%EC%A0%91%EB%AA%AC%EB%A1%9C%EA%B3%A0.png",
+    },
+    {
+      id: "it-asset-logo",
+      type: "logo",
+      title: { ko: "IT자산장부 로고", en: "IT Asset Logo" },
+      image: "./%EC%A0%9C%EC%9E%91%ED%95%9C%EC%9D%B4%EB%AF%B8%EC%A7%80/IT%EC%9E%90%EC%82%B0%EC%9E%A5%EB%B6%80%EB%A1%9C%EA%B3%A0.png",
+    },
+    {
+      id: "daepang-logo",
+      type: "logo",
+      title: { ko: "대팡 로고", en: "DAEPANG Logo" },
+      image: "./%EC%A0%9C%EC%9E%91%ED%95%9C%EC%9D%B4%EB%AF%B8%EC%A7%80/%EB%8C%80%ED%8C%A1%EB%A1%9C%EA%B3%A0.png",
+    },
+  ];
+
+  // ✅ 프로젝트 데이터
+  // - tags: web | server | ai 로 통일
+  const PROJECTS = [
+    {
+      id: "it-asset-register",
+      title: {
+        ko: "IT자산장부 — 사내 IT 자산 대여·반납·검수·통합관리 DB 설계",
+        en: "IT Asset Register — IT Asset Lifecycle DB Design",
+      },
+      subtitle: {
+        ko: "등록→할당/출고→반납요청→회수/검수→(수리)→가용 복귀를 규칙으로 강제하고, due_date 기반 이벤트 로그를 관리",
+        en: "Enforces lifecycle transitions and manages due_date-based event logs",
+      },
+      highlights: {
+        ko: [
+          "상태 전이 규칙으로 자산 프로세스를 강제해 분실/중복 지급/재고 불일치 위험 최소화",
+          "due_date 기반 이벤트 로그(요청/경고/제재)와 사용자 스냅샷 지표 관리",
+          "검수 증빙(사진/파일/메모)과 정책값을 로그에 고정 저장해 근거 단절 방지",
+          "역할: DB 모델링(ERD/DDL/Trigger/Procedure) · 기간: 2026.01.05 ~ 2026.01.21",
+        ],
+        en: [
+          "Lifecycle enforced by state-transition rules to reduce operational risks",
+          "due_date-based event logs (request/warn/sanction) + user snapshot metrics",
+          "Evidence + policy values fixed in logs to preserve rationale",
+          "Role: DB Modeling (ERD/DDL/Trigger/Procedure) · Period: 2026.01.05 ~ 2026.01.21",
+        ],
+      },
+      // ✅ 요청한 툴 칩 구성
+      tech: ["MariaDB", "diagrams.net(draw.io)", "GitHub", "ERDCloud", "Spreadsheet", "Photoshop"],
+      tags: ["server"],
+      thumbFit: "contain",
+      image: "./IT%EC%9E%90%EC%82%B0%EC%9E%A5%EB%B6%80.png",
+      links: [
+        {
+          label: { ko: "💻 GitHub", en: "💻 GitHub" },
+          href: "https://github.com/ZonezIpex/IT-Asset-Register",
+          primary: true,
+        },
+      ],
+    },
+    {
+      id: "menjupmon",
+      title: { ko: "면접몬 — AI 모의면접 & 피드백 플랫폼", en: "MENJUPMON — AI Mock Interview" },
+      subtitle: {
+        ko: "직무/기업 맞춤 질문과 STAR 구조 피드백으로 실전 감각을 키우는 서비스",
+        en: "Role/company tailored questions with STAR-structured feedback",
+      },
+      highlights: {
+        ko: ["질문 자동 생성 및 난이도 조절", "타이머/점수로 실전 같은 흐름", "STAR 기반 피드백 경험 설계", "역할: 팀장(프론트 총괄/디자인 총괄) · 기간: 2025.08.28 ~ 2025.12.04"],
+        en: ["Question generation with difficulty control", "Timer + scoring for realistic practice", "STAR-style feedback experience"],
+      },
+      tech: ["React", "TypeScript", "Node.js", "MySQL"],
+      tags: ["web", "ai"],
+      image: "./%EB%A9%B4%EC%A0%91%EB%AA%AC%20%EB%A9%94%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80.png",
+      links: [
+        { label: { ko: "🎥 시연", en: "🎥 Demo" }, href: "https://youtu.be/Zkb4l3z0vZA", primary: true },
+        { label: { ko: "💻 GitHub", en: "💻 GitHub" }, href: "https://github.com/ZonezIpex/MenjupmonIntroduction.git" },
+      ],
+    },
+    {
+      id: "daepang",
+      title: { ko: "대팡 — 필기·요약·퀴즈 통합 AI 학습 플랫폼", en: "DAEPANG — AI Study Platform" },
+      subtitle: {
+        ko: "학습 자료를 한 곳에 모으고, AI로 퀴즈를 생성해 복습 효율을 높이는 서비스",
+        en: "Manage materials in one place and boost review with AI-generated quizzes",
+      },
+      highlights: {
+        ko: ["학습 자료 대시보드 구성", "AI 퀴즈 생성으로 복습 효율 향상", "주요 UX 흐름 설계 및 프론트 구현", "역할: 팀장(프론트 제작 & 디자인 총괄) · 기간: 2025.08.27 ~ 2025.12.03"],
+        en: ["Study dashboard for managing materials", "AI quiz generation for efficient review", "UX flow + frontend implementation"],
+      },
+      tech: ["React", "TypeScript", "Node.js", "MySQL"],
+      tags: ["web", "ai"],
+      image: "./%EB%8C%80%ED%8C%A1%20%EB%A9%94%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80.png",
+      links: [
+        { label: { ko: "🎥 시연", en: "🎥 Demo" }, href: "https://youtu.be/hRCiG1fAoIU", primary: true },
+        { label: { ko: "💻 GitHub", en: "💻 GitHub" }, href: "https://github.com/ZonezIpex/DaepangIntroduction.git" },
+      ],
+    },
+    {
+      id: "air",
+      title: { ko: "AiR — 회사 맞춤 AI 이력서 플랫폼", en: "AiR — AI Resume Builder" },
+      subtitle: {
+        ko: "공고/양식을 기반으로 맞춤 이력서 제작을 돕는 서비스",
+        en: "Company-tailored resume generation based on posting & templates",
+      },
+      highlights: {
+        ko: ["반응형 UI 구현 및 레이아웃 구성", "비동기 통신 기반 데이터 처리", "배포 구성 경험(서버/환경)", "역할: 부팀장(프론트 제작/총관리) · 기간: 2025.04.19 ~ 2025.06.22"],
+        en: ["Responsive UI and layout flow", "Async communication for data handling", "Deployment environment experience"],
+      },
+      tech: ["React", "JavaScript", "Node.js", "MySQL"],
+      tags: ["web", "ai"],
+      image: "./%EC%9D%B4%EB%A0%A5%EC%84%9C%20%ED%94%8C%EB%9E%AB%ED%8F%BC%20%EB%A9%94%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80.png",
+      links: [
+        { label: { ko: "🎥 시연", en: "🎥 Demo" }, href: "https://youtu.be/YqpiUFLkf74", primary: true },
+        { label: { ko: "💻 GitHub", en: "💻 GitHub" }, href: "https://github.com/ZonezIpex/Team_project.git" },
+      ],
+    },
+    {
+      id: "codeadventure",
+      title: { ko: "코드어드벤쳐 — 게임형 코딩 학습 플랫폼", en: "CodeAdventure — Game-like Coding Learning" },
+      subtitle: {
+        ko: "스테이지를 클리어하며 언어를 익히는 게임 기반 학습 프로젝트",
+        en: "Learn languages by clearing stages like a pixel-art game",
+      },
+      highlights: {
+        ko: ["스테이지 기반 UI 구성", "게임 요소로 학습 동기 강화", "분위기에 맞는 UI 디자인", "역할: 프론트엔드 개발 및 디자인 제작 · 기간: 2024.04 ~ 2024.07"],
+        en: ["Stage-based UI flow", "Motivation via game mechanics", "UI design aligned to game mood"],
+      },
+      tech: ["React", "Node.js"],
+      tags: ["web"],
+      image: "./%EC%BD%94%EB%93%9C%EC%96%B4%EB%93%9C%EB%B2%A4%EC%B3%90%20%EB%A9%94%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80.png",
+      links: [
+        { label: { ko: "🎥 시연", en: "🎥 Demo" }, href: "https://youtu.be/nA3KwnHWKcE", primary: true },
+        { label: { ko: "💻 GitHub", en: "💻 GitHub" }, href: "https://github.com/ZonezIpex/Codeadventuredealim.git" },
+      ],
+    },
+  ];
+
+  const I18N = {
+    ko: {
+      docTitle: "신민수 | 웹 디자이너",
+      dark: "다크",
+      light: "라이트",
+      menu: "메뉴",
+
+      about: "소개",
+      bg: "성장 과정",
+      skills: "기술 스택",
+      act: "교육활동",
+      posters: "로고 및 포스터",
+      proj: "프로젝트",
+      contact: "연락처",
+
+      heroTitle: "신민수 | 웹 디자이너",
+      chip1: "UI/UX · 웹 디자인",
+      chip2: "프론트엔드 (보조)",
+      chip3: "React",
+      heroSub:
+        "화면 흐름을 먼저 설계하고, 디테일로 완성도를 끌어올립니다. GTQ 포토샵·일러스트 기반 UI 요소 제작도 함께 강화 중입니다.",
+      btnResume: "📄 이력서",
+      btnCover: "📝 자기소개서",
+      btnPort: "🗂️ 포트폴리오",
+
+      secAbout: "소개",
+      secBg: "성장 과정",
+      secSkills: "기술 스택",
+      secAct: "교육활동",
+      secPosters: "로고 및 포스터",
+      secProj: "프로젝트",
+      secContact: "연락처",
+
+      // ✅ 3줄 이내로 조정
+      aboutBody:
+        "사용자가 “어디를 눌러야 할지” 고민하지 않도록 흐름을 설계합니다.\nGTQ 포토샵·일러스트를 기반으로 UI 구성요소를 직접 제작하며 화면 완성도를 끌어올립니다.",
+      bgBody:
+        "JS 미니 프로젝트를 거쳐 React 팀 프로젝트로 확장해 왔습니다.\n디자인 의도를 실제 인터랙션으로 연결하고, GTQ 기반 시각 요소 제작을 병행합니다.",
+
+      skillsT1: "프론트엔드",
+      skillsD1: "반응형 UI · 컴포넌트 구조 · 기본 인터랙션",
+      skillsT2: "개발 · 협업 도구",
+      skillsD2: "버전관리 · 문서화 · 협업 툴",
+      skillsT3: "Adobe · 디자인 툴",
+      skillsD3: "시각 요소 제작 · 프로토타입 · 영상 편집 기초",
+
+      actLeftTitle: "교내활동",
+      actAwardTitle: "수상",
+      actCertTitle: "자격증",
+
+      // 검색 placeholder
+      posterSearchPH: "포스터/로고 검색",
+      projectSearchPH: "프로젝트 검색",
+
+      // details
+      details: "상세 보기",
+      top: "↑ 맨 위로",
+
+      // 태그 라벨
+      all: "전체",
+      tagWeb: "웹",
+      tagServer: "서버",
+      tagAI: "AI",
+
+      posterAll: "전체",
+      posterLogo: "로고",
+      posterPoster: "포스터",
+
+      blog: "Blog",
+    },
+    en: {
+      docTitle: "Shin Min Su | Web Designer",
+      dark: "Dark",
+      light: "Light",
+      menu: "Menu",
+
+      about: "About",
+      bg: "Background",
+      skills: "Skills",
+      act: "Activities",
+      posters: "Logos & Posters",
+      proj: "Projects",
+      contact: "Contact",
+
+      heroTitle: "Shin Min Su | Web Designer",
+      chip1: "UI/UX · Web Design",
+      chip2: "Frontend (Support)",
+      chip3: "React",
+      heroSub:
+        "I design clear user flows first and refine details for a polished experience. I’m also strengthening UI asset production with GTQ Photoshop & Illustrator practice.",
+      btnResume: "📄 Resume",
+      btnCover: "📝 Cover Letter",
+      btnPort: "🗂️ Portfolio",
+
+      secAbout: "About",
+      secBg: "Background",
+      secSkills: "Skills",
+      secAct: "Activities",
+      secPosters: "Logos & Posters",
+      secProj: "Projects",
+      secContact: "Contact",
+
+      aboutBody:
+        "I design flows so users don’t hesitate.\nI also produce UI assets with GTQ Photoshop & Illustrator practice to improve screen quality.",
+      bgBody:
+        "I grew from JavaScript mini-projects to React team projects.\nI connect design intent to real interactions and build visual assets in parallel.",
+
+      skillsT1: "Frontend",
+      skillsD1: "Responsive UI · Component structure · Interaction basics",
+      skillsT2: "Dev & Collaboration",
+      skillsD2: "Version control · Documentation · Team tools",
+      skillsT3: "Adobe & Design Tools",
+      skillsD3: "Visual assets · Prototyping · Basic motion/video editing",
+
+      actLeftTitle: "School Activities",
+      actAwardTitle: "Awards",
+      actCertTitle: "Certificates",
+
+      posterSearchPH: "Search posters/logos",
+      projectSearchPH: "Search projects",
+
+      details: "Details",
+      top: "↑ Top",
+
+      all: "All",
+      tagWeb: "Web",
+      tagServer: "Server",
+      tagAI: "AI",
+
+      posterAll: "All",
+      posterLogo: "Logo",
+      posterPoster: "Poster",
+
+      blog: "Blog",
+    },
+  };
+
+  const $ = (sel, parent = document) => parent.querySelector(sel);
+
+  function escapeHTML(str) {
+    return String(str)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  function createTag(text, cls = "tag") {
+    const el = document.createElement("span");
+    el.className = cls;
+    el.textContent = text;
+    return el;
+  }
+
+  // ✅ 칩 너무 많아 레이아웃 흔들리는 문제 완화: 최대 N개 + "+n"
+  function limitedBadgesHTML(items, max = 5) {
+    const list = Array.isArray(items) ? items : [];
+    const shown = list.slice(0, max);
+    const rest = list.length - shown.length;
+
+    const chips = shown.map((t) => `<span class="badge">${escapeHTML(t)}</span>`).join("");
+    const more = rest > 0 ? `<span class="badge">+${rest}</span>` : "";
+    return chips + more;
+  }
+
+  function renderSkills() {
+    const f = $("#skillsFrontend");
+    const t = $("#skillsTools");
+    const a = $("#skillsAdobe");
+    if (!f || !t || !a) return;
+
+    f.innerHTML = "";
+    t.innerHTML = "";
+    a.innerHTML = "";
+
+    SKILLS.frontend.forEach((x) => f.appendChild(createTag(x)));
+    SKILLS.tools.forEach((x) => t.appendChild(createTag(x)));
+    SKILLS.adobe.forEach((x) => a.appendChild(createTag(x)));
+  }
+
+  let lang = "ko";
+
+  // ----------------------------
+  // ✅ 포스터(로고/포스터) 섹션
+  // ----------------------------
+  let activePosterTag = "poster"; // logo | poster // logo | poster
+
+  function posterTagLabel(key) {
+    const t = I18N[lang];
+    if (key === "all") return t.posterAll;
+    if (key === "logo") return t.posterLogo;
+    return t.posterPoster;
+  }
+
+  function renderPosterTagRow() {
+    const row = $("#posterTagRow");
+    if (!row) return;
+
+    row.innerHTML = "";
+    const keys = ["logo", "poster"];
+
+    keys.forEach((k) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "chip-btn" + (k === activePosterTag ? " active" : "");
+      btn.textContent = posterTagLabel(k);
+      btn.addEventListener("click", () => {
+        activePosterTag = k;
+        renderPosterTagRow();
+        renderPosters();
+      });
+      row.appendChild(btn);
+    });
+  }
+
+  function matchPosterTag(p) {
+    return p.type === activePosterTag;
+  }
+
+  function matchPoster(p, keyword) {
+    const k = (keyword || "").trim().toLowerCase();
+    if (!k) return true;
+    const title = (p.title?.[lang] || "").toLowerCase();
+    const type = (p.type || "").toLowerCase();
+    return (title + " " + type).includes(k);
+  }
+
+  function posterCardHTML(p) {
+    const cover = escapeHTML(p.image || "");
+    const alt = escapeHTML(p.title?.[lang] || "");
+    const pid = escapeHTML(p.id || "");
+    const kind = escapeHTML(p.type || "poster"); // poster | logo
+
+    return `
+      <article class="card poster-card" data-project="${pid}" data-kind="${kind}" style="padding:0; overflow:hidden;">
+        <div class="poster-thumb">
+          <img
+            src="${cover}"
+            alt="${alt}"
+            loading="lazy"
+            decoding="async"
+            onerror="this.onerror=null; this.remove();"
+          />
+        </div>
+      </article>
+    `;
+  }
+
+  function applyPosterAspectRatios() {
+    const grid = $("#posterGrid");
+    if (!grid) return;
+    // 포스터 탭에서만(로고 탭 제외) 이미지 비율을 카드에 주입
+    if (activePosterTag !== "poster") return;
+
+    const imgs = Array.from(grid.querySelectorAll('.poster-card[data-kind="poster"] img'));
+    imgs.forEach((img) => {
+      const apply = () => {
+        const w = img.naturalWidth || 0;
+        const h = img.naturalHeight || 0;
+        if (!w || !h) return;
+        const thumb = img.closest(".poster-thumb");
+        if (!thumb) return;
+        thumb.style.setProperty("--poster-ar", `${w} / ${h}`);
       };
 
-            const PROJECTS = [
-                {
-          id: "it-asset-register",
-          title: {
-            ko: "IT자산장부 — 사내 IT 자산 대여·반납·검수·통합관리 DB 설계",
-            en: "IT Asset Register — IT Asset Lifecycle DB Design",
-          },
-          subtitle: {
-            ko: "등록→할당/출고→반납요청→회수/검수→(수리)→가용 복귀를 상태 전이 규칙으로 강제하고, due_date 기반 미반납 이벤트 로그를 관리",
-            en: "Enforces lifecycle state transitions and logs overdue return events via due_date triggers",
-          },
-          highlights: {
-            ko: [
-              "자산 라이프사이클(등록→할당/출고→반납요청→회수/검수→(수리)→가용 복귀)을 상태코드 전이 규칙으로 강제",
-              "due_date 경과를 트리거로 요구/경고/제재 이벤트 로그 생성 + 사용자 누적 스냅샷(overdue_count/warning_count/restriction_level) 관리",
-              "분실/중복 지급/재고 불일치 및 검수 기준 불일치를 이력·상태전이 규칙으로 최소화",
-              "검수 증빙(사진/파일/메모), 정책값, 이벤트 발생 시점값을 로그에 고정 저장해 근거 단절 방지",
-              "역할: DB 모델링(ERD/DDL/Trigger/Procedure) · 기간: 2026.01.05 ~ 2026.01.21",
-            ],
-            en: [
-              "Lifecycle enforced by state-transition rules (register→assign/out→return request→retrieve/inspect→repair→available)",
-              "due_date trigger generates request/warn/sanction logs + user snapshot metrics",
-              "Reduces operational risks (loss/duplicate issuance/stock mismatch) with history & state rules",
-              "Inspection evidence + policy values fixed in logs to prevent missing rationale",
-              "Role: DB Modeling (ERD/DDL/Trigger/Procedure) · Period: 2026.01.05 ~ 2026.01.21",
-            ],
-          },
-          tech: ["MariaDB", "SQL", "ERD", "DDL", "Trigger", "Procedure"],
-          tags: ["DB", "SQL", "Modeling"],
-          image: "./IT%EC%9E%90%EC%82%B0%EC%9E%A5%EB%B6%80.png",
-          links: [
-            {
-              label: { ko: "💻 GitHub", en: "💻 GitHub" },
-              href: "https://github.com/ZonezIpex/IT-Asset-Register",
-              primary: true,
-            },
-          ],
-        },
+      if (img.complete) apply();
+      else img.addEventListener("load", apply, { once: true });
+    });
+  }
 
-        {
-          id: "menjupmon",
-          title: { ko: "면접몬 — AI 모의면접 & 피드백 플랫폼", en: "MENJUPMON — AI Mock Interview" },
-          subtitle: {
-            ko: "직무/기업 맞춤 질문과 STAR 구조 피드백으로 실전 감각을 키우는 서비스",
-            en: "Role/company tailored questions with STAR-structured feedback",
-          },
-          highlights: {
-            ko: [
-              "질문 자동 생성 및 난이도 조절",
-              "타이머/점수로 실전 같은 흐름",
-              "STAR 기반 피드백 경험 설계",
-              "역할: 팀장(프론트엔드 총괄/깃허브 관리/디자인 총괄) · 기간: 2025.08.28 ~ 2025.12.04",
-            ],
-            en: ["Question generation with difficulty control", "Timer + scoring for realistic practice", "STAR-style feedback experience"],
-          },
-          tech: ["React", "TypeScript", "Node.js", "MySQL"],
-          tags: ["AI", "Web", "React"],
-          image: "./%EB%A9%B4%EC%A0%91%EB%AA%AC%20%EB%A9%94%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80.png",
-          links: [
-            { label: { ko: "🎥 시연", en: "🎥 Demo" }, href: "https://youtu.be/Zkb4l3z0vZA", primary: true },
-            { label: { ko: "💻 GitHub", en: "💻 GitHub" }, href: "https://github.com/ZonezIpex/MenjupmonIntroduction.git" },
-          ],
-        },
-        {
-          id: "daepang",
-          title: { ko: "대팡 — 필기·요약·퀴즈 통합 AI 학습 플랫폼", en: "DAEPANG — AI Study Platform" },
-          subtitle: {
-            ko: "학습 자료를 한 곳에 모으고, AI로 퀴즈를 생성해 복습 효율을 높이는 서비스",
-            en: "Manage materials in one place and boost review with AI-generated quizzes",
-          },
-          highlights: {
-            ko: [
-              "학습 자료 대시보드 구성",
-              "AI 퀴즈 생성으로 복습 효율 향상",
-              "주요 UX 흐름 설계 및 프론트 구현",
-              "역할: 팀장(프론트엔드 제작 & 디자인 총괄/소개영상 제작·편집) · 기간: 2025.08.27 ~ 2025.12.03",
-            ],
-            en: ["Study dashboard for managing materials", "AI quiz generation for efficient review", "UX flow + frontend implementation"],
-          },
-          tech: ["React", "TypeScript", "Node.js", "MySQL"],
-          tags: ["AI", "Web", "React"],
-          image: "./%EB%8C%80%ED%8C%A1%20%EB%A9%94%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80.png",
-          links: [
-            { label: { ko: "🎥 시연", en: "🎥 Demo" }, href: "https://youtu.be/hRCiG1fAoIU", primary: true },
-            { label: { ko: "💻 GitHub", en: "💻 GitHub" }, href: "https://github.com/ZonezIpex/DaepangIntroduction.git" },
-          ],
-        },
-        {
-          id: "air",
-          title: { ko: "AiR — 회사 맞춤 AI 이력서 플랫폼", en: "AiR — AI Resume Builder" },
-          subtitle: {
-            ko: "공고/양식을 기반으로 맞춤 이력서 제작을 돕는 서비스",
-            en: "Company-tailored resume generation based on posting & templates",
-          },
-          highlights: {
-            ko: [
-              "반응형 UI 구현 및 레이아웃 구성",
-              "비동기 통신 기반 데이터 처리",
-              "배포 구성 경험(서버/환경)",
-              "역할: 부팀장(프론트엔드 제작/총관리/깃허브 관리/피드백) · 기간: 2025.04.19 ~ 2025.06.22",
-            ],
-            en: ["Responsive UI and layout flow", "Async communication for data handling", "Deployment environment experience"],
-          },
-          tech: ["React", "JavaScript", "Node.js", "MySQL"],
-          tags: ["AI", "Web"],
-          image: "./%EC%9D%B4%EB%A0%A5%EC%84%9C%20%ED%94%8C%EB%9E%AB%ED%8F%BC%20%EB%A9%94%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80.png",
-          links: [
-            { label: { ko: "🎥 시연", en: "🎥 Demo" }, href: "https://youtu.be/YqpiUFLkf74", primary: true },
-            { label: { ko: "💻 GitHub", en: "💻 GitHub" }, href: "https://github.com/ZonezIpex/Team_project.git" },
-          ],
-        },
-        {
-          id: "codeadventure",
-          title: { ko: "코드어드벤쳐 — 게임형 코딩 학습 플랫폼", en: "CodeAdventure — Game-like Coding Learning" },
-          subtitle: {
-            ko: "스테이지를 클리어하며 언어를 익히는 게임 기반 학습 프로젝트",
-            en: "Learn languages by clearing stages like a pixel-art game",
-          },
-          highlights: {
-            ko: ["스테이지 기반 UI 구성", "게임 요소로 학습 동기 강화", "분위기에 맞는 UI 디자인", "역할: 프론트엔드 개발 및 디자인 제작 · 기간: 2024.04 ~ 2024.07"],
-            en: ["Stage-based UI flow", "Motivation via game mechanics", "UI design aligned to game mood"],
-          },
-          tech: ["React", "Node.js"],
-          tags: ["Game", "Web"],
-          image: "./%EC%BD%94%EB%93%9C%EC%96%B4%EB%93%9C%EB%B2%A4%EC%B3%90%20%EB%A9%94%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80.png",
-          links: [
-            { label: { ko: "🎥 시연", en: "🎥 Demo" }, href: "https://youtu.be/nA3KwnHWKcE", primary: true },
-            { label: { ko: "💻 GitHub", en: "💻 GitHub" }, href: "https://github.com/ZonezIpex/Codeadventuredealim.git" },
-          ],
-        },
-      ];
+function renderPosters() {
+    const grid = $("#posterGrid");
+    if (!grid) return;
 
+    // 로고 탭일 때는 카드 비율/정렬을 로고 전용으로 전환
+    grid.classList.toggle("logo-mode", activePosterTag === "logo");
+    const keyword = $("#posterSearch")?.value || "";
+    const filtered = POSTERS.filter(matchPosterTag).filter((p) => matchPoster(p, keyword));
 
-      const I18N = {
-        ko: {
-          docTitle: "신민수 | 웹 디자이너",
-          dark: "다크",
-          light: "라이트",
-          menu: "메뉴",
-          about: "소개",
-          bg: "성장 과정",
-          skills: "기술 스택",
-          act: "교육활동",
-          proj: "프로젝트",
-          contact: "연락처",
-          heroTitle: "신민수 | 웹 디자이너",
-          chip1: "UI/UX · 웹 디자인",
-          chip2: "프론트엔드 (보조)",
-          chip3: "React",
-          heroSub:
-            "화면 구성과 사용자 흐름을 먼저 설계하고, 경험이 깔끔하게 완성되도록 디테일을 다듬습니다. 필요 시 프론트엔드 역량으로 인터랙션과 구조를 함께 개선합니다.",
-          btnResume: "📄 이력서",
-          btnCover: "📝 자기소개서",
-          btnPort: "🗂️ 포트폴리오",
-          secAbout: "소개",
-          secBg: "성장 과정",
-          secSkills: "기술 스택",
-          secAct: "교육활동",
-          secProj: "프로젝트",
-          secContact: "연락처",
-          aboutBody:
-            "사용자가 “어디를 눌러야 할지” 고민하지 않도록 흐름을 설계하고, 일관된 UI로 정리하는 것을 좋아합니다. 팀 프로젝트에서 피드백을 빠르게 반영하며 화면 완성도를 끌어올린 경험이 있습니다.",
-          bgBody:
-            "게임 시스템에 대한 호기심으로 시작해, JavaScript 미니 프로젝트를 거쳐 React 기반 팀 프로젝트를 진행해 왔습니다. “디자인 의도”가 실제 화면에서 자연스럽게 동작하도록 연결하는 과정에 강점이 있습니다.",
-          skillsT1: "프론트엔드",
-          skillsD1: "반응형 UI · 컴포넌트 구조 · 기본 인터랙션",
-          skillsT2: "개발 · 협업 도구",
-          skillsD2: "버전관리 · 문서화 · 협업 툴",
-          skillsT3: "Adobe · 디자인 툴",
-          skillsD3: "시각 요소 제작 · 프로토타입 · 영상 편집 기초",
-          actLeftTitle: "교내활동",
-          actAwardTitle: "수상",
-          actCertTitle: "자격증",
-          searchPH: "프로젝트 검색",
-          details: "상세 보기",
-          top: "↑ 맨 위로",
-          contactBodyLabel: "📱 연락처:",
-          all: "전체",
-          blog: "Blog",
-          blogLabel: "📝 Blog:",
-        },
-        en: {
-          docTitle: "Shin Min Su | Web Designer",
-          dark: "Dark",
-          light: "Light",
-          menu: "Menu",
-          about: "About",
-          bg: "Background",
-          skills: "Skills",
-          act: "Activities",
-          proj: "Projects",
-          contact: "Contact",
-          heroTitle: "Shin Min Su | Web Designer",
-          chip1: "UI/UX · Web Design",
-          chip2: "Frontend (Support)",
-          chip3: "React",
-          heroSub:
-            "I design clear user flows first, then refine details to deliver a polished experience. When needed, I support implementation with frontend skills to improve interactions and structure.",
-          btnResume: "📄 Resume",
-          btnCover: "📝 Cover Letter",
-          btnPort: "🗂️ Portfolio",
-          secAbout: "About",
-          secBg: "Background",
-          secSkills: "Skills",
-          secAct: "Activities",
-          secProj: "Projects",
-          secContact: "Contact",
-          aboutBody:
-            "I like organizing interfaces into clear flows so users don’t have to think twice. In team projects, I improved UI quality by iterating quickly on feedback and polishing the details that matter.",
-          bgBody:
-            "I started with curiosity about game systems, moved through small JavaScript projects, and grew via React-based team work. I’m good at connecting design intent to real, usable screens.",
-          skillsT1: "Frontend",
-          skillsD1: "Responsive UI · Component structure · Interaction basics",
-          skillsT2: "Dev & Collaboration",
-          skillsD2: "Version control · Documentation · Team tools",
-          skillsT3: "Adobe & Design Tools",
-          skillsD3: "Visual assets · Prototyping · Basic motion/video editing",
-          actLeftTitle: "School Activities",
-          actAwardTitle: "Awards",
-          actCertTitle: "Certificates",
-          searchPH: "Search projects",
-          details: "Details",
-          top: "↑ Top",
-          contactBodyLabel: "📱 Phone:",
-          all: "All",
-          blog: "Blog",
-          blogLabel: "📝 Blog:",
-        },
-      };
+    grid.innerHTML = filtered.length
+      ? filtered.map(posterCardHTML).join("")
+      : `<div class="card">${lang === "ko" ? "검색 결과가 없습니다." : "No results found."}</div>`;
+  
+    applyPosterAspectRatios();
+  }
 
-      const $ = (sel, parent = document) => parent.querySelector(sel);
+  // ----------------------------
+  // ✅ 프로젝트 섹션
+  // ----------------------------
+  let activeProjectTag = "all"; // all | web | server | ai
 
-      function createTag(text, cls = "tag") {
-        const el = document.createElement("span");
-        el.className = cls;
-        el.textContent = text;
-        return el;
-      }
+  function projectTagLabel(key) {
+    const t = I18N[lang];
+    if (key === "all") return t.all;
+    if (key === "web") return t.tagWeb;
+    if (key === "server") return t.tagServer;
+    return t.tagAI;
+  }
 
-      function escapeHTML(str) {
-        return String(str)
-          .replaceAll("&", "&amp;")
-          .replaceAll("<", "&lt;")
-          .replaceAll(">", "&gt;")
-          .replaceAll('"', "&quot;")
-          .replaceAll("'", "&#039;");
-      }
+  function renderProjectTagRow() {
+    const row = $("#projectTagRow");
+    if (!row) return;
 
-      function renderSkills() {
-        $("#skillsFrontend").innerHTML = "";
-        $("#skillsTools").innerHTML = "";
-        $("#skillsAdobe").innerHTML = "";
-        SKILLS.frontend.forEach((t) => $("#skillsFrontend").appendChild(createTag(t)));
-        SKILLS.tools.forEach((t) => $("#skillsTools").appendChild(createTag(t)));
-        SKILLS.adobe.forEach((t) => $("#skillsAdobe").appendChild(createTag(t)));
-      }
+    row.innerHTML = "";
+    const keys = ["all", "web", "server", "ai"];
 
-      let activeTag = "All";
-      let lang = "ko"; // ✅ 첫 시작은 무조건 한글
-
-      function getAllTags() {
-        const set = new Set([lang === "ko" ? I18N.ko.all : I18N.en.all]);
-        PROJECTS.forEach((p) => (p.tags || []).forEach((t) => set.add(t)));
-        return [...set];
-      }
-
-      function normalizeAllTag(tag) {
-        const allKo = I18N.ko.all;
-        const allEn = I18N.en.all;
-        if (tag === allKo || tag === allEn) return "All";
-        return tag;
-      }
-
-      function renderTagRow() {
-        const row = $("#projectTagRow");
-        row.innerHTML = "";
-        const tags = getAllTags();
-
-        tags.forEach((tagText) => {
-          const tagValue = normalizeAllTag(tagText);
-          const btn = document.createElement("button");
-          btn.type = "button";
-          btn.className = "chip-btn" + (tagValue === activeTag ? " active" : "");
-          btn.textContent = tagText;
-          btn.addEventListener("click", () => {
-            activeTag = tagValue;
-            renderTagRow();
-            renderProjects();
-          });
-          row.appendChild(btn);
-        });
-      }
-
-      function matchProject(p, keyword) {
-        const k = keyword.trim().toLowerCase();
-        if (!k) return true;
-
-        const title = (p.title?.[lang] || "").toLowerCase();
-        const sub = (p.subtitle?.[lang] || "").toLowerCase();
-        const tech = (p.tech || []).join(" ").toLowerCase();
-        const tags = (p.tags || []).join(" ").toLowerCase();
-        const hi = (p.highlights?.[lang] || []).join(" ").toLowerCase();
-
-        return [title, sub, tech, tags, hi].join(" ").includes(k);
-      }
-
-      function matchTag(p) {
-        if (activeTag === "All") return true;
-        return (p.tags || []).includes(activeTag);
-      }
-
-      function projectCardHTML(p) {
-        const links = (p.links || [])
-          .map((l) => {
-            const cls = l.primary ? "btn" : "btn btn-secondary";
-            return `<a class="${cls}" href="${escapeHTML(l.href)}" target="_blank" rel="noopener noreferrer">${escapeHTML(
-              l.label?.[lang] || ""
-            )}</a>`;
-          })
-          .join("");
-
-        const techTags = (p.tech || []).map((t) => `<span class="badge">${escapeHTML(t)}</span>`).join("");
-        const highlights = (p.highlights?.[lang] || []).map((h) => `<li>${escapeHTML(h)}</li>`).join("");
-        const cover = escapeHTML(p.image || "");
-
-        return `
-          <article class="card project-card">
-            <div class="project-image">
-              <img src="${cover}" alt="${escapeHTML(p.title?.[lang] || "")}" loading="lazy" decoding="async"
-                onerror="this.onerror=null; this.remove();"
-              />
-            </div>
-            <div class="project-body">
-              <h3 class="project-title">${escapeHTML(p.title?.[lang] || "")}</h3>
-              <p class="project-subtitle">${escapeHTML(p.subtitle?.[lang] || "")}</p>
-              <div class="badge-row">${techTags}</div>
-              <details>
-                <summary><span>${lang === "ko" ? I18N.ko.details : I18N.en.details}</span><span>▾</span></summary>
-                <ul>${highlights}</ul>
-              </details>
-              <div class="project-actions">${links}</div>
-            </div>
-          </article>
-        `;
-      }
-
-      function renderProjects() {
-        const grid = $("#projectGrid");
-        const keyword = $("#projectSearch").value || "";
-        const filtered = PROJECTS.filter(matchTag).filter((p) => matchProject(p, keyword));
-        grid.innerHTML = filtered.length
-          ? filtered.map(projectCardHTML).join("")
-          : `<div class="card">${lang === "ko" ? "검색 결과가 없습니다." : "No results found."}</div>`;
-      }
-
-      function animateScroll(fromY, toY, duration) {
-        const start = performance.now();
-        const diff = toY - fromY;
-
-        function easeInOutQuad(t) {
-          return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-        }
-
-        function step(now) {
-          const elapsed = now - start;
-          const progress = Math.min(elapsed / duration, 1);
-          const eased = easeInOutQuad(progress);
-          window.scrollTo(0, fromY + diff * eased);
-          if (progress < 1) requestAnimationFrame(step);
-        }
-
-        requestAnimationFrame(step);
-      }
-
-      function smoothScrollToId(id) {
-        const target = document.getElementById(id);
-        if (!target) return;
-        const headerOffset = 20 + parseInt(getComputedStyle(document.documentElement).getPropertyValue("--nav-h"));
-        const targetY = target.getBoundingClientRect().top + window.scrollY - headerOffset;
-        animateScroll(window.scrollY, targetY, 820);
-      }
-
-      function setupNav() {
-        document.querySelectorAll("[data-nav]").forEach((a) => {
-          const href = a.getAttribute("href") || "";
-          if (!href.startsWith("#")) return;
-          const id = href.slice(1);
-          a.addEventListener("click", (e) => {
-            e.preventDefault();
-            smoothScrollToId(id);
-            history.replaceState(null, "", `#${id}`);
-            closeMobile();
-          });
-        });
-      }
-
-      function setupReveal() {
-        const sections = document.querySelectorAll("section");
-        const observer = new IntersectionObserver((entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add("visible")), {
-          threshold: 0.12,
-        });
-        sections.forEach((s) => observer.observe(s));
-      }
-
-      function setupDarkMode() {
-        const btn = $("#darkToggle");
-        const label = $("#darkLabel");
-
-        function syncDarkLabel() {
-          const isDark = document.body.classList.contains("dark");
-          label.textContent = isDark ? (lang === "ko" ? I18N.ko.light : I18N.en.light) : lang === "ko" ? I18N.ko.dark : I18N.en.dark;
-        }
-
-        syncDarkLabel();
-
-        btn.addEventListener("click", () => {
-          document.body.classList.toggle("dark");
-          syncDarkLabel();
-        });
-
-        return syncDarkLabel;
-      }
-
-      function setupToTop() {
-        const toTopBtn = $("#toTopBtn");
-
-        window.addEventListener("scroll", () => {
-          if (window.scrollY > 420) toTopBtn.classList.add("show");
-          else toTopBtn.classList.remove("show");
-        });
-
-        toTopBtn.addEventListener("click", () => {
-          animateScroll(window.scrollY, 0, 820);
-        });
-      }
-
-      function openMobile() {
-        $("#mobilePanel").classList.add("open");
-      }
-
-      function closeMobile() {
-        $("#mobilePanel").classList.remove("open");
-      }
-
-      function setupMobileMenu() {
-        const toggle = $("#menuToggle");
-        toggle.addEventListener("click", () => {
-          const panel = $("#mobilePanel");
-          panel.classList.contains("open") ? closeMobile() : openMobile();
-        });
-
-        window.addEventListener("resize", () => {
-          if (window.innerWidth > 768) closeMobile();
-        });
-
-        document.addEventListener("click", (e) => {
-          const panel = $("#mobilePanel");
-          const btn = $("#menuToggle");
-          if (!panel.classList.contains("open")) return;
-          if (panel.contains(e.target) || btn.contains(e.target)) return;
-          closeMobile();
-        });
-      }
-
-      function applyLang(newLang, syncDarkLabel) {
-        lang = newLang;
-        document.documentElement.lang = lang === "ko" ? "ko" : "en";
-        const t = I18N[lang];
-
-        document.title = t.docTitle;
-        $("#heroTitle").textContent = t.heroTitle;
-        $("#chip1").textContent = t.chip1;
-        $("#chip2").textContent = t.chip2;
-        $("#chip3").textContent = t.chip3;
-        $("#heroSub").textContent = t.heroSub;
-
-        $("#btnResume").textContent = t.btnResume;
-        $("#btnCover").textContent = t.btnCover;
-        $("#btnPort").textContent = t.btnPort;
-
-        $("#navAbout").textContent = t.about;
-        $("#navBg").textContent = t.bg;
-        $("#navSkills").textContent = t.skills;
-        $("#navAct").textContent = t.act;
-        $("#navProj").textContent = t.proj;
-        $("#navContact").textContent = t.contact;
-
-        $("#mnavAbout").textContent = t.about;
-        $("#mnavBg").textContent = t.bg;
-        $("#mnavSkills").textContent = t.skills;
-        $("#mnavAct").textContent = t.act;
-        $("#mnavProj").textContent = t.proj;
-        $("#mnavContact").textContent = t.contact;
-
-        $("#secAbout").textContent = t.secAbout;
-        $("#secBg").textContent = t.secBg;
-        $("#secSkills").textContent = t.secSkills;
-        $("#secAct").textContent = t.secAct;
-        $("#secProj").textContent = t.secProj;
-        $("#secContact").textContent = t.secContact;
-
-        $("#aboutBody").textContent = t.aboutBody;
-        $("#bgBody").textContent = t.bgBody;
-
-        $("#skillsT1").textContent = t.skillsT1;
-        $("#skillsD1").textContent = t.skillsD1;
-        $("#skillsT2").textContent = t.skillsT2;
-        $("#skillsD2").textContent = t.skillsD2;
-        $("#skillsT3").textContent = t.skillsT3;
-        $("#skillsD3").textContent = t.skillsD3;
-
-        $("#actLeftTitle").textContent = t.actLeftTitle;
-        if ($("#actAwardTitle")) $("#actAwardTitle").textContent = t.actAwardTitle;
-        if ($("#actCertTitle")) $("#actCertTitle").textContent = t.actCertTitle;
-
-        $("#projectSearch").placeholder = t.searchPH;
-        $("#toTopBtn").textContent = t.top;
-
-        $("#menuLabel").textContent = t.menu;
-
-        $("#langLabel").textContent = lang === "ko" ? "EN" : "KR";
-
-        // ✅ Blog 라벨 다국어 반영 (Hero + Contact)
-        const heroBlog = $("#heroBlogLink");
-        if (heroBlog) heroBlog.textContent = t.blog;
-
-        // contactBody는 문자열 텍스트를 통째로 바꾸는 방식이 아니라, 이미 HTML이 고정이라 라벨 변경이 필요하면 별도 구조화가 필요함.
-        // 현재 요구는 "주소 추가"가 목적이라, Hero만 다국어 처리하고 Contact는 URL 표기로 고정 유지.
-
-        syncDarkLabel();
-        renderTagRow();
+    keys.forEach((k) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "chip-btn" + (k === activeProjectTag ? " active" : "");
+      btn.textContent = projectTagLabel(k);
+      btn.addEventListener("click", () => {
+        activeProjectTag = k;
+        renderProjectTagRow();
         renderProjects();
-      }
+      });
+      row.appendChild(btn);
+    });
+  }
 
-      function setupLangToggle(syncDarkLabel) {
-        const btn = $("#langToggle");
-        btn.addEventListener("click", () => {
-          const next = lang === "ko" ? "en" : "ko";
-          applyLang(next, syncDarkLabel);
-        });
-      }
+  function matchProjectTag(p) {
+    if (activeProjectTag === "all") return true;
+    return (p.tags || []).includes(activeProjectTag);
+  }
 
-      function init() {
-        $("#year").textContent = new Date().getFullYear();
-        renderSkills();
-        setupNav();
-        setupReveal();
-        setupToTop();
-        setupMobileMenu();
+  function matchProject(p, keyword) {
+    const k = (keyword || "").trim().toLowerCase();
+    if (!k) return true;
 
-        const syncDarkLabel = setupDarkMode();
+    const title = (p.title?.[lang] || "").toLowerCase();
+    const sub = (p.subtitle?.[lang] || "").toLowerCase();
+    const tech = (p.tech || []).join(" ").toLowerCase();
+    const tags = (p.tags || []).join(" ").toLowerCase();
+    const hi = (p.highlights?.[lang] || []).join(" ").toLowerCase();
 
-        // ✅ 첫 시작은 무조건 한글
-        applyLang("ko", syncDarkLabel);
-        setupLangToggle(syncDarkLabel);
+    return [title, sub, tech, tags, hi].join(" ").includes(k);
+  }
 
-        // ✅ Blog URL 주입(혹시 나중에 바꿀 때 한 곳에서 수정)
-        const heroBlog = $("#heroBlogLink");
-        if (heroBlog) heroBlog.href = BLOG_URL;
+  function projectCardHTML(p) {
+    const links = (p.links || [])
+      .map((l) => {
+        const cls = l.primary ? "btn" : "btn btn-secondary";
+        return `<a class="${cls}" href="${escapeHTML(l.href)}" target="_blank" rel="noopener noreferrer">${escapeHTML(l.label?.[lang] || "")}</a>`;
+      })
+      .join("");
 
-        $("#projectSearch").addEventListener("input", renderProjects);
-        renderTagRow();
-        renderProjects();
-      }
+    const techTags = limitedBadgesHTML(p.tech || [], 5);
+    const highlights = (p.highlights?.[lang] || []).map((h) => `<li>${escapeHTML(h)}</li>`).join("");
+    const cover = escapeHTML(p.image || "");
+    const pid = escapeHTML(p.id || "");
+    const fit = escapeHTML(p.thumbFit || "cover");
 
-      init();
-    </script>
+    return `
+      <article class="card project-card" data-project="${pid}">
+        <div class="project-image">
+          <img src="${cover}" data-fit="${fit}" alt="${escapeHTML(p.title?.[lang] || "")}" loading="lazy" decoding="async"
+            onerror="this.onerror=null; this.remove();"
+          />
+        </div>
+        <div class="project-body" style="display:flex; flex-direction:column;">
+          <h3 class="project-title">${escapeHTML(p.title?.[lang] || "")}</h3>
+          <p class="project-subtitle">${escapeHTML(p.subtitle?.[lang] || "")}</p>
+
+          <!-- ✅ 칩 높이 흔들림 완화(최대 5개 +n) -->
+          <div class="badge-row" style="min-height: 34px; align-items:flex-start;">${techTags}</div>
+
+          <details>
+            <summary><span>${lang === "ko" ? I18N.ko.details : I18N.en.details}</span><span>▾</span></summary>
+            <ul>${highlights}</ul>
+          </details>
+
+          <!-- ✅ 버튼은 항상 아래쪽에 붙도록 -->
+          <div class="project-actions" style="margin-top:auto;">${links}</div>
+        </div>
+      </article>
+    `;
+  }
+
+  function renderProjects() {
+    const grid = $("#projectGrid");
+    if (!grid) return;
+
+    const keyword = $("#projectSearch")?.value || "";
+    const filtered = PROJECTS.filter(matchProjectTag).filter((p) => matchProject(p, keyword));
+
+    grid.innerHTML = filtered.length
+      ? filtered.map(projectCardHTML).join("")
+      : `<div class="card">${lang === "ko" ? "검색 결과가 없습니다." : "No results found."}</div>`;
+  }
+
+  // ----------------------------
+  // 공통 유틸/이벤트
+  // ----------------------------
+  function animateScroll(fromY, toY, duration) {
+    const start = performance.now();
+    const diff = toY - fromY;
+
+    function easeInOutQuad(t) {
+      return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+    }
+
+    function step(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = easeInOutQuad(progress);
+      window.scrollTo(0, fromY + diff * eased);
+      if (progress < 1) requestAnimationFrame(step);
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  function smoothScrollToId(id) {
+    const target = document.getElementById(id);
+    if (!target) return;
+    const headerOffset = 20 + parseInt(getComputedStyle(document.documentElement).getPropertyValue("--nav-h") || "64", 10);
+    const targetY = target.getBoundingClientRect().top + window.scrollY - headerOffset;
+    animateScroll(window.scrollY, targetY, 820);
+  }
+
+  function setupNav() {
+    document.querySelectorAll("[data-nav]").forEach((a) => {
+      const href = a.getAttribute("href") || "";
+      if (!href.startsWith("#")) return;
+      const id = href.slice(1);
+      a.addEventListener("click", (e) => {
+        e.preventDefault();
+        smoothScrollToId(id);
+        history.replaceState(null, "", `#${id}`);
+        closeMobile();
+      });
+    });
+  }
+
+  function setupReveal() {
+    const sections = document.querySelectorAll("section");
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add("visible")),
+      { threshold: 0.12 }
+    );
+    sections.forEach((s) => observer.observe(s));
+  }
+
+  function setupDarkMode() {
+    const btn = $("#darkToggle");
+    const label = $("#darkLabel");
+    if (!btn || !label) return () => {};
+
+    function syncDarkLabel() {
+      const isDark = document.body.classList.contains("dark");
+      const t = I18N[lang];
+      label.textContent = isDark ? t.light : t.dark;
+    }
+
+    syncDarkLabel();
+
+    btn.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+      syncDarkLabel();
+    });
+
+    return syncDarkLabel;
+  }
+
+  function setupToTop() {
+    const toTopBtn = $("#toTopBtn");
+    if (!toTopBtn) return;
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 420) toTopBtn.classList.add("show");
+      else toTopBtn.classList.remove("show");
+    });
+
+    toTopBtn.addEventListener("click", () => {
+      animateScroll(window.scrollY, 0, 820);
+    });
+  }
+
+  function openMobile() {
+    $("#mobilePanel")?.classList.add("open");
+  }
+
+  function closeMobile() {
+    $("#mobilePanel")?.classList.remove("open");
+  }
+
+  function setupMobileMenu() {
+    const toggle = $("#menuToggle");
+    if (!toggle) return;
+
+    toggle.addEventListener("click", () => {
+      const panel = $("#mobilePanel");
+      if (!panel) return;
+      panel.classList.contains("open") ? closeMobile() : openMobile();
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 768) closeMobile();
+    });
+
+    document.addEventListener("click", (e) => {
+      const panel = $("#mobilePanel");
+      const btn = $("#menuToggle");
+      if (!panel || !btn) return;
+      if (!panel.classList.contains("open")) return;
+      if (panel.contains(e.target) || btn.contains(e.target)) return;
+      closeMobile();
+    });
+  }
+
+  function applyLang(newLang, syncDarkLabel) {
+    lang = newLang;
+    document.documentElement.lang = lang === "ko" ? "ko" : "en";
+    const t = I18N[lang];
+
+    document.title = t.docTitle;
+
+    $("#heroTitle") && ($("#heroTitle").textContent = t.heroTitle);
+    $("#chip1") && ($("#chip1").textContent = t.chip1);
+    $("#chip2") && ($("#chip2").textContent = t.chip2);
+    $("#chip3") && ($("#chip3").textContent = t.chip3);
+    $("#heroSub") && ($("#heroSub").textContent = t.heroSub);
+
+    $("#btnResume") && ($("#btnResume").textContent = t.btnResume);
+    $("#btnCover") && ($("#btnCover").textContent = t.btnCover);
+    $("#btnPort") && ($("#btnPort").textContent = t.btnPort);
+
+    // nav labels (있을 때만)
+    $("#navAbout") && ($("#navAbout").textContent = t.about);
+    $("#navBg") && ($("#navBg").textContent = t.bg);
+    $("#navSkills") && ($("#navSkills").textContent = t.skills);
+    $("#navAct") && ($("#navAct").textContent = t.act);
+    $("#navProj") && ($("#navProj").textContent = t.proj);
+    $("#navContact") && ($("#navContact").textContent = t.contact);
+
+    $("#mnavAbout") && ($("#mnavAbout").textContent = t.about);
+    $("#mnavBg") && ($("#mnavBg").textContent = t.bg);
+    $("#mnavSkills") && ($("#mnavSkills").textContent = t.skills);
+    $("#mnavAct") && ($("#mnavAct").textContent = t.act);
+    $("#mnavProj") && ($("#mnavProj").textContent = t.proj);
+    $("#mnavContact") && ($("#mnavContact").textContent = t.contact);
+
+    $("#secAbout") && ($("#secAbout").textContent = t.secAbout);
+    $("#secBg") && ($("#secBg").textContent = t.secBg);
+    $("#secSkills") && ($("#secSkills").textContent = t.secSkills);
+    $("#secAct") && ($("#secAct").textContent = t.secAct);
+    $("#secPosters") && ($("#secPosters").textContent = t.secPosters);
+    $("#secProj") && ($("#secProj").textContent = t.secProj);
+    $("#secContact") && ($("#secContact").textContent = t.secContact);
+
+    // ✅ 줄바꿈 유지 위해 innerText 사용
+    $("#aboutBody") && ($("#aboutBody").innerText = t.aboutBody);
+    $("#bgBody") && ($("#bgBody").innerText = t.bgBody);
+
+    $("#skillsT1") && ($("#skillsT1").textContent = t.skillsT1);
+    $("#skillsD1") && ($("#skillsD1").textContent = t.skillsD1);
+    $("#skillsT2") && ($("#skillsT2").textContent = t.skillsT2);
+    $("#skillsD2") && ($("#skillsD2").textContent = t.skillsD2);
+    $("#skillsT3") && ($("#skillsT3").textContent = t.skillsT3);
+    $("#skillsD3") && ($("#skillsD3").textContent = t.skillsD3);
+
+    $("#actLeftTitle") && ($("#actLeftTitle").textContent = t.actLeftTitle);
+    $("#actAwardTitle") && ($("#actAwardTitle").textContent = t.actAwardTitle);
+    $("#actCertTitle") && ($("#actCertTitle").textContent = t.actCertTitle);
+
+    $("#posterSearch") && ($("#posterSearch").placeholder = t.posterSearchPH);
+    $("#projectSearch") && ($("#projectSearch").placeholder = t.projectSearchPH);
+
+    $("#toTopBtn") && ($("#toTopBtn").textContent = t.top);
+    $("#menuLabel") && ($("#menuLabel").textContent = t.menu);
+    $("#langLabel") && ($("#langLabel").textContent = lang === "ko" ? "EN" : "KR");
+
+    const heroBlog = $("#heroBlogLink");
+    if (heroBlog) heroBlog.textContent = t.blog;
+
+    syncDarkLabel && syncDarkLabel();
+
+    // ✅ 태그/리스트 재렌더
+    renderPosterTagRow();
+    renderPosters();
+    renderProjectTagRow();
+    renderProjects();
+  }
+
+  function setupLangToggle(syncDarkLabel) {
+    const btn = $("#langToggle");
+    if (!btn) return;
+
+    btn.addEventListener("click", () => {
+      const next = lang === "ko" ? "en" : "ko";
+      applyLang(next, syncDarkLabel);
+    });
+  }
+
+  function init() {
+    $("#year") && ($("#year").textContent = new Date().getFullYear());
+
+    renderSkills();
+    setupNav();
+    setupReveal();
+    setupToTop();
+    setupMobileMenu();
+
+    const syncDarkLabel = setupDarkMode();
+
+    // ✅ 첫 시작은 무조건 한글
+    applyLang("ko", syncDarkLabel);
+    setupLangToggle(syncDarkLabel);
+
+    // ✅ Blog URL 주입
+    const heroBlog = $("#heroBlogLink");
+    if (heroBlog) heroBlog.href = BLOG_URL;
+
+    // ✅ 검색 이벤트
+    $("#posterSearch") && $("#posterSearch").addEventListener("input", renderPosters);
+    $("#projectSearch") && $("#projectSearch").addEventListener("input", renderProjects);
+
+    // ✅ 태그 렌더
+    renderPosterTagRow();
+    renderPosters();
+    renderProjectTagRow();
+    renderProjects();
+  }
+
+  init();
+</script>
   </body>
 </html>
