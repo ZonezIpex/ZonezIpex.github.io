@@ -77,6 +77,7 @@ ZonezIpex.github.io
 ├─ 이력서.pdf
 ├─ 자기소개서.pdf
 └─ 포트폴리오.pdf
+└─ IT자산장부.png
 </pre>
 
 <br/>
