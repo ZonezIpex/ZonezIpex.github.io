@@ -29,22 +29,35 @@
 
 <br/>
 
-## 📌 Projects 섹션에 올라가는 프로젝트
+## 📌 Projects 섹션에 올라가는 프로젝트 (최신순)
 현재 `index.html` 내부의 `PROJECTS` 배열로 프로젝트 카드가 렌더링됩니다.
 
-- **대팡 — 필기·요약·퀴즈 통합 AI 학습 플랫폼**  
-  학습 자료를 한 곳에 모으고, AI로 퀴즈를 생성해 복습 효율을 높이는 서비스  
-  - GitHub: https://github.com/ZonezIpex/DaepangIntroduction.git  
-  - Thumbnail: `대팡 메인페이지.png`
+- **IT자산장부 — 사내 IT 자산 대여·반납·검수·통합관리 프로세스 DB 설계**  
+  기간: **2026.01.05 ~ 2026.01.21**  
+  자산 등록 → 할당/출고 → 반납요청 → 회수 → 검수(수리 여부 판정) → 가용 복귀/수리 처리 흐름을 DB 모델로 정리한 프로젝트  
+  - GitHub: https://github.com/ZonezIpex/IT-Asset-Register  
+  - Thumbnail: `IT자산장부 포스터.png`
+
 - **면접몬 — AI 모의면접 & 피드백 플랫폼**  
+  기간: **2025.08.28 ~ 2025.12.04**  
   직무/기업 맞춤 질문과 STAR 구조 피드백으로 실전 감각을 키우는 서비스  
   - GitHub: https://github.com/ZonezIpex/MenjupmonIntroduction.git  
   - Thumbnail: `면접몬 메인페이지.png`
+
+- **대팡 — 필기·요약·퀴즈 통합 AI 학습 플랫폼**  
+  기간: **2025.08.27 ~ 2025.12.03**  
+  학습 자료를 한 곳에 모으고, AI로 퀴즈를 생성해 복습 효율을 높이는 서비스  
+  - GitHub: https://github.com/ZonezIpex/DaepangIntroduction.git  
+  - Thumbnail: `대팡 메인페이지.png`
+
 - **AiR — 회사 맞춤 AI 이력서 플랫폼**  
+  기간: **2025.04.19 ~ 2025.06.22**  
   공고/양식을 기반으로 맞춤 이력서 제작을 돕는 서비스  
   - GitHub: https://github.com/ZonezIpex/Team_project.git  
   - Thumbnail: `이력서 플랫폼 메인페이지.png`
+
 - **코드어드벤쳐 — 게임형 코딩 학습 플랫폼**  
+  기간: **2024.04 ~ 2024.07**  
   스테이지를 클리어하며 언어를 익히는 게임 기반 학습 프로젝트  
   - GitHub: https://github.com/ZonezIpex/Codeadventuredealim.git  
   - Thumbnail: `코드어드벤쳐 메인페이지.png`
@@ -60,6 +73,7 @@ ZonezIpex.github.io
 ├─ 면접몬 메인페이지.png
 ├─ 이력서 플랫폼 메인페이지.png
 ├─ 코드어드벤쳐 메인페이지.png
+├─ IT자산장부 포스터.png
 ├─ 이력서.pdf
 ├─ 자기소개서.pdf
 └─ 포트폴리오.pdf
@@ -95,5 +109,3 @@ VSCode 확장 **Live Server**로 열면 라우팅/리소스 확인이 더 편합
 - 커스텀 도메인이 있다면 Pages 설정에서 연결
 
 > 커밋/푸시 후 Pages 빌드가 끝나면 URL에 반영됩니다.
-
----
