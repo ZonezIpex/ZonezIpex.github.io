@@ -680,6 +680,90 @@ body.dark .project-image {
   transform: scale(1.03);
 }
 
+
+      /* ===== 로고/포스터: 캐러셀(쇼핑몰 슬라이더 느낌) ===== */
+      .carousel{
+        position: relative;
+        width: 100%;
+      }
+      .carousel-viewport{
+        overflow: hidden;
+        border-radius: var(--r-lg);
+      }
+      .carousel-track{
+        display: flex;
+        gap: 16px;
+        will-change: transform;
+        transition: transform 720ms cubic-bezier(0.22, 1, 0.36, 1); /* ✅ 슬로우 모션 느낌 */
+      }
+      .carousel-btn{
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 5;
+        width: 46px;
+        height: 46px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,0.55);
+        background: rgba(255,255,255,0.55);
+        backdrop-filter: blur(14px);
+        box-shadow: var(--shadow);
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.18s ease, opacity 0.18s ease, border-color 0.18s ease;
+      }
+      body.dark .carousel-btn{
+        border-color: rgba(96,165,250,0.18);
+        background: rgba(2,6,23,0.35);
+      }
+      .carousel-btn:hover{
+        transform: translateY(-50%) scale(1.04);
+        border-color: rgba(74,184,255,0.55);
+      }
+      .carousel-btn:disabled{
+        opacity: 0.35;
+        cursor: default;
+        transform: translateY(-50%);
+      }
+      .carousel-btn.prev{ left: 10px; }
+      .carousel-btn.next{ right: 10px; }
+
+      /* 삼각형 아이콘 */
+      .tri{
+        width: 0;
+        height: 0;
+        border-top: 9px solid transparent;
+        border-bottom: 9px solid transparent;
+      }
+      .tri.right{
+        border-left: 14px solid var(--text);
+        margin-left: 2px;
+      }
+      .tri.left{
+        border-right: 14px solid var(--text);
+        margin-right: 2px;
+      }
+
+      /* ✅ 포스터/로고 트랙에서 카드가 늘어나는 것 방지 */
+      #posterGrid .poster-card{
+        flex: 0 0 auto;
+      }
+      /* 포스터 모드: 크게 */
+      #posterGrid:not(.logo-mode) .poster-card{
+        width: min(520px, 82vw);
+      }
+      /* 로고 모드: 다수 보이게 */
+      #posterGrid.logo-mode .poster-card{
+        width: 200px;
+      }
+
+      @media (max-width: 520px){
+        #posterGrid.logo-mode .poster-card{ width: 160px; }
+        .carousel-btn{ width: 42px; height: 42px; }
+      }
+
 /* ===== 로고/포스터 섹션 전용 ===== */
 /* ----------------------------
    로고/포스터: 전용 썸네일 스타일
@@ -1165,7 +1249,20 @@ body.dark #posterGrid.logo-mode .poster-thumb img{
           <div class="chip-row" id="posterTagRow"></div>
         </div>
 
-        <div class="project-grid" id="posterGrid"></div>
+        
+        <div class="carousel" id="posterCarousel" aria-label="Poster carousel">
+          <button class="carousel-btn prev" type="button" id="posterPrev" aria-label="이전">
+            <span class="tri left" aria-hidden="true"></span>
+          </button>
+
+          <div class="carousel-viewport" id="posterViewport">
+            <div class="carousel-track project-grid" id="posterGrid"></div>
+          </div>
+
+          <button class="carousel-btn next" type="button" id="posterNext" aria-label="다음">
+            <span class="tri right" aria-hidden="true"></span>
+          </button>
+        </div>
       </section>
 
       <section id="projects">
@@ -1270,6 +1367,19 @@ body.dark #posterGrid.logo-mode .poster-thumb img{
       title: { ko: "대팡 로고", en: "DAEPANG Logo" },
       image: "./%EC%A0%9C%EC%9E%91%ED%95%9C%EC%9D%B4%EB%AF%B8%EC%A7%80/%EB%8C%80%ED%8C%A1%EB%A1%9C%EA%B3%A0.png",
     },
+
+    {
+      id: "codeadventure-poster",
+      type: "poster",
+      title: { ko: "코드어드벤처 포스터", en: "CodeAdventure Poster" },
+      image: "./%EC%BD%94%EB%93%9C%EC%96%B4%EB%93%9C%EB%B2%A4%EC%B2%98%ED%8F%AC%EC%8A%A4%ED%84%B0.png",
+    },
+    {
+      id: "codeadventure-logo",
+      type: "logo",
+      title: { ko: "코드어드벤처 로고", en: "CodeAdventure Logo" },
+      image: "./%EC%BD%94%EB%93%9C%EC%96%B4%EB%93%9C%EB%B2%A4%EC%B2%98%EB%A1%9C%EA%B3%A0.png",
+    },
   ];
 
   // ✅ 프로젝트 데이터
@@ -1371,7 +1481,7 @@ body.dark #posterGrid.logo-mode .poster-thumb img{
     },
     {
       id: "codeadventure",
-      title: { ko: "코드어드벤쳐 — 게임형 코딩 학습 플랫폼", en: "CodeAdventure — Game-like Coding Learning" },
+      title: { ko: "코드어드벤처 — 게임형 코딩 학습 플랫폼", en: "CodeAdventure — Game-like Coding Learning" },
       subtitle: {
         ko: "스테이지를 클리어하며 언어를 익히는 게임 기반 학습 프로젝트",
         en: "Learn languages by clearing stages like a pixel-art game",
@@ -1578,6 +1688,93 @@ body.dark #posterGrid.logo-mode .poster-thumb img{
   // ----------------------------
   let activePosterTag = "poster"; // logo | poster // logo | poster
 
+  // 캐러셀 상태
+  let posterIndex = 0;
+
+  function getPosterCarouselEls(){
+    return {
+      viewport: $("#posterViewport"),
+      track: $("#posterGrid"),
+      prev: $("#posterPrev"),
+      next: $("#posterNext"),
+    };
+  }
+
+  function posterCards(){
+    const { track } = getPosterCarouselEls();
+    return track ? Array.from(track.querySelectorAll(".poster-card")) : [];
+  }
+
+  function cardsPerView(){
+    const { viewport } = getPosterCarouselEls();
+    const cards = posterCards();
+    if (!viewport || cards.length === 0) return 1;
+
+    const vpW = viewport.clientWidth || 1;
+    const cardW = cards[0].getBoundingClientRect().width || 1;
+    const gap = 16;
+    return Math.max(1, Math.floor((vpW + gap) / (cardW + gap)));
+  }
+
+  function snapPosterTo(index, instant = false){
+    const { track } = getPosterCarouselEls();
+    const cards = posterCards();
+    if (!track || cards.length === 0) return;
+
+    const maxIndex = Math.max(0, cards.length - 1);
+    posterIndex = Math.min(Math.max(0, index), maxIndex);
+
+    const target = cards[posterIndex];
+    const offset = target.offsetLeft || 0;
+
+    if (instant) track.style.transition = "none";
+    track.style.transform = `translateX(${-offset}px)`;
+    if (instant){
+      // 다음 프레임에 transition 복구
+      requestAnimationFrame(() => {
+        track.style.transition = "";
+      });
+    }
+
+    updatePosterNav();
+  }
+
+  function movePoster(dir){
+    const cards = posterCards();
+    if (cards.length === 0) return;
+
+    const step = cardsPerView();
+    if (dir === "next") snapPosterTo(posterIndex + step);
+    else snapPosterTo(posterIndex - step);
+  }
+
+  function updatePosterNav(){
+    const { prev, next } = getPosterCarouselEls();
+    const cards = posterCards();
+    if (!prev || !next) return;
+
+    const atStart = posterIndex <= 0;
+    const atEnd = posterIndex >= Math.max(0, cards.length - cardsPerView());
+
+    prev.disabled = atStart;
+    next.disabled = atEnd;
+  }
+
+  function setupPosterCarousel(){
+    const { prev, next, viewport } = getPosterCarouselEls();
+    if (!prev || !next || !viewport) return;
+
+    prev.addEventListener("click", () => movePoster("prev"));
+    next.addEventListener("click", () => movePoster("next"));
+
+    // ✅ 리사이즈 시 현재 인덱스 기준으로 스냅 재계산
+    const ro = new ResizeObserver(() => {
+      snapPosterTo(posterIndex, true);
+    });
+    ro.observe(viewport);
+  }
+
+
   function posterTagLabel(key) {
     const t = I18N[lang];
     if (key === "all") return t.posterAll;
@@ -1661,20 +1858,26 @@ body.dark #posterGrid.logo-mode .poster-thumb img{
     });
   }
 
+
 function renderPosters() {
     const grid = $("#posterGrid");
     if (!grid) return;
 
     // 로고 탭일 때는 카드 비율/정렬을 로고 전용으로 전환
     grid.classList.toggle("logo-mode", activePosterTag === "logo");
+
     const keyword = $("#posterSearch")?.value || "";
     const filtered = POSTERS.filter(matchPosterTag).filter((p) => matchPoster(p, keyword));
 
     grid.innerHTML = filtered.length
       ? filtered.map(posterCardHTML).join("")
-      : `<div class="card">${lang === "ko" ? "검색 결과가 없습니다." : "No results found."}</div>`;
-  
+      : `<div class="card" style="min-width: 320px;">${lang === "ko" ? "검색 결과가 없습니다." : "No results found."}</div>`;
+
     applyPosterAspectRatios();
+
+    // ✅ 필터/검색 변경 시 캐러셀은 항상 첫 카드로 복귀
+    posterIndex = 0;
+    requestAnimationFrame(() => snapPosterTo(0, true));
   }
 
   // ----------------------------
@@ -1993,6 +2196,8 @@ function renderPosters() {
     setupReveal();
     setupToTop();
     setupMobileMenu();
+
+    setupPosterCarousel();
 
     const syncDarkLabel = setupDarkMode();
 
