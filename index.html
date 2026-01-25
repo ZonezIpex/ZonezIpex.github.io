@@ -880,10 +880,29 @@ body.dark #posterGrid.logo-mode .poster-thumb img{
         background: rgba(96, 165, 250, 0.1);
       }
 
-      /* ✅ 툴 뱃지 줄 수 고정(정렬 깨짐 방지) */
+      /* ✅ 툴 뱃지: 접힘(최대 N개 +n) / 펼침(전체) */
       .badge-row.tools {
+        margin-top: 6px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .badge-row.tools-collapsed {
         max-height: 76px; /* 2줄 정도 */
         overflow: hidden;
+      }
+
+      .badge-row.tools-expanded {
+        display: none;
+      }
+
+      .project-card.is-open .badge-row.tools-collapsed {
+        display: none;
+      }
+
+      .project-card.is-open .badge-row.tools-expanded {
+        display: flex;
       }
 
       details {
@@ -893,6 +912,198 @@ body.dark #posterGrid.logo-mode .poster-thumb img{
         border: 1px solid rgba(255, 255, 255, 0.42);
         padding: 10px 12px;
         backdrop-filter: blur(14px);
+      }
+
+      /* ✅ 프로젝트 상세보기: 스무스 펼침/닫힘(애니메이션은 JS로 높이 제어) */
+      details.proj-details {
+        overflow: hidden; /* 높이 애니메이션 시 내용 튐 방지 */
+      }
+      details.proj-details > summary {
+        list-style: none;
+        cursor: pointer;
+        user-select: none;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        font-weight: 800;
+      }
+      details.proj-details > summary::-webkit-details-marker {
+        display: none;
+      }
+      details.proj-details .details-caret,
+      details.proj-details .chev {
+        display: inline-block;
+        transition: transform 200ms ease;
+      }
+      /* open 판정은 [open] 뿐 아니라 JS 토글 class도 같이 지원 */
+      details.proj-details[open] .details-caret,
+      details.proj-details[open] .chev,
+      details.proj-details.is-open .details-caret,
+      details.proj-details.is-open .chev {
+        transform: rotate(180deg);
+      }
+
+      /* ✅ UA 기본 규칙(details 닫힘 시 display:none)으로 인한 '확' 노출/점프 방지:
+         내용은 항상 display:block으로 두고, 높이/패딩을 JS+transition으로 제어 */
+      details.proj-details .details-content {
+        display: block;
+        overflow: hidden;
+        height: 0px;
+        padding-top: 0px;
+        transition: height 320ms ease, padding-top 320ms ease;
+      }
+      details.proj-details.is-open .details-content {
+        padding-top: 10px;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        details.proj-details .details-caret,
+        details.proj-details .chev {
+          transition: none;
+        }
+      }
+
+
+
+      /* ✅ 프로젝트 상세보기: 아코디언(점프 없는 grid 트랜지션) */
+      .proj-accordion {
+        margin-top: 2px;
+        border-radius: var(--r-md);
+        background: rgba(255, 255, 255, 0.28);
+        border: 1px solid rgba(255, 255, 255, 0.42);
+        padding: 10px 12px;
+        backdrop-filter: blur(14px);
+      }
+      body.dark .proj-accordion {
+        background: rgba(2, 6, 23, 0.22);
+        border-color: rgba(96, 165, 250, 0.16);
+      }
+      .proj-summary {
+        width: 100%;
+        background: transparent;
+        border: 0;
+        padding: 0;
+        cursor: pointer;
+        user-select: none;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        font-weight: 800;
+        color: inherit;
+        text-align: left;
+      }
+      .proj-summary:focus-visible {
+        outline: 2px solid rgba(37, 99, 235, 0.6);
+        outline-offset: 6px;
+        border-radius: 10px;
+      }
+      .proj-accordion .details-caret {
+        display: inline-block;
+        transition: transform 200ms ease;
+      }
+      .proj-summary[aria-expanded="true"] .details-caret {
+        transform: rotate(180deg);
+      }
+      
+      /* ✅ 프로젝트 상세보기: max-height 기반(브라우저 호환 최우선) */
+      .proj-panel {
+        --mh: 0px;
+        max-height: var(--mh);
+        overflow: hidden;
+        transition: max-height 360ms ease;
+        will-change: max-height;
+      }
+      .proj-panel-inner {
+        padding-top: 0px;
+        transition: padding-top 360ms ease, opacity 220ms ease, transform 220ms ease;
+        opacity: 0;
+        transform: translateY(-4px);
+      }
+      .proj-accordion.is-open .proj-panel-inner {
+        padding-top: 10px;
+        opacity: 1;
+        transform: translateY(0px);
+      }
+
+      /* ✅ 프로젝트 상세 설명(UI/UX): 메타(역할/기간 등) + 목록 정리 */
+      .detail-wrap{
+        display:flex;
+        flex-direction:column;
+        gap: 12px;
+      }
+      .detail-meta{
+        margin: 0;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px 12px;
+      }
+      @media (max-width: 560px){
+        .detail-meta{ grid-template-columns: 1fr; }
+      }
+      .detail-meta .meta-item{
+        margin:0;
+        padding: 10px 12px;
+        border-radius: 14px;
+        border: 1px solid rgba(148, 163, 184, 0.22);
+        background: rgba(255,255,255,0.36);
+      }
+      body.dark .detail-meta .meta-item{
+        border-color: rgba(96, 165, 250, 0.18);
+        background: rgba(2, 6, 23, 0.18);
+      }
+      .detail-meta dt{
+        margin:0;
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: -0.2px;
+        color: var(--muted);
+      }
+      .detail-meta dd{
+        margin: 6px 0 0 0;
+        font-size: 14px;
+        font-weight: 950;
+        letter-spacing: -0.2px;
+        color: var(--text);
+        line-height: 1.5;
+        word-break: keep-all;
+      }
+
+      .detail-list{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display:flex;
+        flex-direction:column;
+        gap: 8px;
+        color: var(--muted);
+        font-weight: 780;
+        line-height: 1.75;
+        font-size: 14px;
+      }
+      .detail-list li{
+        position: relative;
+        padding-left: 14px;
+      }
+      .detail-list li::before{
+        content:"";
+        position:absolute;
+        left: 0;
+        top: 0.9em;
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+        background: var(--accent-2);
+        opacity: 0.85;
+        transform: translateY(-50%);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .proj-panel,
+        .proj-panel-inner,
+        .proj-accordion .details-caret {
+          transition: none;
+        }
       }
 
       body.dark details {
@@ -1356,6 +1567,12 @@ body.dark #posterGrid.logo-mode .poster-thumb img{
       image: "./%EC%A0%9C%EC%9E%91%ED%95%9C%EC%9D%B4%EB%AF%B8%EC%A7%80/%EB%A9%B4%EC%A0%91%EB%AA%AC%EB%A1%9C%EA%B3%A0.png",
     },
     {
+      id: "menjupmon-poster",
+      type: "poster",
+      title: { ko: "면접몬 포스터", en: "MENJUPMON Poster" },
+      image: "./%EC%A0%9C%EC%9E%91%ED%95%9C%EC%9D%B4%EB%AF%B8%EC%A7%80/%EB%A9%B4%EC%A0%91%EB%AA%AC%ED%8F%AC%EC%8A%A4%ED%84%B0%ED%8C%8C%EC%9D%BC.png",
+    },
+    {
       id: "it-asset-logo",
       type: "logo",
       title: { ko: "IT자산장부 로고", en: "IT Asset Logo" },
@@ -1666,6 +1883,76 @@ body.dark #posterGrid.logo-mode .poster-thumb img{
     return chips + more;
   }
 
+  // ✅ 프로젝트 상세 설명을 "메타(라벨:값)" + "목록"으로 정리해서 렌더링
+  // - 예: "역할: ..." / "기간: ..." / "기여: ..." / "스택: ..."
+  // - 한 줄에 "·"로 여러 항목이 있으면 분리해서 메타로 흡수
+  function projectDetailsHTML(lines) {
+    const raw = Array.isArray(lines) ? lines : [];
+    const meta = [];
+    const bullets = [];
+
+    const allow = new Set(["역할", "기간", "기여", "담당", "성과", "목표", "스택", "기술", "데이터", "DB", "API", "링크", "참고"]);
+
+    const pushMeta = (k, v) => {
+      const key = (k || "").trim();
+      const val = (v || "").trim();
+      if (!key || !val) return;
+      // 너무 긴 키(문장)를 라벨로 오인하는 것 방지
+      if (key.length > 10) return;
+      if (!allow.has(key) && !/^[A-Za-z0-9_]{1,10}$/.test(key)) return;
+      meta.push({ k: key, v: val });
+    };
+
+    const parseMeta = (s) => {
+      const t = (s || "").trim();
+      const mm = t.match(/^([^:：]{1,12})\s*[:：]\s*(.+)$/);
+      if (!mm) return null;
+      return { k: mm[1].trim(), v: mm[2].trim() };
+    };
+
+    raw.forEach((line) => {
+      const base = (line || "").trim();
+      if (!base) return;
+
+      // "역할: ... · 기간: ..." 형태 분리
+      const parts = base.split("·").map((x) => x.trim()).filter(Boolean);
+
+      let used = false;
+      if (parts.length > 1) {
+        parts.forEach((p) => {
+          const m2 = parseMeta(p);
+          if (m2) {
+            pushMeta(m2.k, m2.v);
+            used = true;
+          } else {
+            bullets.push(p);
+          }
+        });
+        if (used) return;
+      }
+
+      const m1 = parseMeta(base);
+      if (m1) {
+        pushMeta(m1.k, m1.v);
+      } else {
+        bullets.push(base);
+      }
+    });
+
+    const metaHtml =
+      meta.length > 0
+        ? `<dl class="detail-meta">${meta
+            .map((x) => `<div class="meta-item"><dt>${escapeHTML(x.k)}</dt><dd>${escapeHTML(x.v)}</dd></div>`)
+            .join("")}</dl>`
+        : "";
+
+    const listHtml =
+      bullets.length > 0 ? `<ul class="detail-list">${bullets.map((b) => `<li>${escapeHTML(b)}</li>`).join("")}</ul>` : "";
+
+    return `<div class="detail-wrap">${metaHtml}${listHtml}</div>`;
+  }
+
+
   function renderSkills() {
     const f = $("#skillsFrontend");
     const t = $("#skillsTools");
@@ -1940,8 +2227,9 @@ function renderPosters() {
       })
       .join("");
 
-    const techTags = limitedBadgesHTML(p.tech || [], 5);
-    const highlights = (p.highlights?.[lang] || []).map((h) => `<li>${escapeHTML(h)}</li>`).join("");
+    const techTagsCollapsed = limitedBadgesHTML(p.tech || [], 5);
+    const techTagsFull = (p.tech || []).map((t) => `<span class="badge">${escapeHTML(t)}</span>`).join("");
+    const detailsHTML = projectDetailsHTML(p.highlights?.[lang] || []);
     const cover = escapeHTML(p.image || "");
     const pid = escapeHTML(p.id || "");
     const fit = escapeHTML(p.thumbFit || "cover");
@@ -1958,18 +2246,122 @@ function renderPosters() {
           <p class="project-subtitle">${escapeHTML(p.subtitle?.[lang] || "")}</p>
 
           <!-- ✅ 칩 높이 흔들림 완화(최대 5개 +n) -->
-          <div class="badge-row" style="min-height: 34px; align-items:flex-start;">${techTags}</div>
+          <div class="badge-row tools tools-collapsed" style="min-height: 34px; align-items:flex-start;">${techTagsCollapsed}</div>
+          <div class="badge-row tools tools-expanded" style="min-height: 34px; align-items:flex-start;">${techTagsFull}</div>
 
-          <details>
-            <summary><span>${lang === "ko" ? I18N.ko.details : I18N.en.details}</span><span>▾</span></summary>
-            <ul>${highlights}</ul>
-          </details>
+          <div class="proj-accordion">
+            <button type="button" class="proj-summary" aria-expanded="false">
+              <span>${lang === "ko" ? I18N.ko.details : I18N.en.details}</span><span class="details-caret">▾</span>
+            </button>
+            <div class="proj-panel" aria-hidden="true">
+              <div class="proj-panel-inner">
+                ${detailsHTML}
+              </div>
+            </div>
+          </div>
 
           <!-- ✅ 버튼은 항상 아래쪽에 붙도록 -->
           <div class="project-actions" style="margin-top:auto;">${links}</div>
         </div>
       </article>
     `;
+  }
+
+  // ✅ 프로젝트 상세보기(아코디언): 기본 <details> 의 native 토글로 인한 '확' 펼침을 원천 차단
+  // - 버튼 클릭으로 class 토글만 수행 (CSS grid-template-rows 트릭으로 높이 자동 애니메이션)
+  // - 프로젝트 툴 칩(+n) 확장은 .project-card.is-open 로 연동
+  function setupProjectAccordions(rootEl) {
+    if (!rootEl) return;
+
+    const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    rootEl.querySelectorAll(".proj-accordion").forEach((acc) => {
+      if (acc.dataset.bound === "1") return;
+      acc.dataset.bound = "1";
+
+      const btn = acc.querySelector(".proj-summary");
+      const panel = acc.querySelector(".proj-panel");
+      const inner = acc.querySelector(".proj-panel-inner");
+      const card = acc.closest(".project-card");
+      if (!btn || !panel || !inner) return;
+
+      // 높이 갱신(열림 상태에서만)
+      const updateHeight = () => {
+        if (!acc.classList.contains("is-open")) return;
+        // 여유분: padding-top + 리스트 마진 변화 대응
+        panel.style.setProperty("--mh", `${inner.scrollHeight + 16}px`);
+      };
+
+      // ResizeObserver로 내용 변화(폰트 로딩/줄바꿈/반응형)에도 컷오프 방지
+      let ro = null;
+      if ("ResizeObserver" in window) {
+        ro = new ResizeObserver(() => updateHeight());
+        ro.observe(inner);
+      } else {
+        // 구형 브라우저 대비
+        window.addEventListener("resize", updateHeight);
+      }
+
+      const setA11y = (open) => {
+        btn.setAttribute("aria-expanded", String(open));
+        panel.setAttribute("aria-hidden", String(!open));
+      };
+
+      const openAcc = () => {
+        acc.classList.add("is-open");
+        card && card.classList.add("is-open");
+        setA11y(true);
+
+        if (reduceMotion) {
+          panel.style.setProperty("--mh", `${inner.scrollHeight + 16}px`);
+          return;
+        }
+
+        // 0 -> target 으로 max-height 트랜지션
+        panel.style.setProperty("--mh", "0px");
+        requestAnimationFrame(() => updateHeight());
+      };
+
+      const closeAcc = () => {
+        setA11y(false);
+
+        if (reduceMotion) {
+          panel.style.setProperty("--mh", "0px");
+          acc.classList.remove("is-open");
+          card && card.classList.remove("is-open");
+          panel.setAttribute("aria-hidden", "true");
+          return;
+        }
+
+        // 현재 높이에서 0으로 (점프 방지)
+        panel.style.setProperty("--mh", `${inner.scrollHeight + 16}px`);
+
+        requestAnimationFrame(() => {
+          panel.style.setProperty("--mh", "0px");
+        });
+
+        const onEnd = (e) => {
+          if (e.propertyName !== "max-height") return;
+          panel.removeEventListener("transitionend", onEnd);
+          acc.classList.remove("is-open");
+          card && card.classList.remove("is-open");
+          panel.setAttribute("aria-hidden", "true");
+        };
+        panel.addEventListener("transitionend", onEnd);
+      };
+
+      // 초기: 닫힘
+      setA11y(false);
+      panel.style.setProperty("--mh", "0px");
+      acc.classList.remove("is-open");
+      card && card.classList.remove("is-open");
+
+      btn.addEventListener("click", () => {
+        const isOpen = acc.classList.contains("is-open");
+        if (isOpen) closeAcc();
+        else openAcc();
+      });
+    });
   }
 
   function renderProjects() {
@@ -1982,6 +2374,10 @@ function renderPosters() {
     grid.innerHTML = filtered.length
       ? filtered.map(projectCardHTML).join("")
       : `<div class="card">${lang === "ko" ? "검색 결과가 없습니다." : "No results found."}</div>`;
+  
+
+    // ✅ 상세보기 스무스 애니메이션 바인딩
+    setupProjectAccordions(grid);
   }
 
   // ----------------------------
