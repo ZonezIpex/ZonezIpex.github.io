@@ -692,6 +692,7 @@ body.dark .project-image {
       }
       .carousel-track{
         display: flex;
+        align-items: flex-start; /* ✅ 카드 높이 강제(stretch)로 인한 하단 잘림/공백 방지 */
         gap: 16px;
         will-change: transform;
         transition: transform 720ms cubic-bezier(0.22, 1, 0.36, 1); /* ✅ 슬로우 모션 느낌 */
@@ -1559,6 +1560,12 @@ body.dark #posterGrid.logo-mode .poster-thumb img{
       type: "logo",
       title: { ko: "AiR 로고", en: "AiR Logo" },
       image: "https://github.com/ZonezIpex/ZonezIpex.github.io/blob/main/%EC%A0%9C%EC%9E%91%ED%95%9C%EC%9D%B4%EB%AF%B8%EC%A7%80/AIR%EB%A1%9C%EA%B3%A0.png?raw=true",
+    },
+    {
+      id: "air-poster",
+      type: "poster",
+      title: { ko: "AiR 포스터", en: "AiR Poster" },
+      image: "./제작한이미지/AIR포스터.png",
     },
     {
       id: "menjupmon-logo",
