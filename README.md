@@ -5,8 +5,8 @@
 ---
 
 # Web Portfolio (GitHub Pages)
-이 레포는 **개인 웹 포트폴리오**(정적 사이트)이며, GitHub Pages로 배포되는 형태입니다.  
-`index.html` 하나로 구성되어 있고, 프로젝트 썸네일/이력서 PDF/자기소개서 PDF 같은 정적 파일을 함께 관리합니다.
+이 레포는 **개인 웹 포트폴리오(정적 사이트)**이며, GitHub Pages로 배포됩니다.  
+`index.html` **단일 파일**로 동작하고, 프로젝트 썸네일/로고·포스터 이미지/이력서·자기소개서·포트폴리오 PDF 같은 정적 파일을 함께 관리합니다.
 
 > URL: `https://zonezipex.github.io` (GitHub Pages 설정 기준)
 
@@ -19,24 +19,39 @@
 - Growth (`#growth`)
 - Skills (`#skills`)
 - Career (`#career`)
+- Logos & Posters (`#posters`)
 - Projects (`#projects`)
 - Contact (`#contact`)
 
-추가로, 상단에서 아래 기능을 제공합니다.
+상단에서는 아래 기능을 제공합니다.
 - 🌙 다크모드 토글 (`darkToggle`)
 - 🌐 한국어/영어 전환 (`langToggle`)
-- 🔎 프로젝트 검색/태그 필터(Projects 섹션)
+- ☰ 모바일 메뉴 토글 (`menuToggle`)
+- 🔎 로고/포스터 검색 + 탭 필터(로고/포스터) (`#posters`)
+- 🔎 프로젝트 검색 + 태그 필터(Projects 섹션) (`#projects`)
+
+<br/>
+
+## 🖼️ Logos & Posters 섹션 (로고/포스터)
+`index.html` 내부의 `POSTERS` 배열로 카드가 렌더링됩니다.
+
+- 로고/포스터 탭 전환(로고/포스터)
+- 검색(제목 기반)
+- 캐러셀(좌우 이동)
+
+이미지 파일은 주로 `제작한이미지/` 폴더에서 관리합니다.  
+(한글 경로를 쓸 때는 퍼센트 인코딩 경로 사용을 권장합니다.)
 
 <br/>
 
 ## 📌 Projects 섹션에 올라가는 프로젝트 (최신순)
 현재 `index.html` 내부의 `PROJECTS` 배열로 프로젝트 카드가 렌더링됩니다.
 
-- **IT자산장부 — 사내 IT 자산 대여·반납·검수·통합관리 프로세스 DB 설계**  
+- **IT자산장부 — 사내 IT 자산 대여·반납·검수·통합관리 DB 설계**  
   기간: **2026.01.05 ~ 2026.01.21**  
   자산 등록 → 할당/출고 → 반납요청 → 회수 → 검수(수리 여부 판정) → 가용 복귀/수리 처리 흐름을 DB 모델로 정리한 프로젝트  
   - GitHub: https://github.com/ZonezIpex/IT-Asset-Register  
-  - Thumbnail: `IT자산장부 포스터.png`
+  - Thumbnail: `IT자산장부.png`
 
 - **면접몬 — AI 모의면접 & 피드백 플랫폼**  
   기간: **2025.08.28 ~ 2025.12.04**  
@@ -68,25 +83,42 @@
 <pre>
 ZonezIpex.github.io
 ├─ index.html
+├─ README.md
 ├─ 증명사진.png
+├─ 이력서.pdf
+├─ 자기소개서.pdf
+├─ 포트폴리오.pdf
+├─ IT자산장부.png
 ├─ 대팡 메인페이지.png
 ├─ 면접몬 메인페이지.png
 ├─ 이력서 플랫폼 메인페이지.png
 ├─ 코드어드벤쳐 메인페이지.png
-├─ IT자산장부 포스터.png
-├─ 이력서.pdf
-├─ 자기소개서.pdf
-└─ 포트폴리오.pdf
-└─ IT자산장부.png
+└─ 제작한이미지/
+   ├─ AIR로고.png
+   ├─ AIR포스터.png
+   ├─ IT자산장부로고.png
+   ├─ IT자산장부포스터.png
+   ├─ 대팡로고.png
+   ├─ 대팡포스터.png
+   ├─ 면접몬로고.png
+   ├─ 면접몬포스터파일.png
+   ├─ 코드어드벤처로고.png
+   ├─ 코드어드벤처포스터.png
+   ├─ 입영통지서.png
+   └─ 헬다.png
 </pre>
 
 <br/>
 
 ## ✏️ 수정 포인트(자주 건드리는 곳)
+- **로고/포스터 카드 수정**: `index.html` 안의 `const POSTERS = [...]`
+  - title/image/type(poster|logo) 변경
 - **프로젝트 카드 수정**: `index.html` 안의 `const PROJECTS = [...]`
-  - title/subtitle/image/link 변경
-- **이력서/자기소개서 교체**
-  - `이력서.pdf`, `자기소개서.pdf` 파일을 같은 이름으로 교체하면 링크 유지됨
+  - title/subtitle/highlights/image/links/tags/tech 변경
+- **소개/문구/다국어 텍스트 수정**: `index.html` 안의 `const I18N = {...}`
+- **스킬 태그 수정**: `index.html` 안의 `const SKILLS = {...}`
+- **이력서/자기소개서/포트폴리오 교체**
+  - `이력서.pdf`, `자기소개서.pdf`, `포트폴리오.pdf` 파일을 같은 이름으로 교체하면 링크 유지됨
 - **썸네일 교체**
   - 이미지 파일명을 유지한 채 교체하면 경로 수정 없이 반영됨
 
@@ -99,7 +131,7 @@ ZonezIpex.github.io
 - `index.html` 더블클릭으로 브라우저에서 열기
 
 ### 2) (추천) Live Server
-VSCode 확장 **Live Server**로 열면 라우팅/리소스 확인이 더 편합니다.
+VSCode 확장 **Live Server**로 열면 리소스/경로 확인이 더 편합니다.
 
 <br/>
 
