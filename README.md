@@ -21,10 +21,10 @@
 
 ## About
 
-브랜드와 서비스의 핵심을
+브랜드와 서비스의 핵심을  
 **전달력 있는 콘텐츠와 비주얼로 풀어내는 콘텐츠 마케터**입니다.
 
-로고, 포스터, 소개자료, 웹 화면 등
+로고, 포스터, 소개자료, 웹 화면 등  
 다양한 형식으로 메시지를 더 직관적으로 보이게 만드는 작업을 합니다.
 
 ---
@@ -33,29 +33,32 @@
 
 <table>
   <tr>
-    <td width="33.33%" align="center">
-      <img src="./%23Uc81c%23Uc791%23Ud55c%23Uc774%23Ubbf8%23Uc9c0/IT%23Uc790%23Uc0b0%23Uc7a5%23Ubd80%23Ud3ec%23Uc2a4%23Ud130.png" alt="IT자산장부 포스터" width="100%" /><br />
+    <td width="50%" align="center">
+      <img src="./제작한이미지/IT자산장부포스터.png" alt="IT자산장부" width="100%" />
       <sub><b>IT자산장부</b></sub>
     </td>
-    <td width="33.33%" align="center">
-      <img src="./%23Uc81c%23Uc791%23Ud55c%23Uc774%23Ubbf8%23Uc9c0/%23Uba74%23Uc811%23Ubaac%23Ud3ec%23Uc2a4%23Ud130%23Ud30c%23Uc77c.png" alt="면접몬 포스터" width="100%" /><br />
+    <td width="50%" align="center">
+      <img src="./제작한이미지/면접몬포스터파일.png" alt="면접몬" width="100%" />
       <sub><b>면접몬</b></sub>
-    </td>
-    <td width="33.33%" align="center">
-      <img src="./%23Uc81c%23Uc791%23Ud55c%23Uc774%23Ubbf8%23Uc9c0/%23Ub300%23Ud321%23Ud3ec%23Uc2a4%23Ud130.png" alt="대팡 포스터" width="100%" /><br />
-      <sub><b>대팡</b></sub>
     </td>
   </tr>
   <tr>
-    <td width="33.33%" align="center">
-      <img src="./%23Uc81c%23Uc791%23Ud55c%23Uc774%23Ubbf8%23Uc9c0/AIR%23Ud3ec%23Uc2a4%23Ud130.png" alt="AIR 포스터" width="100%" /><br />
+    <td width="50%" align="center">
+      <img src="./제작한이미지/대팡포스터.png" alt="대팡" width="100%" />
+      <sub><b>대팡</b></sub>
+    </td>
+    <td width="50%" align="center">
+      <img src="./제작한이미지/AIR포스터.png" alt="AIR" width="100%" />
       <sub><b>AIR</b></sub>
     </td>
-    <td width="33.33%" align="center">
-      <img src="./%23Uc81c%23Uc791%23Ud55c%23Uc774%23Ubbf8%23Uc9c0/%23Ucf54%23Ub4dc%23Uc5b4%23Ub4dc%23Ubca4%23Ucc98%23Ud3ec%23Uc2a4%23Ud130.png" alt="코드어드벤처 포스터" width="100%" /><br />
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="./제작한이미지/코드어드벤처포스터.png" alt="코드어드벤처" width="100%" />
       <sub><b>코드어드벤처</b></sub>
     </td>
-    <td width="33.33%" align="center"></td>
+    <td width="50%" align="center">
+    </td>
   </tr>
 </table>
 
@@ -77,14 +80,14 @@
 ## Tools
 
 <p align="center">
-  <img src="https://skillicons.dev/icons?i=ps,ai,pr,figma,github,notion,html,css&theme=dark" />
+  <img src="https://skillicons.dev/icons?i=ps,ai,pr,figma,github,notion,html,css&theme=dark" alt="tools" />
 </p>
 
 ---
 
 ## Projects
 
-- **IT자산장부** — 팀장 / 프로젝트 총괄 / 로고 · 포스터 제작
+- **IT자산장부** — 팀장 / 프로젝트 총괄 / 로고 및 포스터 제작
 - **면접몬** — 팀장 / 포스터 제작 / 발표자료 제작 / 시연 영상 편집
 - **대팡** — 팀장 / 로고 · 포스터 제작 / 웹디자인 참여
 - **AIR** — 부팀장 / 로고 · 포스터 제작 / 웹 화면 디자인
