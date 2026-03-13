@@ -1,144 +1,50 @@
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Noto+Sans+KR&size=34&pause=1200&color=111111&center=true&vCenter=true&width=1000&lines=ZonezIpex.github.io;Personal+Web+Portfolio" alt="Portfolio Typing" />
+  <img src="https://readme-typing-svg.demolab.com?font=Noto+Sans+KR&weight=700&size=28&duration=2600&pause=700&color=2563EB&center=true&vCenter=true&width=760&lines=%EC%8B%A0%EB%AF%BC%EC%88%98+%7C+Digital+Content+Marketer;%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A1%9C+%EA%B8%B0%ED%9A%8D%ED%95%98%EA%B3%A0+%EB%94%94%EC%9E%90%EC%9D%B8%EC%9C%BC%EB%A1%9C+%EC%84%A4%EB%93%9D%ED%95%A9%EB%8B%88%EB%8B%A4.;%EA%B0%9C%EB%B0%9C+%EC%A7%80%EC%8B%9D%EC%9D%84+%EA%B2%B8%EB%B9%84%ED%95%9C+%ED%85%8C%ED%81%AC%EB%8B%88%EC%BB%AC+%EB%A7%88%EC%BC%80%ED%84%B0" alt="typing" />
+</p>
+
+<p align="center">
+  <a href="https://zonezipex.github.io/"><img alt="Portfolio" src="https://img.shields.io/badge/Portfolio-zonezipex.github.io-111827?style=flat&logo=githubpages&logoColor=white" /></a>
+  <a href="mailto:aksvmfkd3@naver.com"><img alt="Email" src="https://img.shields.io/badge/Email-aksvmfkd3%40naver.com-2563eb?style=flat&logo=gmail&logoColor=white" /></a>
+  <a href="https://github.com/ZonezIpex"><img alt="GitHub" src="https://img.shields.io/badge/GitHub-ZonezIpex-0f172a?style=flat&logo=github&logoColor=white" /></a>
 </p>
 
 ---
 
-# Web Portfolio (GitHub Pages)
-이 레포는 **개인 웹 포트폴리오(정적 사이트)**이며, GitHub Pages로 배포됩니다.  
-`index.html` **단일 파일**로 동작하고, 프로젝트 썸네일/로고·포스터 이미지/이력서·자기소개서·포트폴리오 PDF 같은 정적 파일을 함께 관리합니다.
+## 🚀 "콘텐츠와 기술의 가교 역할을 수행합니다"
 
-> URL: `https://zonezipex.github.io` (GitHub Pages 설정 기준)
+저는 단순한 비주얼 제작을 넘어, **웹 퍼블리싱과 DB 설계 경험**을 바탕으로 비즈니스의 성장을 돕는 **디지털 콘텐츠 마케터** 신민수입니다.  
+기술적 메커니즘을 이해하기에 개발팀과 원활히 소통하며, 데이터에 기반한 고효율 콘텐츠를 기획합니다.
 
-<br/>
+### 💡 Core Competencies
+* **Visual Storytelling:** GTQ 기반의 디자인 스킬로 브랜드 아이덴티티에 최적화된 콘텐츠(이미지/영상)를 생산합니다.
+* **Technical Marketing:** SEO 최적화, 랜딩 페이지 분석, 광고 스크립트 삽입 등 기술적 이해도가 필요한 마케팅 영역에 강점이 있습니다.
+* **Logical Planning:** 유저 흐름(User Flow)을 분석하여 이탈률을 줄이고 전환율(CVR)을 높이는 전략적인 화면과 문구를 설계합니다.
 
-## ✅ 페이지 구성(섹션)
-페이지는 아래 섹션으로 구성되어 있습니다.
+---
 
-- Intro (`#intro`)
-- Growth (`#growth`)
-- Skills (`#skills`)
-- Career (`#career`)
-- Logos & Posters (`#posters`)
-- Projects (`#projects`)
-- Contact (`#contact`)
+## 🛠️ Expertise & Tools
 
-상단에서는 아래 기능을 제공합니다.
-- 🌙 다크모드 토글 (`darkToggle`)
-- 🌐 한국어/영어 전환 (`langToggle`)
-- ☰ 모바일 메뉴 토글 (`menuToggle`)
-- 🔎 로고/포스터 검색 + 탭 필터(로고/포스터) (`#posters`)
-- 🔎 프로젝트 검색 + 태그 필터(Projects 섹션) (`#projects`)
+### 🎨 Creative Direction
+- **Design:** Adobe Photoshop, Illustrator, InDesign, Figma (UI/UX & Branding)
+- **Video:** Adobe Premiere Pro (유튜브/숏폼/광고 소재 제작)
 
-<br/>
+### 💻 Technical Skills
+- **Frontend:** HTML5, CSS3, JavaScript, React, Vue (직접 수정 가능한 랜딩 페이지 제작 능력)
+- **Data:** MySQL, MariaDB (데이터 구조 이해를 통한 타겟팅 전략 수립)
 
-## 🖼️ Logos & Posters 섹션 (로고/포스터)
-`index.html` 내부의 `POSTERS` 배열로 카드가 렌더링됩니다.
+---
 
-- 로고/포스터 탭 전환(로고/포스터)
-- 검색(제목 기반)
-- 캐러셀(좌우 이동)
+## 📈 Social & Records
+- **Blog:** [콘텐츠 마케팅 & 기술 블로그](https://content467.tistory.com/)
+- **Portfolio:** [웹 포트폴리오 바로가기](https://zonezipex.github.io/)
+- **Activity:** IT 서비스 기획 및 브랜딩 프로젝트 다수 진행 (대팡, 면접몬, AiR 등)
 
-이미지 파일은 주로 `제작한이미지/` 폴더에서 관리합니다.  
-(한글 경로를 쓸 때는 퍼센트 인코딩 경로 사용을 권장합니다.)
+---
 
-<br/>
+## 📫 Contact
+- **Email:** aksvmfkd3@naver.com
+- **LinkedIn:** [준비 중]
 
-## 📌 Projects 섹션에 올라가는 프로젝트 (최신순)
-현재 `index.html` 내부의 `PROJECTS` 배열로 프로젝트 카드가 렌더링됩니다.
-
-- **IT자산장부 — 사내 IT 자산 대여·반납·검수·통합관리 DB 설계**  
-  기간: **2026.01.05 ~ 2026.01.21**  
-  자산 등록 → 할당/출고 → 반납요청 → 회수 → 검수(수리 여부 판정) → 가용 복귀/수리 처리 흐름을 DB 모델로 정리한 프로젝트  
-  - GitHub: https://github.com/ZonezIpex/IT-Asset-Register  
-  - Thumbnail: `IT자산장부.png`
-
-- **면접몬 — AI 모의면접 & 피드백 플랫폼**  
-  기간: **2025.08.28 ~ 2025.12.04**  
-  직무/기업 맞춤 질문과 STAR 구조 피드백으로 실전 감각을 키우는 서비스  
-  - GitHub: https://github.com/ZonezIpex/MenjupmonIntroduction.git  
-  - Thumbnail: `면접몬 메인페이지.png`
-
-- **대팡 — 필기·요약·퀴즈 통합 AI 학습 플랫폼**  
-  기간: **2025.08.27 ~ 2025.12.03**  
-  학습 자료를 한 곳에 모으고, AI로 퀴즈를 생성해 복습 효율을 높이는 서비스  
-  - GitHub: https://github.com/ZonezIpex/DaepangIntroduction.git  
-  - Thumbnail: `대팡 메인페이지.png`
-
-- **AiR — 회사 맞춤 AI 이력서 플랫폼**  
-  기간: **2025.04.19 ~ 2025.06.22**  
-  공고/양식을 기반으로 맞춤 이력서 제작을 돕는 서비스  
-  - GitHub: https://github.com/ZonezIpex/Team_project.git  
-  - Thumbnail: `이력서 플랫폼 메인페이지.png`
-
-- **코드어드벤쳐 — 게임형 코딩 학습 플랫폼**  
-  기간: **2024.04 ~ 2024.07**  
-  스테이지를 클리어하며 언어를 익히는 게임 기반 학습 프로젝트  
-  - GitHub: https://github.com/ZonezIpex/Codeadventuredealim.git  
-  - Thumbnail: `코드어드벤쳐 메인페이지.png`
-
-<br/>
-
-## 📁 파일 구성
-<pre>
-ZonezIpex.github.io
-├─ index.html
-├─ README.md
-├─ 증명사진.png
-├─ 이력서.pdf
-├─ 자기소개서.pdf
-├─ 포트폴리오.pdf
-├─ IT자산장부.png
-├─ 대팡 메인페이지.png
-├─ 면접몬 메인페이지.png
-├─ 이력서 플랫폼 메인페이지.png
-├─ 코드어드벤쳐 메인페이지.png
-└─ 제작한이미지/
-   ├─ AIR로고.png
-   ├─ AIR포스터.png
-   ├─ IT자산장부로고.png
-   ├─ IT자산장부포스터.png
-   ├─ 대팡로고.png
-   ├─ 대팡포스터.png
-   ├─ 면접몬로고.png
-   ├─ 면접몬포스터파일.png
-   ├─ 코드어드벤처로고.png
-   ├─ 코드어드벤처포스터.png
-   ├─ 입영통지서.png
-   └─ 헬다.png
-</pre>
-
-<br/>
-
-## ✏️ 수정 포인트(자주 건드리는 곳)
-- **로고/포스터 카드 수정**: `index.html` 안의 `const POSTERS = [...]`
-  - title/image/type(poster|logo) 변경
-- **프로젝트 카드 수정**: `index.html` 안의 `const PROJECTS = [...]`
-  - title/subtitle/highlights/image/links/tags/tech 변경
-- **소개/문구/다국어 텍스트 수정**: `index.html` 안의 `const I18N = {...}`
-- **스킬 태그 수정**: `index.html` 안의 `const SKILLS = {...}`
-- **이력서/자기소개서/포트폴리오 교체**
-  - `이력서.pdf`, `자기소개서.pdf`, `포트폴리오.pdf` 파일을 같은 이름으로 교체하면 링크 유지됨
-- **썸네일 교체**
-  - 이미지 파일명을 유지한 채 교체하면 경로 수정 없이 반영됨
-
-<br/>
-
-## ▶️ 로컬에서 확인
-정적 HTML이라 빌드 없이 바로 확인 가능합니다.
-
-### 1) 가장 간단한 방법
-- `index.html` 더블클릭으로 브라우저에서 열기
-
-### 2) (추천) Live Server
-VSCode 확장 **Live Server**로 열면 리소스/경로 확인이 더 편합니다.
-
-<br/>
-
-## 🚀 GitHub Pages 배포
-이 레포가 `username.github.io` 형태의 레포라면, 아래 중 하나로 배포됩니다.
-
-- **Settings → Pages → Branch 선택(main / root)**  
-- 커스텀 도메인이 있다면 Pages 설정에서 연결
-
-> 커밋/푸시 후 Pages 빌드가 끝나면 URL에 반영됩니다.
+<p align="right">
+  <img src="https://komarev.com/ghpvc/?username=ZonezIpex&style=flat&color=2563eb" alt="Visitors" />
+</p>
